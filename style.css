@@ -1,0 +1,11 @@
+* {
+  font: monospace;
+  font-size: 1.94vw;
+  padding: 0px;
+  margin: 0px;
+  color: white;
+}
+
+html {
+  background: black;
+}

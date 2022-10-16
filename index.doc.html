@@ -1,0 +1,19 @@
+<html>  <head>    <title>index.doc</title>    <link rel="stylesheet" href="style.css">  </head>  <body>    <pre><code>from pathlib import Path
+
+```py
+for i in Path(&quot;_src&quot;).glob(&quot;*.doc&quot;):
+    contents = i.read_text()
+    with Path(f&quot;{i.name}.html&quot;).open(&quot;w&quot;) as fp:
+        # fmt: off
+        fp.write(  &quot;&lt;html&gt;&quot;
+                   &quot;  &lt;head&gt;&quot;
+                  f&quot;    &lt;title&gt;{i.name}&lt;/title&gt;&quot;
+                   &#x27;    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;&#x27;
+                   &quot;  &lt;/head&gt;&quot;
+                   &quot;  &lt;body&gt;&quot;
+                  f&quot;    &lt;pre&gt;&lt;code&gt;{contents}&lt;/code&gt;&lt;/pre&gt;&quot;
+                   &quot;  &lt;/body&gt;&quot;
+                   &quot;&lt;/html&gt;&quot; )
+        # fmt: on
+```
+</code></pre>  </body></html>
