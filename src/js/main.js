@@ -7,6 +7,9 @@ const winman = new WinMan()
  * @param {string} url
  */
 async function loadPage(url, params = {}) {
+  if (url.startsWith(location.href)) {
+    url = '/' + url.slice(location.href.length)
+  }
   if (url == '' || url == '/' || url == '/index.html') {
     return
   }
