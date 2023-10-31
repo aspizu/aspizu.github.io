@@ -90,7 +90,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Introduction</li><li class="chapter-item expanded "><a href="installation.html"><strong aria-hidden="true">1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded affix "><li class="part-title">Language Reference</li><li class="chapter-item expanded "><a href="costumes.html"><strong aria-hidden="true">3.</strong> Costumes</a></li><li class="chapter-item expanded "><a href="expressions.html"><strong aria-hidden="true">4.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="hat-blocks.html"><strong aria-hidden="true">5.</strong> Hat Blocks</a></li><li class="chapter-item expanded "><a href="statement-blocks.html"><strong aria-hidden="true">6.</strong> Statement Blocks</a></li><li class="chapter-item expanded "><a href="reporter-blocks.html"><strong aria-hidden="true">7.</strong> Reporter Blocks</a></li><li class="chapter-item expanded "><a href="control-blocks.html"><strong aria-hidden="true">8.</strong> Control Blocks</a></li><li class="chapter-item expanded "><a href="variables.html"><strong aria-hidden="true">9.</strong> Variables</a></li><li class="chapter-item expanded "><a href="lists.html"><strong aria-hidden="true">10.</strong> Lists</a></li><li class="chapter-item expanded "><a href="custom-blocks.html"><strong aria-hidden="true">11.</strong> Custom Blocks</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Introduction</li><li class="chapter-item expanded "><a href="installation.html"><strong aria-hidden="true">1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded affix "><li class="part-title">Language Reference</li><li class="chapter-item expanded "><a href="costumes.html"><strong aria-hidden="true">3.</strong> Costumes</a></li><li class="chapter-item expanded "><a href="expressions.html"><strong aria-hidden="true">4.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="hat-blocks.html"><strong aria-hidden="true">5.</strong> Hat Blocks</a></li><li class="chapter-item expanded "><a href="statement-blocks.html"><strong aria-hidden="true">6.</strong> Statement Blocks</a></li><li class="chapter-item expanded "><a href="reporter-blocks.html"><strong aria-hidden="true">7.</strong> Reporter Blocks</a></li><li class="chapter-item expanded "><a href="control-blocks.html"><strong aria-hidden="true">8.</strong> Control Blocks</a></li><li class="chapter-item expanded "><a href="variables.html"><strong aria-hidden="true">9.</strong> Variables</a></li><li class="chapter-item expanded "><a href="lists.html"><strong aria-hidden="true">10.</strong> Lists</a></li><li class="chapter-item expanded "><a href="data-lists.html"><strong aria-hidden="true">11.</strong> Data Lists</a></li><li class="chapter-item expanded "><a href="custom-blocks.html"><strong aria-hidden="true">12.</strong> Custom Blocks</a></li><li class="chapter-item expanded "><a href="macros.html"><strong aria-hidden="true">13.</strong> Macros</a></li><li class="chapter-item expanded "><a href="includes.html"><strong aria-hidden="true">14.</strong> Includes</a></li><li class="chapter-item expanded "><a href="optimizations.html"><strong aria-hidden="true">15.</strong> Optimizations</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -247,9 +247,17 @@ alphabetically.</p>
 <h2 id="costume-names"><a class="header" href="#costume-names">Costume names</a></h2>
 <p>Costumes by default will be named their file-names minus the file extension. So, the
 costume <code>blank.svg</code> will be named <code>blank</code> in the sprite.</p>
+<div id="admonition-tip" class="admonition admonish-tip">
+<div class="admonition-title">
+<p>Tip</p>
+<p><a class="admonition-anchor-link" href="costumes.html#admonition-tip"></a></p>
+</div>
+<div>
 <p>As unix file-names cannot include a <code>/</code> character, if a costume file-name includes
 <code>{{fwslash}}</code> then it will be replaced with a <code>/</code> character. So, the costume
 <code>char-{{fwslash}}.png</code> will be named <code>char-/</code> in the sprite.</p>
+</div>
+</div>
 <h1 id="costume-machines"><a class="header" href="#costume-machines">Costume machines</a></h1>
 <p>goboscript comes with powerful tools to generate costumes programmatically.</p>
 <h2 id="machineascii"><a class="header" href="#machineascii"><code>*machine:ASCII</code></a></h2>
@@ -1124,6 +1132,16 @@ there are two ways.</p>
   global_list = [];
 }
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="data-lists"><a class="header" href="#data-lists">Data Lists</a></h1>
+<p>Include the contents of a text file as a list, each line being an item in the list.</p>
+<pre><code class="language-goboscript">datalist list_name &quot;path/to/text-file.txt&quot;;
+</code></pre>
+<h1 id="image-lists"><a class="header" href="#image-lists">Image Lists</a></h1>
+<p>Include the pixel data of an image file as a list, each pixel being an item in the
+list.</p>
+<pre><code class="language-goboscript">imagelist list_name &quot;image-file.png&quot;;
+</code></pre>
+<p>The default format is to generate one item for each RGBA channel in the image.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="custom-blocks"><a class="header" href="#custom-blocks">Custom Blocks</a></h1>
 <p>To define a custom block,</p>
 <pre><code class="language-goboscript">def custom_block arg1, arg2, arg3 {}
@@ -1164,6 +1182,108 @@ there are two ways.</p>
 recursion will have unexpected results.</p>
 </div>
 </div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="macros"><a class="header" href="#macros">Macros</a></h1>
+<p>Macros are powerful tools to generate Scratch blocks.</p>
+<pre><code class="language-goboscript">macro macro_name!(arg1, arg2, arg3) -&gt; expression;
+</code></pre>
+<p>Inside the definition of a macro, use arguments using the syntax <code>argument!</code>.
+Using a macro inside it's definition is not allowed.</p>
+<h2 id="example"><a class="header" href="#example">Example</a></h2>
+<p>Let's create a macro to calculate the distance between two points.</p>
+<pre><code class="language-goboscript">macro distance!(x1, y1, x2, y2) -&gt; sqrt((x2!-x1!)*(x2!-x1!) + (y2!-y1!)*(y2!-y1!));
+</code></pre>
+<p>When-ever this macro is used, goboscript will replace the blocks given to the macro
+and copy-paste it.</p>
+<pre><code class="language-blocks">([sqrt v] of ((((...)-(...))*((...)-(...))) + (((...)-(...))*((...)-(...)))))
+</code></pre>
+<pre><code class="language-goboscript">distance!(0, 0, 100, 100)
+distance!(0, 0, mousex(), mousey())
+</code></pre>
+<pre><code class="language-blocks">([sqrt v] of ((((100)-(0))*((100)-(0))) + (((100)-(0))*((100)-(0)))))
+([sqrt v] of ((((mouse x)-(0))*((mouse x)-(0))) + (((mouse y)-(0))*((mouse y)-(0)))))
+</code></pre>
+<div id="admonition-note" class="admonition admonish-info">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="macros.html#admonition-note"></a></p>
+</div>
+<div>
+<p>Notice that the <code>mouse x</code> block has been duplicated in all places where it was used.
+So, if a large expression is passed to a macro, it might generate huge blocks.</p>
+</div>
+</div>
+<h1 id="block-macros"><a class="header" href="#block-macros">Block Macros</a></h1>
+<p>Block macros are macros which generate statement blocks as opposed to reporter blocks.</p>
+<pre><code class="language-goboscript">macro macro_name! arg1, arg2, arg3 {
+  // statements...
+}
+</code></pre>
+<p>Block macros allow for powerful code generation, such as generating code for multiple
+variables or lists, or wrapping custom blocks with additional behaviour (decorators).</p>
+<h2 id="example-1"><a class="header" href="#example-1">Example</a></h2>
+<p>Let's create a block macro to assign a variable with different values depending on
+the result of some condition. In most programming languages, this exists as the ternary
+operator. But as scratch does not have this, we can use block macros to implement
+this.</p>
+<pre><code class="language-goboscript">macro ternary_assign! variable, condition, if_value, else_value {
+  if condition! {
+    variable! = if_value!;
+  } else {
+    variable! = else_value!;
+  }
+}
+</code></pre>
+<pre><code class="language-goboscript">my_var = 1;
+ternary_assign! my_var, my_var = 1, &quot;True&quot;, &quot;False&quot;;
+</code></pre>
+<pre><code class="language-blocks">set [my_var v] to [1]
+if &lt;(my_var) = [1]&gt; then
+  set [my_var v] to [True]
+else
+  set [my_var v] to [False]
+end
+</code></pre>
+<h2 id="passing-custom-blocks-as-arguments-to-macros"><a class="header" href="#passing-custom-blocks-as-arguments-to-macros">Passing custom-blocks as arguments to macros</a></h2>
+<p>If a custom-block is to be passed as an argument to a macro, it must be used using the
+syntax,</p>
+<pre><code class="language-goboscript">macro foo! func {
+  call func!;
+}
+</code></pre>
+<pre><code class="language-goboscript">def myfunc {
+  
+}
+
+foo! myfunc;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="includes"><a class="header" href="#includes">Includes</a></h1>
+<p>goboscript allows for including code from multiple files in a single sprite.</p>
+<pre><code class="language-goboscript">%use &quot;path-to-file.h.gobo&quot;;
+</code></pre>
+<div id="admonition-note" class="admonition admonish-note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="includes.html#admonition-note"></a></p>
+</div>
+<div>
+<p>The file extension <code>.h.gobo</code> is used to tell the compiler that it is a part of some
+other sprite, and should not be treated as a sprite.</p>
+<p>Another way to prevent files from becoming sprites is to place them inside a directory.
+Putting <code>include.gobo</code> inside <code>includes/</code> and using <code>%use &quot;includes/include.gobo&quot;</code> would
+work aswell.</p>
+</div>
+</div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="optimizations"><a class="header" href="#optimizations">Optimizations</a></h1>
+<p>goboscript applies various optimizations to code.</p>
+<h1 id="constant-folding"><a class="header" href="#constant-folding">Constant Folding</a></h1>
+<p><a href="https://en.wikipedia.org/wiki/Constant_folding">https://en.wikipedia.org/wiki/Constant_folding</a></p>
+<h1 id="unnecessary-use-of-the-not-operator"><a class="header" href="#unnecessary-use-of-the-not-operator">Unnecessary use of the <code>not</code> operator</a></h1>
+<p><code>not not a</code> will be turned into <code>a</code>.</p>
+<p>This is useful when using boolean-coercing, <code>if not a {}</code> will become <code>if a = 0 {}</code></p>
+<h1 id="de-morgans-law"><a class="header" href="#de-morgans-law">De-Morgan's Law</a></h1>
+<p><a href="https://en.wikipedia.org/wiki/De_Morgan&#x27;s_laws">https://en.wikipedia.org/wiki/De_Morgan's_laws</a></p>
+<p><code>not a and not b</code> will be turned into <code>not (a or b)</code></p>
+<p><code>not a or not b</code> will be turned into <code>not (a and b)</code></p>
 
                     </main>
 

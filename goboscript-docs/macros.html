@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Variables - goboscript Documentation</title>
+        <title>Macros - goboscript Documentation</title>
 
 
         <!-- Custom HTML head -->
@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Introduction</li><li class="chapter-item expanded "><a href="installation.html"><strong aria-hidden="true">1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded affix "><li class="part-title">Language Reference</li><li class="chapter-item expanded "><a href="costumes.html"><strong aria-hidden="true">3.</strong> Costumes</a></li><li class="chapter-item expanded "><a href="expressions.html"><strong aria-hidden="true">4.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="hat-blocks.html"><strong aria-hidden="true">5.</strong> Hat Blocks</a></li><li class="chapter-item expanded "><a href="statement-blocks.html"><strong aria-hidden="true">6.</strong> Statement Blocks</a></li><li class="chapter-item expanded "><a href="reporter-blocks.html"><strong aria-hidden="true">7.</strong> Reporter Blocks</a></li><li class="chapter-item expanded "><a href="control-blocks.html"><strong aria-hidden="true">8.</strong> Control Blocks</a></li><li class="chapter-item expanded "><a href="variables.html" class="active"><strong aria-hidden="true">9.</strong> Variables</a></li><li class="chapter-item expanded "><a href="lists.html"><strong aria-hidden="true">10.</strong> Lists</a></li><li class="chapter-item expanded "><a href="data-lists.html"><strong aria-hidden="true">11.</strong> Data Lists</a></li><li class="chapter-item expanded "><a href="custom-blocks.html"><strong aria-hidden="true">12.</strong> Custom Blocks</a></li><li class="chapter-item expanded "><a href="macros.html"><strong aria-hidden="true">13.</strong> Macros</a></li><li class="chapter-item expanded "><a href="includes.html"><strong aria-hidden="true">14.</strong> Includes</a></li><li class="chapter-item expanded "><a href="optimizations.html"><strong aria-hidden="true">15.</strong> Optimizations</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Introduction</li><li class="chapter-item expanded "><a href="installation.html"><strong aria-hidden="true">1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded affix "><li class="part-title">Language Reference</li><li class="chapter-item expanded "><a href="costumes.html"><strong aria-hidden="true">3.</strong> Costumes</a></li><li class="chapter-item expanded "><a href="expressions.html"><strong aria-hidden="true">4.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="hat-blocks.html"><strong aria-hidden="true">5.</strong> Hat Blocks</a></li><li class="chapter-item expanded "><a href="statement-blocks.html"><strong aria-hidden="true">6.</strong> Statement Blocks</a></li><li class="chapter-item expanded "><a href="reporter-blocks.html"><strong aria-hidden="true">7.</strong> Reporter Blocks</a></li><li class="chapter-item expanded "><a href="control-blocks.html"><strong aria-hidden="true">8.</strong> Control Blocks</a></li><li class="chapter-item expanded "><a href="variables.html"><strong aria-hidden="true">9.</strong> Variables</a></li><li class="chapter-item expanded "><a href="lists.html"><strong aria-hidden="true">10.</strong> Lists</a></li><li class="chapter-item expanded "><a href="data-lists.html"><strong aria-hidden="true">11.</strong> Data Lists</a></li><li class="chapter-item expanded "><a href="custom-blocks.html"><strong aria-hidden="true">12.</strong> Custom Blocks</a></li><li class="chapter-item expanded "><a href="macros.html" class="active"><strong aria-hidden="true">13.</strong> Macros</a></li><li class="chapter-item expanded "><a href="includes.html"><strong aria-hidden="true">14.</strong> Includes</a></li><li class="chapter-item expanded "><a href="optimizations.html"><strong aria-hidden="true">15.</strong> Optimizations</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -172,55 +172,90 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="variables"><a class="header" href="#variables">Variables</a></h1>
-<p>To define a variable, first assign to it.</p>
-<pre><code class="language-goboscript">variable = 10;
+                        <h1 id="macros"><a class="header" href="#macros">Macros</a></h1>
+<p>Macros are powerful tools to generate Scratch blocks.</p>
+<pre><code class="language-goboscript">macro macro_name!(arg1, arg2, arg3) -&gt; expression;
 </code></pre>
-<pre><code class="language-blocks">set [variable v] to [10]
+<p>Inside the definition of a macro, use arguments using the syntax <code>argument!</code>.
+Using a macro inside it's definition is not allowed.</p>
+<h2 id="example"><a class="header" href="#example">Example</a></h2>
+<p>Let's create a macro to calculate the distance between two points.</p>
+<pre><code class="language-goboscript">macro distance!(x1, y1, x2, y2) -&gt; sqrt((x2!-x1!)*(x2!-x1!) + (y2!-y1!)*(y2!-y1!));
 </code></pre>
-<p>goboscript provides compound-assignment operators.</p>
-<pre><code class="language-goboscript">variable++;
-variable += 2;
-variable -= 2;
-variable *= 2;
-variable /= 2;
-variable %= 2;
-variable &amp;= &quot;.&quot;;
+<p>When-ever this macro is used, goboscript will replace the blocks given to the macro
+and copy-paste it.</p>
+<pre><code class="language-blocks">([sqrt v] of ((((...)-(...))*((...)-(...))) + (((...)-(...))*((...)-(...)))))
 </code></pre>
-<pre><code class="language-blocks">change [variable v] by [1]
-change [variable v] by [2]
-set [variable v] to ((variable) - [2])
-set [variable v] to ((variable) * [2])
-set [variable v] to ((variable) / [2])
-set [variable v] to ((variable) mod [2])
-set [variable v] to (join (variable) [.])
+<pre><code class="language-goboscript">distance!(0, 0, 100, 100)
+distance!(0, 0, mousex(), mousey())
 </code></pre>
-<p>To use a variable, refer to it by its name.</p>
-<pre><code class="language-goboscript">say variable;
+<pre><code class="language-blocks">([sqrt v] of ((((100)-(0))*((100)-(0))) + (((100)-(0))*((100)-(0)))))
+([sqrt v] of ((((mouse x)-(0))*((mouse x)-(0))) + (((mouse y)-(0))*((mouse y)-(0)))))
 </code></pre>
-<pre><code class="language-blocks">say (variable)
-</code></pre>
-<h2 id="global-variables"><a class="header" href="#global-variables">Global Variables</a></h2>
-<p>Variables by default are &quot;For this sprite only&quot;. To make a variable &quot;For all sprites&quot;,
-there are two ways.</p>
-<p>Either add the variable name in a <code>variables</code> declaration in <code>stage.gobo</code>.</p>
-<pre><code class="language-goboscript">variables global_variable;
-</code></pre>
-<p>or assign to the variable in <code>stage.gobo</code>.</p>
-<pre><code class="language-goboscript">onflag {
-  global_variable = 0;
+<div id="admonition-note" class="admonition admonish-info">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="#admonition-note"></a></p>
+</div>
+<div>
+<p>Notice that the <code>mouse x</code> block has been duplicated in all places where it was used.
+So, if a large expression is passed to a macro, it might generate huge blocks.</p>
+</div>
+</div>
+<h1 id="block-macros"><a class="header" href="#block-macros">Block Macros</a></h1>
+<p>Block macros are macros which generate statement blocks as opposed to reporter blocks.</p>
+<pre><code class="language-goboscript">macro macro_name! arg1, arg2, arg3 {
+  // statements...
 }
+</code></pre>
+<p>Block macros allow for powerful code generation, such as generating code for multiple
+variables or lists, or wrapping custom blocks with additional behaviour (decorators).</p>
+<h2 id="example-1"><a class="header" href="#example-1">Example</a></h2>
+<p>Let's create a block macro to assign a variable with different values depending on
+the result of some condition. In most programming languages, this exists as the ternary
+operator. But as scratch does not have this, we can use block macros to implement
+this.</p>
+<pre><code class="language-goboscript">macro ternary_assign! variable, condition, if_value, else_value {
+  if condition! {
+    variable! = if_value!;
+  } else {
+    variable! = else_value!;
+  }
+}
+</code></pre>
+<pre><code class="language-goboscript">my_var = 1;
+ternary_assign! my_var, my_var = 1, &quot;True&quot;, &quot;False&quot;;
+</code></pre>
+<pre><code class="language-blocks">set [my_var v] to [1]
+if &lt;(my_var) = [1]&gt; then
+  set [my_var v] to [True]
+else
+  set [my_var v] to [False]
+end
+</code></pre>
+<h2 id="passing-custom-blocks-as-arguments-to-macros"><a class="header" href="#passing-custom-blocks-as-arguments-to-macros">Passing custom-blocks as arguments to macros</a></h2>
+<p>If a custom-block is to be passed as an argument to a macro, it must be used using the
+syntax,</p>
+<pre><code class="language-goboscript">macro foo! func {
+  call func!;
+}
+</code></pre>
+<pre><code class="language-goboscript">def myfunc {
+  
+}
+
+foo! myfunc;
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="control-blocks.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="custom-blocks.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="lists.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="includes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -230,11 +265,11 @@ there are two ways.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="control-blocks.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="custom-blocks.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="lists.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="includes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

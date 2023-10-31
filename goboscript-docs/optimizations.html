@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Variables - goboscript Documentation</title>
+        <title>Optimizations - goboscript Documentation</title>
 
 
         <!-- Custom HTML head -->
@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Introduction</li><li class="chapter-item expanded "><a href="installation.html"><strong aria-hidden="true">1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded affix "><li class="part-title">Language Reference</li><li class="chapter-item expanded "><a href="costumes.html"><strong aria-hidden="true">3.</strong> Costumes</a></li><li class="chapter-item expanded "><a href="expressions.html"><strong aria-hidden="true">4.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="hat-blocks.html"><strong aria-hidden="true">5.</strong> Hat Blocks</a></li><li class="chapter-item expanded "><a href="statement-blocks.html"><strong aria-hidden="true">6.</strong> Statement Blocks</a></li><li class="chapter-item expanded "><a href="reporter-blocks.html"><strong aria-hidden="true">7.</strong> Reporter Blocks</a></li><li class="chapter-item expanded "><a href="control-blocks.html"><strong aria-hidden="true">8.</strong> Control Blocks</a></li><li class="chapter-item expanded "><a href="variables.html" class="active"><strong aria-hidden="true">9.</strong> Variables</a></li><li class="chapter-item expanded "><a href="lists.html"><strong aria-hidden="true">10.</strong> Lists</a></li><li class="chapter-item expanded "><a href="data-lists.html"><strong aria-hidden="true">11.</strong> Data Lists</a></li><li class="chapter-item expanded "><a href="custom-blocks.html"><strong aria-hidden="true">12.</strong> Custom Blocks</a></li><li class="chapter-item expanded "><a href="macros.html"><strong aria-hidden="true">13.</strong> Macros</a></li><li class="chapter-item expanded "><a href="includes.html"><strong aria-hidden="true">14.</strong> Includes</a></li><li class="chapter-item expanded "><a href="optimizations.html"><strong aria-hidden="true">15.</strong> Optimizations</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Introduction</li><li class="chapter-item expanded "><a href="installation.html"><strong aria-hidden="true">1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting-started.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li class="chapter-item expanded affix "><li class="part-title">Language Reference</li><li class="chapter-item expanded "><a href="costumes.html"><strong aria-hidden="true">3.</strong> Costumes</a></li><li class="chapter-item expanded "><a href="expressions.html"><strong aria-hidden="true">4.</strong> Expressions</a></li><li class="chapter-item expanded "><a href="hat-blocks.html"><strong aria-hidden="true">5.</strong> Hat Blocks</a></li><li class="chapter-item expanded "><a href="statement-blocks.html"><strong aria-hidden="true">6.</strong> Statement Blocks</a></li><li class="chapter-item expanded "><a href="reporter-blocks.html"><strong aria-hidden="true">7.</strong> Reporter Blocks</a></li><li class="chapter-item expanded "><a href="control-blocks.html"><strong aria-hidden="true">8.</strong> Control Blocks</a></li><li class="chapter-item expanded "><a href="variables.html"><strong aria-hidden="true">9.</strong> Variables</a></li><li class="chapter-item expanded "><a href="lists.html"><strong aria-hidden="true">10.</strong> Lists</a></li><li class="chapter-item expanded "><a href="data-lists.html"><strong aria-hidden="true">11.</strong> Data Lists</a></li><li class="chapter-item expanded "><a href="custom-blocks.html"><strong aria-hidden="true">12.</strong> Custom Blocks</a></li><li class="chapter-item expanded "><a href="macros.html"><strong aria-hidden="true">13.</strong> Macros</a></li><li class="chapter-item expanded "><a href="includes.html"><strong aria-hidden="true">14.</strong> Includes</a></li><li class="chapter-item expanded "><a href="optimizations.html" class="active"><strong aria-hidden="true">15.</strong> Optimizations</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -172,57 +172,26 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="variables"><a class="header" href="#variables">Variables</a></h1>
-<p>To define a variable, first assign to it.</p>
-<pre><code class="language-goboscript">variable = 10;
-</code></pre>
-<pre><code class="language-blocks">set [variable v] to [10]
-</code></pre>
-<p>goboscript provides compound-assignment operators.</p>
-<pre><code class="language-goboscript">variable++;
-variable += 2;
-variable -= 2;
-variable *= 2;
-variable /= 2;
-variable %= 2;
-variable &amp;= &quot;.&quot;;
-</code></pre>
-<pre><code class="language-blocks">change [variable v] by [1]
-change [variable v] by [2]
-set [variable v] to ((variable) - [2])
-set [variable v] to ((variable) * [2])
-set [variable v] to ((variable) / [2])
-set [variable v] to ((variable) mod [2])
-set [variable v] to (join (variable) [.])
-</code></pre>
-<p>To use a variable, refer to it by its name.</p>
-<pre><code class="language-goboscript">say variable;
-</code></pre>
-<pre><code class="language-blocks">say (variable)
-</code></pre>
-<h2 id="global-variables"><a class="header" href="#global-variables">Global Variables</a></h2>
-<p>Variables by default are &quot;For this sprite only&quot;. To make a variable &quot;For all sprites&quot;,
-there are two ways.</p>
-<p>Either add the variable name in a <code>variables</code> declaration in <code>stage.gobo</code>.</p>
-<pre><code class="language-goboscript">variables global_variable;
-</code></pre>
-<p>or assign to the variable in <code>stage.gobo</code>.</p>
-<pre><code class="language-goboscript">onflag {
-  global_variable = 0;
-}
-</code></pre>
+                        <h1 id="optimizations"><a class="header" href="#optimizations">Optimizations</a></h1>
+<p>goboscript applies various optimizations to code.</p>
+<h1 id="constant-folding"><a class="header" href="#constant-folding">Constant Folding</a></h1>
+<p><a href="https://en.wikipedia.org/wiki/Constant_folding">https://en.wikipedia.org/wiki/Constant_folding</a></p>
+<h1 id="unnecessary-use-of-the-not-operator"><a class="header" href="#unnecessary-use-of-the-not-operator">Unnecessary use of the <code>not</code> operator</a></h1>
+<p><code>not not a</code> will be turned into <code>a</code>.</p>
+<p>This is useful when using boolean-coercing, <code>if not a {}</code> will become <code>if a = 0 {}</code></p>
+<h1 id="de-morgans-law"><a class="header" href="#de-morgans-law">De-Morgan's Law</a></h1>
+<p><a href="https://en.wikipedia.org/wiki/De_Morgan&#x27;s_laws">https://en.wikipedia.org/wiki/De_Morgan's_laws</a></p>
+<p><code>not a and not b</code> will be turned into <code>not (a or b)</code></p>
+<p><code>not a or not b</code> will be turned into <code>not (a and b)</code></p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="control-blocks.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="includes.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="lists.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -230,13 +199,10 @@ there are two ways.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="control-blocks.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="includes.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="lists.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
