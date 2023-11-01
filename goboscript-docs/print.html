@@ -1023,7 +1023,7 @@ variable &amp;= &quot;.&quot;;
 </code></pre>
 <pre><code class="language-blocks">change [variable v] by [1]
 change [variable v] by [2]
-set [variable v] to ((variable) - [2])
+change [variable v] by [-2]
 set [variable v] to ((variable) * [2])
 set [variable v] to ((variable) / [2])
 set [variable v] to ((variable) mod [2])
@@ -1044,6 +1044,10 @@ there are two ways.</p>
 <pre><code class="language-goboscript">onflag {
   global_variable = 0;
 }
+</code></pre>
+<h2 id="cloud-variables"><a class="header" href="#cloud-variables">Cloud Variables</a></h2>
+<p>To define a cloud variable declare them in the stage.</p>
+<pre><code class="language-goboscript">cloud my_cloud_variable1, my_cloud_variable2;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lists"><a class="header" href="#lists">Lists</a></h1>
 <p>To define a list, first assign to it.</p>
