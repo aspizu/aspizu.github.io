@@ -1,0 +1,41 @@
+<div id="statuscafe" transition:persist>
+    <div id="statuscafe-username"></div><div id="statuscafe-content"></div>
+</div>
+<script is:inline src="https://status.cafe/current-status.js?name=aspizu" defer
+></script>
+<style>
+    #statuscafe {
+        background-color: black;
+        color: limegreen;
+        padding: 10px;
+        border: 2px solid limegreen;
+        width: fit-content;
+    }
+
+    #statuscafe-username {
+        font-weight: bold;
+        color: cyan;
+    }
+
+    #statuscafe-username a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    #statuscafe-username a:hover {
+        text-decoration: underline;
+    }
+
+    #statuscafe-content {
+        margin-top: 5px;
+    }
+
+    #statuscafe-content a {
+        color: yellow;
+        text-decoration: none;
+    }
+
+    #statuscafe-content a:hover {
+        text-decoration: underline;
+    }
+</style>

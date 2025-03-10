@@ -1,0 +1,54 @@
+---
+import "@catppuccin/palette/css/catppuccin.css"
+import {AstroFont} from "astro-font"
+import {ClientRouter, fade} from "astro:transitions"
+import "the-new-css-reset/css/reset.css"
+import Status from "../components/Status.astro"
+import "../styles/index.css"
+interface Props {
+    title?: string
+}
+let {title} = Astro.props
+if (title === "aspizu.neocities.org") {
+    title = undefined
+}
+---
+
+<!doctype html>
+<html lang="en" transition:animate={fade({duration: "100ms"})}>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <ClientRouter />
+        <AstroFont
+            config={[
+                {
+                    src: [],
+                    name: "IBM Plex Mono",
+                    googleFontsURL:
+                        "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700",
+                    preload: true,
+                    display: "swap",
+                    selector: "body",
+                    fallback: "monospace",
+                },
+            ]}
+        />
+        {
+            title ?
+                <title>{title} - aspizu.neocities.org</title>
+            :   <title>aspizu.neocities.org</title>
+        }
+    </head>
+    <body>
+        <header>
+            <a href="/">{title ? "back" : "aspizu.neocities.org"}</a>
+            <Status />
+        </header>
+        <main>
+            <slot />
+        </main>
+    </body>
+</html>
