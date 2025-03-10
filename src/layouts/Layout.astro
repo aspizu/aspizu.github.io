@@ -9,7 +9,7 @@ interface Props {
     title?: string
 }
 let {title} = Astro.props
-if (title === "aspizu.neocities.org") {
+if (title === "aspizu.github.io") {
     title = undefined
 }
 ---
@@ -38,13 +38,13 @@ if (title === "aspizu.neocities.org") {
         />
         {
             title ?
-                <title>{title} - aspizu.neocities.org</title>
-            :   <title>aspizu.neocities.org</title>
+                <title>{title} - aspizu.github.io</title>
+            :   <title>aspizu.github.io</title>
         }
     </head>
     <body>
         <header>
-            <a href="/">{title ? "back" : "aspizu.neocities.org"}</a>
+            <a href="/">{title ? "back" : "aspizu.github.io"}</a>
             <Status />
         </header>
         <main>
