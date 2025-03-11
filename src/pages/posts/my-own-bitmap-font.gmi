@@ -1,0 +1,103 @@
+# My Own Bitmap Font
+
+> 11 March 2025
+
+A few years ago, I had created several bitmap fonts of my own using the online tool -- BitFontMaker 2.
+
+=> /images/os2.png
+
+The nice thing about this tool is that it allows you to export the font as a TTF or a JSON file. I think I had created a script to convert the font into individual glyphs for use in Scratch. I used this particular font in many of my Scratch projects, I've since lost the original font, but I still have one project which used the font -- My scratch operating system.
+
+=> https://www.pentacom.jp/pentacom/bitfontmaker2/ BitFontMaker 2
+=> https://scratch.mit.edu/projects/661868690/ os2 Scratch operating system project
+
+The goboscript standard library now includes a basic font rendering engine. I wanted to use my font for this engine.
+
+## goboscript std font engine
+
+The std font engine is a simple font rendering engine that can render monospaced vector fonts, optionally with greedy text wrapping. Fonts are created in Inkscape and then converted into a text file using a python script.
+
+The process for designing your own font is easy, but first you need to configure Inkscape to make sure the font conversion script is able to process the font.
+
+SVG path instructions can be written in an optimized way, which is how Inkscape will normally output them. However, the font conversion script, and the rendering engine requires the path instructions to be written in a non-optimized way. This makes it easier to render the font in the engine. Enable the following options in Inkscape:
+
+```
+Input/Output > SVG output > Path data > Path string format = Absolute
+Input/Output > SVG output > Path data > Force repeat commands = Checked
+```
+
+## Designing the vector rendition of my bitmap font
+
+Now, I had to design a vector version of my bitmap font. For that, I had to extract all the glyphs from my Scratch operating system project into a single image. Instead of trying to write my own script, I thought of asking ChatGPT to do it for me.
+
+With a bit of back and forth, ChatGPT came up with this:
+
+```
+import zipfile
+import json
+import io
+from PIL import Image
+
+# Path to your .sb3 file
+sb3_path = "os2-v1.4.sb3"
+
+# Open the .sb3 file as a ZIP archive
+with zipfile.ZipFile(sb3_path, "r") as zf:
+    # Read project.json from the zip archive
+    with zf.open("project.json") as json_file:
+        project = json.load(json_file)
+
+    # Find the target with name "Main" in project.targets
+    main_target = next((t for t in project.get("targets", []) if t.get("name") == "Main"), None)
+    if main_target is None:
+        raise ValueError("No target with name 'Main' found in project.json.")
+
+    # Process the costumes array
+    glyph_costumes = {}
+    for costume in main_target.get("costumes", []):
+        glyph = costume.get("name", "")
+        # Check if glyph is a single character in the printable ASCII range (space to tilde)
+        if len(glyph) == 2 and glyph[0] == '#' and 32 <= ord(glyph[1]) <= 126:
+            filename = costume.get("md5ext")
+            if filename:
+                glyph_costumes[glyph[1]] = filename
+
+    if not glyph_costumes:
+        raise ValueError("No valid glyph costumes found in target 'Main'.")
+
+    # Load each costume image from the ZIP file
+    letter_images = []
+    # Sort glyphs by their natural order (ASCII order)
+    for letter in sorted(glyph_costumes.keys()):
+        filename = glyph_costumes[letter]
+        try:
+            with zf.open(filename) as img_file:
+                im = Image.open(io.BytesIO(img_file.read()))
+                im.load()  # Ensure the image is loaded before closing the file
+                letter_images.append((letter, im))
+        except Exception as e:
+            print(f"Failed to load image for glyph '{letter}' from file '{filename}': {e}")
+
+# Determine the total width and maximum height for the combined image
+total_width = sum(im.size[0] for _, im in letter_images)
+max_height = max(im.size[1] for _, im in letter_images)
+
+# Create a new image with a transparent background
+combined = Image.new("RGBA", (total_width, max_height), (255, 255, 255, 0))
+
+# Paste each glyph image next to each other
+x_offset = 0
+for letter, im in letter_images:
+    combined.paste(im, (x_offset, 0))
+    x_offset += im.size[0]
+
+# Save the combined image
+combined.save("combined_font.png")
+print("Combined font image saved as combined_font.png")
+```    
+
+This script took out all the costumes from the Scratch project which were glyphs and placed them side-by-side in a single image. Which then I could add to my Inkscape document and trace over.
+
+=> /images/font.png Vector version of my bitmap font
+
+You can use this very font in your own projects by upgrading to std version 2.1.0 and using the std/font header, you need to copy-paste the font data file in your project directory.

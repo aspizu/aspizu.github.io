@@ -12,4 +12,4 @@
 
 ## Posts
 
-=> /example Example
+=> /posts/my-own-bitmap-font My Own Bitmap Font

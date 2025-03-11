@@ -47,8 +47,22 @@ if (title === "aspizu.github.io") {
             <a href="/">{title ? "back" : "aspizu.github.io"}</a>
             <Status />
         </header>
-        <main>
+        <main id="main">
             <slot />
         </main>
     </body>
 </html>
+
+<script>
+    document.addEventListener("astro:page-load", () => {
+        for (const link of document.getElementById("main")!.querySelectorAll("a")) {
+            if (/\.(svg|png|jpg|jpeg)$/.test(link.href)) {
+                const image = document.createElement("img")
+                image.src = link.href
+                image.alt = link.textContent ?? link.href
+                image.title = link.textContent ?? link.href
+                link.replaceWith(image)
+            }
+        }
+    })
+</script>

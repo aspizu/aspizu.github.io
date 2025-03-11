@@ -5,7 +5,6 @@ import {defineConfig} from "astro/config"
 // https://astro.build/config
 export default defineConfig({
     site: "https://aspizu.github.io",
-    trailingSlash: "always",
     integrations: [gemtext({layout: "/src/layouts/Layout.astro"})],
     prefetch: {
         defaultStrategy: "load",

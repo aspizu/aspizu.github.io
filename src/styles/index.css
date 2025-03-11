@@ -113,4 +113,16 @@ main {
         list-style-position: outside;
         padding-left: 24px;
     }
+
+    img {
+        border-radius: 4px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    blockquote {
+        font-style: italic;
+        color: var(--ctp-mocha-green);
+        border-left: 2px solid var(--ctp-mocha-surface0);
+        padding-left: 8px;
+    }
 }
