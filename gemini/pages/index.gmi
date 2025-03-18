@@ -1,8 +1,8 @@
 # aspizu's gemini capsule
 
-=> posts/ My gemlog
+=> ./posts/ My gemlog
 
-=> project-ideas.html Project Ideas Notion database
+=> ./project-ideas.gmi Project Ideas Notion database
 
 ## Javascript Games
 
