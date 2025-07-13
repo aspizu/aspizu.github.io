@@ -1,0 +1,70 @@
+tuples considered harmful
+-------------------------
+
+Everytime you think of using a tuple, its almost always a bad idea. To understand why,
+we need to look at what tuples actually are. Tuples are NOT lists of elements. Even
+though `isinstance((), Sequence) is True`, semantically, tuples are the anonymous
+versions of structures! Looking at functions and anonymous functions, the core
+difference is that the function name is missing from the anonymous counterpart. Tuples
+are basically structures without field names. Using tuples for sequences of elements
+is wrong. You should use lists for that. How is a sequence different than tuples then?
+All elements in a sequence have the same type. Okay what about unions? A union type
+is a single type. `type Expr = Addition | Subtraction` is a single type, even though
+its a union, so `list[Expr]` is a sequence, but `tuple[Addition, Subtraction]` is not
+a sequence, its a structure with two fields of different types. Python's type system
+allows you to define a tuple type as a kind of sequence by doing `tuple[T, ...]`
+which is unique to Python. Using `tuple[T, ...]` is fine if you want to make use of the
+immutability, but I don't find it an extremely useful advantage compared to the semantic
+confusion.
+
+Whats wrong with using tuples as anonymous structures then?
+
+they are anonymous!, they give you no understanding of what field is what. Look at this
+type annotation: `def get_token_position() -> tuple[int, int]` Which of those two
+fields is the line number? Without looking at the documentation (doc-string, comment or
+otherwise), its impossible. Now, if this were a dataclass, class or structure
+(depending on the language), you would even get autocomplete.
+
+Python lets you destructure tuples, and it looks beautiful, but that leads to abuse.
+
+```py
+line_no, col_no = get_token_position()
+```
+
+That looks beautiful, but its way too easy to switch those around and break your code
+with no warning.
+
+There is one acceptable use of tuples as alternatives to structures, if all the fields
+(ideally no more than 3) are classes and named types.
+
+`def get_search_results() -> tuple[Results, Recommendations]`
+
+The type annotation makes it very clear what field is what, this is acceptable but still
+there is one issue, null-checking!
+
+In python, you can use the walrus operator `:=` to perform null-checking and assignment
+at the same time, for example:
+
+```py
+def get_search_results(query: str) -> Results | None:
+    ...
+
+if results := get_search_results(query):
+    display_results(results)
+```
+
+as `None` is considered falsy, the if block only executes if the return value is not `None`.
+
+You can't destructure tuples and check for null at the same time!
+
+```py
+if (results, recommendations) := get_search_results(query):
+    ...
+```
+
+This does not work, you need to assign it to a single variable, then destructure inside
+the if body or use indexes to get the fields which is horrible.
+
+
+Sun, Jul 13, 2025
+aspizu <aspizu@protonmail.com> 
