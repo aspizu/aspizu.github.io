@@ -1,9 +1,0 @@
-# aspizu's gemini capsule
-
-=> posts/ My gemlog
-
-=> project-ideas.html Project Ideas Notion database
-
-## Javascript Games
-
-=> https://aspizu.github.io/games/pong.html JS Pong
