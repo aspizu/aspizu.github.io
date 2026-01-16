@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: "Figtree Variable", "sans-serif";
+}
+
+@keyframes float-shadow {
+    0%,
+    100% {
+        box-shadow: 0 0 var(--shadow-blur) 0 var(--shadow-color);
+    }
+    25% {
+        box-shadow: -6px -6px var(--shadow-blur) 0 var(--shadow-color);
+    }
+    50% {
+        box-shadow: 6px -6px var(--shadow-blur) 0 var(--shadow-color);
+    }
+    75% {
+        box-shadow: -6px 6px var(--shadow-blur) 0 var(--shadow-color);
+    }
+}
+
+.card {
+    --shadow-blur: 32px;
+    --shadow-color: rgba(0, 0, 255, 0.3);
+    animation: float-shadow 2s ease-in-out infinite;
+}

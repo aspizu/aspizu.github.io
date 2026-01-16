@@ -1,0 +1,16 @@
+{
+    "scripts": {
+        "dev": "astro dev"
+    },
+    "dependencies": {
+        "@fontsource-variable/figtree": "^5.2.10",
+        "@lucide/astro": "^0.562.0",
+        "@tailwindcss/vite": "^4.1.18",
+        "astro": "^5.16.9",
+        "particles.js": "^2.0.0",
+        "prettier": "^3.8.0",
+        "prettier-plugin-tailwindcss": "^0.7.2",
+        "simple-icons-astro": "^16.1.0",
+        "tailwindcss": "^4.1.18"
+    }
+}
