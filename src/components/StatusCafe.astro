@@ -1,0 +1,20 @@
+<div
+    class="bg-neutral-900 size-3 absolute left-37 top-26 translate-y-[50%] z-1 rounded-full"
+>
+</div>
+<div
+    class="bg-neutral-900 size-6 absolute left-39 top-28 translate-y-[50%] z-1 rounded-full"
+>
+</div>
+<div
+    class="flex bg-neutral-900 absolute top-30 left-35 translate-y-[50%] z-1 px-2 py-1 items-baseline gap-1 rounded-full"
+    _="
+    on load fetch https://status.cafe/users/aspizu/status.json
+    set result to JSON.parse(result)
+    put result.face into #status-face
+    put result.content into #status-content
+    "
+>
+    <p id="status-content" class="text-xs truncate"></p>
+    <span id="status-face" class="text-xs"></span>
+</div>

@@ -1,0 +1,27 @@
+---
+
+---
+
+<a
+    rel="noreferrer"
+    target="_blank"
+    href="https://www.last.fm/user/aspizu"
+    class="mt-2 flex gap-3 p-1 items-center bg-black/40 rounded-xl shadow"
+    _="
+    on load fetch https://lastfm-last-played.biancarosa.com.br/aspizu/latest-song
+    set result to JSON.parse(result)
+    put result.track.artist['#text'] into #player-artist
+    put result.track.name into #player-title
+    put result.track.image[result.track.image.length-1]['#text'] into #player-cover's src
+    "
+>
+    <img id="player-cover" src="" class="size-12 flex rounded-lg shadow" />
+    <div class="flex flex-col">
+        <h2 class="font-medium" id="player-title">Loading</h2>
+        <h3 class="text-xs" id="player-artist">Loading</h3>
+    </div>
+    <span
+        class="text-xs shadow-sm ml-auto mt-auto text-black font-semibold px-1.5 bg-white rounded-md"
+        >LAST.FM</span
+    >
+</a>

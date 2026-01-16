@@ -1,0 +1,37 @@
+---
+import "@fontsource-variable/figtree"
+import "../styles/global.css"
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>aspizu</title>
+        <script is:inline src="/particles.min.js"></script>
+        <script
+            is:inline
+            src="https://louisabraham.github.io/nekojs/neko.js"
+            data-autostart></script>
+        <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
+        ></script>
+        <script src="https://unpkg.com/hyperscript.org@0.9.14"></script>
+        <!-- <script
+            is:inline
+            type="text/javascript"
+            src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/libopenmpt.js"
+        ></script>
+        <script
+            is:inline
+            type="text/javascript"
+            src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/chiptune2.js"
+        ></script> -->
+    </head>
+    <body class="dark bg-black text-white flex p-4 gap-4 items-start overflow-x-scroll">
+        <script>
+            import "../scripts/main.ts"
+        </script>
+        <slot />
+    </body>
+</html>

@@ -1,182 +1,107 @@
 ---
-import "@fontsource-variable/figtree"
-import Bluesky from "simple-icons-astro/Bluesky"
-import Github from "simple-icons-astro/Github"
-import Pinterest from "simple-icons-astro/Pinterest"
-import Reddit from "simple-icons-astro/Reddit"
-import Scratch from "simple-icons-astro/Scratch"
-import Spotify from "simple-icons-astro/Spotify"
-import Steam from "simple-icons-astro/Steam"
-import X from "simple-icons-astro/X"
-import Youtube from "simple-icons-astro/Youtube"
-import Social from "../components/Social.astro"
-import "../styles/global.css"
-import AudioLinesIcon from "@lucide/astro/icons/audio-lines"
+import Card from "../components/Card.astro"
+import LastFM from "../components/LastFM.astro"
+import Project from "../components/Project.astro"
+import Socials from "../components/Socials.astro"
+import StatusCafe from "../components/StatusCafe.astro"
+import Layout from "../layouts/Layout.astro"
 ---
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>aspizu</title>
-        <script is:inline src="/particles.min.js"></script>
-        <script is:inline src="/ghostCursor.js"></script>
-        <script
-            is:inline
-            src="https://louisabraham.github.io/nekojs/neko.js"
-            data-autostart></script>
-        <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
-        ></script>
-        <script src="https://unpkg.com/hyperscript.org@0.9.14"></script>
-        <!-- <script
-            is:inline
-            type="text/javascript"
-            src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/libopenmpt.js"
-        ></script>
-        <script
-            is:inline
-            type="text/javascript"
-            src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/chiptune2.js"
-        ></script> -->
-    </head>
-    <body class="dark bg-black text-white flex p-4 justify-center items-center h-dvh">
-        <div id="particles" class="absolute inset-0 -z-1"></div>
-        <script>
-            // @ts-ignore
-            particlesJS.load("particles", "particles.json", function () {})
-            // @ts-ignore
-            ghostCursor({})
-        </script>
-        <div
-            class="relative grid bg-linear-to-b from-blue-600/20 to-blue-600/50 p-1 rounded-3xl card"
-        >
-            <!-- <img
+<Layout>
+    <div id="particles" class="absolute inset-0 -z-1"></div>
+
+    <div
+        class="relative grid bg-linear-to-b from-blue-600/20 to-blue-600/50 p-1 rounded-3xl card w-auto"
+    >
+        <!-- <img
                 class="absolute z-1 -bottom-10 scale-[1.6]"
                 src="/stickers.png"
                 alt="overlay"
             /> -->
+        <div
+            class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow"
+        >
+            <StatusCafe />
             <div
-                class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow"
+                class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/banner.png')] bg-cover bg-top opacity-50"
             >
-                <div
-                    class="bg-neutral-900 size-3 absolute left-37 top-26 translate-y-[50%] z-1 rounded-full"
-                >
-                </div>
-                <div
-                    class="bg-neutral-900 size-6 absolute left-39 top-28 translate-y-[50%] z-1 rounded-full"
-                >
-                </div>
-                <div
-                    class="flex bg-neutral-900 absolute top-30 left-35 translate-y-[50%] z-1 px-3 py-2 items-baseline gap-1 rounded-full"
-                    _="on load fetch https://status.cafe/users/aspizu/status.json
-                    set result to JSON.parse(result)
-                    put result.face into #status-face
-                    put result.timeAgo into #status-timeAgo
-                    put result.content into #status-content
-                    "
-                >
-                    <p id="status-content" class="text-sm"></p>
-                    <span id="status-face" class="text-sm"></span>
-                    <span id="status-timeAgo" class="ml-auto text-neutral-400 text-xs"
-                    ></span>
-                </div>
-                <div
-                    class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/banner.png')] bg-cover bg-top opacity-50"
-                >
-                </div>
-                <img
-                    src="/avatar.png"
-                    alt="avatar"
-                    class="absolute top-8 left-4 size-32 rounded-full border border-black shadow"
-                />
-                <div class="flex flex-col p-4 pt-8">
-                    <h1 class="text-2xl font-medium">
-                        <span
-                            class="text-shadow-blue-300 text-shadow-[0px_1px_5px] bg-[linear-gradient(to_right,cornflowerblue,white,cornflowerblue,white,cornflowerblue)] bg-clip-text text-transparent"
-                            >aspizu</span
-                        >
-                        <span class="text-neutral-400 font-light">he/him</span>
-                        <img src="/india.png" class="inline size-6" />
-                    </h1>
-                    <p>Hey there, I write code sometimes.</p>
-
-                    <div
-                        class="mt-2 flex flex-col bg-black/25 rounded-xl p-3"
-                        _="on load fetch https://lastfm-last-played.biancarosa.com.br/aspizu/latest-song
-                        set result to JSON.parse(result)
-                        put result.track.artist['#text'] into #player-artist
-                        put result.track.name into #player-title
-                    "
+            </div>
+            <img
+                src="/avatar.png"
+                alt="avatar"
+                class="absolute top-8 left-4 size-32 rounded-full border border-black shadow"
+            />
+            <div class="flex flex-col p-4 pt-8">
+                <h1 class="text-2xl font-medium">
+                    <span
+                        class="text-shadow-blue-300 text-shadow-[0px_1px_5px] bg-white bg-clip-text text-transparent"
+                        >aspizu</span
                     >
-                        <span class="text-xs text-neutral-400 font-semibold"
-                            >LAST PLAYED</span
-                        >
-                        <div class="flex items-center gap-2">
-                            <img src="/winamp.png" alt="winamp logo" class="size-7" />
-                            <!-- <AudioLinesIcon /> -->
-                            <a
-                                rel="noreferrer"
-                                target="_blank"
-                                href="https://www.last.fm/user/aspizu"
-                            >
-                                <h2 class="font-medium" id="player-title">Loading</h2>
-                                <h3 class="text-xs" id="player-artist">Loading</h3>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex gap-2">
-                        <Social color="#181717" href="https://github.com/aspizu">
-                            <Github />
-                        </Social>
-
-                        <Social
-                            color="#FFC83D"
-                            href="https://scratch.mit.edu/users/aspizu"
-                        >
-                            <Scratch />
-                        </Social>
-
-                        <Social color="#FF4500" href="https://reddit.com/u/aspizu">
-                            <Reddit />
-                        </Social>
-
-                        <Social
-                            color="#171A21"
-                            href="https://steamcommunity.com/id/aspizu/"
-                        >
-                            <Steam />
-                        </Social>
-
-                        <Social
-                            color="#0085FF"
-                            href="https://bsky.app/profile/did:plc:ntwh75drpbi3irhf272raokr"
-                        >
-                            <Bluesky />
-                        </Social>
-
-                        <Social color="#E60023" href="https://in.pinterest.com/a5pizu/">
-                            <Pinterest />
-                        </Social>
-
-                        <Social
-                            color="#1DB954"
-                            href="https://open.spotify.com/user/31to572so4aje5seeeqhuqftajva?si=d3f656c7532845a7"
-                        >
-                            <Spotify />
-                        </Social>
-
-                        <Social color="#FF0000" href="https://youtube.com/@a5pizu">
-                            <Youtube />
-                        </Social>
-
-                        <Social color="#000000" href="https://x.com/a5pizu">
-                            <X />
-                        </Social>
-                    </div>
-                </div>
+                    <span class="text-neutral-400 font-light">he/him</span>
+                    <img src="/india.png" class="inline size-6" />
+                </h1>
+                <p>Hey there, I like to make stuff. I'm 21</p>
+                <LastFM />
+                <Socials />
             </div>
         </div>
-        <div class="flex p-4 gap-4"></div>
-    </body>
-</html>
+    </div>
+    <Card>
+        <h1 class="text-xl font-medium">Software</h1>
+
+        <Project
+            title="goboscript"
+            description="Text-based programming language that compiles into Scratch projects. Scratch is a visual programming language designed to teach programming to kids made by MIT. goboscript was created to develop advanced technical Scratch projects."
+            href="https://aspizu.github.io/goboscript.ide"
+            repo="goboscript"
+            docs="https://aspizu.github.io/goboscript"
+            image="https://camo.githubusercontent.com/4d5d6bd985ec424d041a4b1211de990cf3e66047733de3edcdb4ffa26152e46b/68747470733a2f2f752e6375626575706c6f61642e636f6d2f617370697a752f556e7469746c65643230323431323131313931342e706e67"
+        />
+
+        <Project
+            title="Nixite"
+            description="Inspired by Ninite.com, Nixite generates a bash script to unattendedly install all your Linux software. Nixite automatically configures your system and installs software using the best method available. Nixite tries to suppress confirmation prompts."
+            href="https://aspizu.github.io/nixite"
+            repo="nixite"
+            image="https://github.com/aspizu/nixite/raw/main/public/screenshot.png"
+        />
+
+        <Project
+            title="tshu"
+            description="Python library that allows you to run safe and cross-platform bash commands using Python 3.14's t-strings. Uses brush which is a cross-platform bash implementation written in Rust."
+            href="https://aspizu.github.io/tshu"
+            repo="tshu"
+            docs="https://aspizu.github.io/tshu"
+        />
+
+        <Project
+            title="musync"
+            description="Copy/rename/convert lossless audio to mp3 efficiently."
+            href="https://github.com/aspizu/musync"
+            repo="musync"
+            image="https://github.com/aspizu/musync/raw/main/screenshot.png"
+        />
+
+        <Project
+            title="msglint"
+            description="Commit message linter."
+            href="https://github.com/aspizu/msglint"
+            repo="msglint"
+            image="https://github.com/aspizu/msglint/raw/main/docs/assets/screenshot.png"
+        />
+
+        <Project
+            title="neocities-sync"
+            description="Sync files to neocities while doing the least amount of API requests. You can use this to deploy a Vite, Astro or Next.js app to neocities."
+            href="https://github.com/aspizu/neocities-sync"
+            repo="neocities-sync"
+        />
+
+        <Project
+            title="instax"
+            description="Create counterfeit instant camera pictures. Print guides with perfect dimensions (original instax films) to PDF."
+            href="https://aspizu.github.io/instax"
+            repo="instax"
+        />
+    </Card>
+</Layout>
