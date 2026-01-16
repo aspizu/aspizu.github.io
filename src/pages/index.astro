@@ -10,48 +10,51 @@ import Layout from "../layouts/Layout.astro"
 <Layout>
     <div id="particles" class="absolute inset-0 -z-1"></div>
 
-    <div
-        class="relative grid bg-linear-to-b from-blue-600/20 to-blue-600/50 p-1 rounded-3xl card w-auto"
-    >
-        <!-- <img
-                class="absolute z-1 -bottom-10 scale-[1.6]"
-                src="/stickers.png"
-                alt="overlay"
-            /> -->
+    <div class="flex flex-col shrink-0">
         <div
-            class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow"
+            class="relative grid bg-linear-to-b from-blue-600/20 to-blue-600/50 p-1 rounded-3xl card w-auto shrink-0"
         >
-            <StatusCafe />
+            <!-- <img
+                    class="absolute z-1 -bottom-10 scale-[1.6]"
+                    src="/stickers.png"
+                    alt="overlay"
+                /> -->
             <div
-                class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/banner.png')] bg-cover bg-top opacity-50"
+                class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow shrink-0"
             >
-            </div>
-            <img
-                src="/avatar.png"
-                alt="avatar"
-                class="absolute top-8 left-4 size-32 rounded-full border border-black shadow"
-            />
-            <div class="flex flex-col p-4 pt-8">
-                <h1 class="text-2xl font-medium">
-                    <span
-                        class="text-shadow-blue-300 text-shadow-[0px_1px_5px] bg-white bg-clip-text text-transparent"
-                        >aspizu</span
-                    >
-                    <span class="text-neutral-400 font-light">he/him</span>
-                    <img src="/india.png" class="inline size-6" />
-                </h1>
-                <p>Hey there, I like to make stuff. I'm 21</p>
-                <LastFM />
-                <Socials />
+                <StatusCafe />
+                <div
+                    class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/banner.png')] bg-cover bg-top opacity-50"
+                >
+                </div>
+                <img
+                    src="/avatar.png"
+                    alt="avatar"
+                    class="absolute top-8 left-4 size-32 rounded-full border border-black shadow"
+                />
+                <div class="flex flex-col p-4 pt-8">
+                    <h1 class="text-2xl font-medium">
+                        <span
+                            class="text-shadow-blue-300 text-shadow-[0px_1px_5px] bg-white bg-clip-text text-transparent"
+                            >aspizu</span
+                        >
+                        <span class="text-neutral-400 font-light">he/him</span>
+                        <img src="/india.png" class="inline size-6" />
+                    </h1>
+                    <p>Hey there, I like to make stuff. I'm 21</p>
+                    <LastFM />
+                    <Socials />
+                </div>
             </div>
         </div>
+        <p class="text-center text-white/75 text-xs font-medium mt-2">
+            MADE WITH ❤️ BY ASPIZU
+        </p>
     </div>
     <Card>
-        <h1 class="text-xl font-medium">Software</h1>
-
         <Project
             title="goboscript"
-            description="Text-based programming language that compiles into Scratch projects. Scratch is a visual programming language designed to teach programming to kids made by MIT. goboscript was created to develop advanced technical Scratch projects."
+            description="Text-based language that compiles to Scratch projects. Enables complex, versionable workflows while remaining compatible with Scratch’s visual runtime."
             href="https://aspizu.github.io/goboscript.ide"
             repo="goboscript"
             docs="https://aspizu.github.io/goboscript"
@@ -60,7 +63,7 @@ import Layout from "../layouts/Layout.astro"
 
         <Project
             title="Nixite"
-            description="Inspired by Ninite.com, Nixite generates a bash script to unattendedly install all your Linux software. Nixite automatically configures your system and installs software using the best method available. Nixite tries to suppress confirmation prompts."
+            description="Generates unattended Linux install scripts. Automatically selects optimal methods and minimizes prompts for fast system bootstrap."
             href="https://aspizu.github.io/nixite"
             repo="nixite"
             image="https://github.com/aspizu/nixite/raw/main/public/screenshot.png"
@@ -68,7 +71,7 @@ import Layout from "../layouts/Layout.astro"
 
         <Project
             title="tshu"
-            description="Python library that allows you to run safe and cross-platform bash commands using Python 3.14's t-strings. Uses brush which is a cross-platform bash implementation written in Rust."
+            description="Python library for safe, cross-platform shell execution. Uses t-strings and a Rust-backed bash implementation."
             href="https://aspizu.github.io/tshu"
             repo="tshu"
             docs="https://aspizu.github.io/tshu"
@@ -76,7 +79,7 @@ import Layout from "../layouts/Layout.astro"
 
         <Project
             title="musync"
-            description="Copy/rename/convert lossless audio to mp3 efficiently."
+            description="Batch copy, rename, and convert lossless audio. Optimized pipeline for producing high-quality MP3 output."
             href="https://github.com/aspizu/musync"
             repo="musync"
             image="https://github.com/aspizu/musync/raw/main/screenshot.png"
@@ -84,7 +87,7 @@ import Layout from "../layouts/Layout.astro"
 
         <Project
             title="msglint"
-            description="Commit message linter."
+            description="Fast commit message linter. Enforces format and conventions before changes enter version control."
             href="https://github.com/aspizu/msglint"
             repo="msglint"
             image="https://github.com/aspizu/msglint/raw/main/docs/assets/screenshot.png"
@@ -92,16 +95,16 @@ import Layout from "../layouts/Layout.astro"
 
         <Project
             title="neocities-sync"
-            description="Sync files to neocities while doing the least amount of API requests. You can use this to deploy a Vite, Astro or Next.js app to neocities."
+            description="Deploys projects to Neocities with minimal API usage. Suitable for Vite, Astro, and Next.js builds."
             href="https://github.com/aspizu/neocities-sync"
             repo="neocities-sync"
         />
 
         <Project
             title="instax"
-            description="Create counterfeit instant camera pictures. Print guides with perfect dimensions (original instax films) to PDF."
+            description="Generates realistic instant-camera prints. Exports dimension-accurate guides for original Instax film."
             href="https://aspizu.github.io/instax"
             repo="instax"
-        />
-    </Card>
+        /></Card
+    >
 </Layout>
