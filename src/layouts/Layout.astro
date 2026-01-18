@@ -28,10 +28,17 @@ import "../styles/global.css"
             src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/chiptune2.js"
         ></script> -->
     </head>
-    <body class="dark bg-black text-white flex p-4 gap-4 items-start overflow-x-scroll">
-        <script>
-            import "../scripts/main.ts"
-        </script>
+    <body class="dark bg-black text-white flex flex-col items-center">
+        <div id="particles" class="absolute inset-0 -z-1"></div>
+
         <slot />
     </body>
 </html>
+
+<script>
+    import {GhostCursor} from "../scripts/ghost-cursor.ts"
+
+    const cursor = new GhostCursor()
+    // @ts-ignore
+    particlesJS.load("particles", "particles.json", function () {})
+</script>

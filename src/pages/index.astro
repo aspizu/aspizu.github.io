@@ -11,82 +11,80 @@ import Layout from "../layouts/Layout.astro"
 ---
 
 <Layout>
-    <div id="particles" class="absolute inset-0 -z-1"></div>
-
-    <div class="flex flex-col">
-        <div
-            class="relative grid bg-linear-to-b from-blue-600/20 to-blue-600/50 p-1 rounded-3xl card w-97"
-        >
-            <!-- <img
+    <div
+        class="my-16 relative grid bg-linear-to-b from-blue-600/20 to-blue-600/50 p-1 rounded-3xl card w-97"
+    >
+        <!-- <img
                     class="absolute z-1 -bottom-10 scale-[1.6]"
                     src="/stickers.png"
                     alt="overlay"
                 /> -->
+        <div
+            class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow overflow-hidden"
+        >
+            <StatusCafe />
             <div
-                class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow overflow-hidden"
+                class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/banner.png')] bg-cover bg-top opacity-50"
             >
-                <StatusCafe />
-                <div
-                    class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/banner.png')] bg-cover bg-top opacity-50"
-                >
-                </div>
-                <img
-                    id="avatar"
-                    src="/avatar.png"
-                    alt="avatar"
-                    class="absolute top-8 left-4 size-32 rounded-full border border-black shadow"
-                />
-                <div class="flex flex-col p-4 pt-8">
-                    <h1 class="text-2xl font-medium">
-                        <!-- <span
+            </div>
+            <img
+                id="avatar"
+                src="/avatar.png"
+                alt="avatar"
+                class="absolute top-8 left-4 size-32 rounded-full border border-black shadow"
+            />
+            <div class="flex flex-col p-4 pt-8">
+                <h1 class="text-2xl font-medium">
+                    <!-- <span
                             class="text-shadow-blue-300 text-shadow-[0px_1px_5px] bg-white bg-clip-text text-transparent font-['Press_Start_2P']"
                             >aspizu</span
                         > -->
-                        <img
-                            src="/minecraft_title.png"
-                            alt="aspizu"
-                            class="h-6 inline-block"
-                        />
-                        <span class="text-neutral-400 font-light">he/him</span>
-                        <img src="/india.png" class="inline size-6" />
-                    </h1>
-                    <p>
-                        I'm a recreational coder, sometimes I make (often terrible)
-                        music. I'm currently looking for a job.
-                    </p>
+                    <img
+                        src="/minecraft_title.png"
+                        alt="aspizu"
+                        class="h-6 inline-block"
+                    />
+                    <span class="text-neutral-400 font-light">he/him</span>
+                    <img src="/india.png" class="inline size-6" />
+                </h1>
+                <p>
+                    I'm a recreational coder, sometimes I make (often terrible) music.
+                    I'm currently looking for a job.
+                </p>
 
-                    <LastFM />
-                    <Socials />
-                </div>
+                <LastFM />
+                <Socials />
             </div>
-            <a
-                href="mailto:aspizu@protonmail.com"
-                class="absolute top-4 right-4 z-10 inline-flex items-center justify-center gap-1 px-2 py-1 bg-white/85 hover:bg-white text-black font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg text-sm"
-            >
-                <Mail class="size-3.5" />
-                email me
-            </a>
         </div>
-        <p class="text-center text-white/75 text-xs font-medium mt-2">
-            MADE WITH ❤️ BY ASPIZU
-        </p>
+        <a
+            href="mailto:aspizu@protonmail.com"
+            class="absolute top-4 right-4 z-10 inline-flex items-center justify-center gap-1 px-2 py-1 bg-white/85 hover:bg-white text-black font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg text-sm"
+        >
+            <Mail class="size-3.5" />
+            email me
+        </a>
     </div>
-    <Card>
-        {projects.map((project) => <Project {...project} />)}
-    </Card>
-    <script>
-        const avatar = document.getElementById("avatar")
-        let sr = 14.5
-        let r = 0
-        let interval = null
-        function update() {
-            sr *= 0.99
-            r += sr
-            avatar.style.rotate = `${r}deg`
-            if (sr < 0.01) {
-                clearInterval(interval)
-            }
-        }
-        interval = setInterval(update, 25)
-    </script>
+
+    <h1 class="text-sm font-semibold">PROJECTS</h1>
+    {projects.map((project) => <Project {...project} />)}
+
+    <p class="mb-16 mt-4 text-center text-white/75 text-xs font-medium">
+        MADE WITH ❤️ BY ASPIZU
+    </p>
 </Layout>
+
+<script>
+    const avatar = document.getElementById("avatar")
+    let sr = 14.5
+    let r = 0
+    let interval = null
+    function update() {
+        sr *= 0.99
+        r += sr
+        avatar.style.rotate = `${r}deg`
+        if (sr < 0.01) {
+            clearInterval(interval)
+        }
+    }
+    interval = setInterval(update, 25)
+</script>
