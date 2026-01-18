@@ -14,7 +14,7 @@ const {name, description, href, repo, docs, image} = Astro.props
 ---
 
 <div
-    class="Project transition-all p-0.5 rounded-md shadow-sm bg-cover bg-center bg-white/10"
+    class="Project z-1 transition-all p-0.5 rounded-md shadow-sm bg-cover bg-center bg-white/10"
     data-project={name}
     style={{
         backgroundImage: image ? `url('${image}')` : undefined,
@@ -24,9 +24,9 @@ const {name, description, href, repo, docs, image} = Astro.props
         class="flex flex-col bg-linear-to-b from-black to-black/50 gap-1 p-4 rounded-sm shadow-sm"
     >
         <a rel="noreferrer" target="_blank" href={href} class="block">
-            <h2 class="text-lg font-medium underline">{name}</h2>
+            <h2 class="text-lg font-medium underline underline-offset-2">{name}</h2>
         </a>
-        <p class="text-pretty">{description}</p>
+        <p class="text-pretty text-neutral-200">{description}</p>
         <slot />
         <div class="flex items-start gap-2">
             {
