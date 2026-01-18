@@ -1,0 +1,50 @@
+[
+    {
+        "name": "goboscript",
+        "description": "Text-based language that compiles to Scratch projects. Enables complex, versionable workflows while remaining compatible with Scratch's visual runtime.",
+        "repo": "https://github.com/aspizu/goboscript",
+        "href": "https://aspizu.github.io/goboscript.ide/",
+        "docs": "https://aspizu.github.io/goboscript/",
+        "image": "https://camo.githubusercontent.com/4d5d6bd985ec424d041a4b1211de990cf3e66047733de3edcdb4ffa26152e46b/68747470733a2f2f752e6375626575706c6f61642e636f6d2f617370697a752f556e7469746c65643230323431323131313931342e706e67"
+    },
+    {
+        "name": "Nixite",
+        "description": "Generates unattended Linux install scripts. Automatically selects optimal methods and minimizes prompts for fast system bootstrap.",
+        "repo": "https://github.com/aspizu/nixite",
+        "href": "https://aspizu.github.io/nixite",
+        "image": "https://github.com/aspizu/nixite/raw/main/public/screenshot.png"
+    },
+    {
+        "name": "tshu",
+        "description": "Python library for safe, cross-platform shell execution. Uses t-strings and a Rust-backed bash implementation.",
+        "repo": "https://github.com/aspizu/tshu",
+        "href": "https://aspizu.github.io/tshu",
+        "docs": "https://aspizu.github.io/tshu"
+    },
+    {
+        "name": "musync",
+        "description": "Batch copy, rename, and convert lossless audio. Optimized pipeline for producing high-quality MP3 output.",
+        "repo": "https://github.com/aspizu/musync",
+        "href": "https://github.com/aspizu/musync",
+        "image": "https://github.com/aspizu/musync/raw/main/screenshot.png"
+    },
+    {
+        "name": "msglint",
+        "description": "Fast commit message linter. Enforces format and conventions before changes enter version control.",
+        "repo": "https://github.com/aspizu/msglint",
+        "href": "https://github.com/aspizu/msglint",
+        "image": "https://github.com/aspizu/msglint/raw/main/docs/assets/screenshot.png"
+    },
+    {
+        "name": "neocities-sync",
+        "description": "Deploys projects to Neocities with minimal API usage. Suitable for Vite, Astro, and Next.js builds.",
+        "repo": "https://github.com/aspizu/neocities-sync",
+        "href": "https://github.com/aspizu/neocities-sync"
+    },
+    {
+        "name": "instax",
+        "description": "Generates realistic instant-camera prints. Exports dimension-accurate guides for original Instax film.",
+        "repo": "https://github.com/aspizu/instax",
+        "href": "https://aspizu.github.io/instax"
+    }
+]

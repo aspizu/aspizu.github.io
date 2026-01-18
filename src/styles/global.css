@@ -25,3 +25,91 @@
     --shadow-color: rgba(0, 0, 255, 0.3);
     animation: float-shadow 2s ease-in-out infinite;
 }
+
+.project-readme {
+    h1 {
+        @apply mb-4 border-b border-gray-200 pb-2 text-2xl font-bold dark:border-gray-700;
+    }
+
+    h2 {
+        @apply mb-3 border-b border-gray-200 pb-1 text-xl font-semibold dark:border-gray-700;
+    }
+
+    h3 {
+        @apply mb-2 text-lg font-semibold;
+    }
+
+    h4 {
+        @apply mb-2 text-base font-semibold;
+    }
+
+    p {
+        @apply mb-4 leading-relaxed;
+    }
+
+    a {
+        @apply text-blue-600 underline hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300;
+    }
+
+    code {
+        @apply rounded bg-gray-100 px-1 py-0.5 font-mono text-sm text-pink-600 dark:bg-gray-800 dark:text-pink-400;
+    }
+
+    pre {
+        @apply mb-4 overflow-x-auto rounded-lg bg-gray-100 p-4 dark:bg-gray-800;
+
+        code {
+            @apply bg-transparent p-0 text-gray-800 dark:text-gray-200;
+        }
+    }
+
+    blockquote {
+        @apply mb-4 border-l-4 border-gray-300 pl-4 text-gray-600 italic dark:border-gray-600 dark:text-gray-400;
+    }
+
+    ul,
+    ol {
+        @apply mb-4 pl-6;
+
+        li {
+            @apply mb-1;
+        }
+    }
+
+    table {
+        @apply mb-4 border-collapse border border-gray-300 dark:border-gray-600;
+
+        th,
+        td {
+            @apply border border-gray-300 px-3 py-2 text-left dark:border-gray-600;
+        }
+
+        th {
+            @apply bg-gray-100 font-semibold dark:bg-gray-800;
+        }
+    }
+
+    hr {
+        @apply my-6 border-gray-300 dark:border-gray-600;
+    }
+
+    img {
+        @apply h-auto max-w-full rounded-lg shadow-sm;
+    }
+
+    strong {
+        @apply font-semibold;
+    }
+
+    em {
+        @apply italic;
+    }
+
+    .task-list-item {
+        @apply list-none;
+
+        input {
+            @apply mr-2;
+        }
+    }
+}

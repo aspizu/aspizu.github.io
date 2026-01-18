@@ -4,15 +4,18 @@ import LastFM from "../components/LastFM.astro"
 import Project from "../components/Project.astro"
 import Socials from "../components/Socials.astro"
 import StatusCafe from "../components/StatusCafe.astro"
+import projects from "../data/projects.json"
 import Layout from "../layouts/Layout.astro"
+
+import {Fragment} from "astro/jsx-runtime"
 ---
 
 <Layout>
     <div id="particles" class="absolute inset-0 -z-1"></div>
 
-    <div class="flex flex-col shrink-0">
+    <div class="flex flex-col">
         <div
-            class="relative grid bg-linear-to-b from-blue-600/20 to-blue-600/50 p-1 rounded-3xl card w-auto shrink-0"
+            class="relative grid bg-linear-to-b from-blue-600/20 to-blue-600/50 p-1 rounded-3xl card w-97"
         >
             <!-- <img
                     class="absolute z-1 -bottom-10 scale-[1.6]"
@@ -20,7 +23,7 @@ import Layout from "../layouts/Layout.astro"
                     alt="overlay"
                 /> -->
             <div
-                class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow shrink-0"
+                class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow overflow-hidden"
             >
                 <StatusCafe />
                 <div
@@ -52,59 +55,6 @@ import Layout from "../layouts/Layout.astro"
         </p>
     </div>
     <Card>
-        <Project
-            title="goboscript"
-            description="Text-based language that compiles to Scratch projects. Enables complex, versionable workflows while remaining compatible with Scratch’s visual runtime."
-            href="https://aspizu.github.io/goboscript.ide"
-            repo="goboscript"
-            docs="https://aspizu.github.io/goboscript"
-            image="https://camo.githubusercontent.com/4d5d6bd985ec424d041a4b1211de990cf3e66047733de3edcdb4ffa26152e46b/68747470733a2f2f752e6375626575706c6f61642e636f6d2f617370697a752f556e7469746c65643230323431323131313931342e706e67"
-        />
-
-        <Project
-            title="Nixite"
-            description="Generates unattended Linux install scripts. Automatically selects optimal methods and minimizes prompts for fast system bootstrap."
-            href="https://aspizu.github.io/nixite"
-            repo="nixite"
-            image="https://github.com/aspizu/nixite/raw/main/public/screenshot.png"
-        />
-
-        <Project
-            title="tshu"
-            description="Python library for safe, cross-platform shell execution. Uses t-strings and a Rust-backed bash implementation."
-            href="https://aspizu.github.io/tshu"
-            repo="tshu"
-            docs="https://aspizu.github.io/tshu"
-        />
-
-        <Project
-            title="musync"
-            description="Batch copy, rename, and convert lossless audio. Optimized pipeline for producing high-quality MP3 output."
-            href="https://github.com/aspizu/musync"
-            repo="musync"
-            image="https://github.com/aspizu/musync/raw/main/screenshot.png"
-        />
-
-        <Project
-            title="msglint"
-            description="Fast commit message linter. Enforces format and conventions before changes enter version control."
-            href="https://github.com/aspizu/msglint"
-            repo="msglint"
-            image="https://github.com/aspizu/msglint/raw/main/docs/assets/screenshot.png"
-        />
-
-        <Project
-            title="neocities-sync"
-            description="Deploys projects to Neocities with minimal API usage. Suitable for Vite, Astro, and Next.js builds."
-            href="https://github.com/aspizu/neocities-sync"
-            repo="neocities-sync"
-        />
-
-        <Project
-            title="instax"
-            description="Generates realistic instant-camera prints. Exports dimension-accurate guides for original Instax film."
-            href="https://aspizu.github.io/instax"
-            repo="instax"
-        /></Card
-    >
+        {projects.map((project) => <Project {...project} />)}
+    </Card>
 </Layout>
