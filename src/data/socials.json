@@ -1,0 +1,74 @@
+[
+    {
+        "name": "Github",
+        "color": "#181717",
+        "href": "https://github.com/aspizu",
+        "tooltip": "GitHub"
+    },
+    {
+        "name": "Scratch",
+        "color": "#FFC83D",
+        "href": "https://scratch.mit.edu/users/aspizu",
+        "tooltip": "Scratch"
+    },
+    {
+        "name": "Reddit",
+        "color": "#FF4500",
+        "href": "https://reddit.com/u/aspizu",
+        "tooltip": "Reddit"
+    },
+    {
+        "name": "Steam",
+        "color": "#171A21",
+        "href": "https://steamcommunity.com/id/aspizu/",
+        "tooltip": "Steam"
+    },
+    {
+        "name": "Bluesky",
+        "color": "#0085FF",
+        "href": "https://bsky.app/profile/did:plc:ntwh75drpbi3irhf272raokr",
+        "tooltip": "Bluesky"
+    },
+    {
+        "name": "Pinterest",
+        "color": "#E60023",
+        "href": "https://in.pinterest.com/a5pizu/",
+        "tooltip": "Pinterest"
+    },
+    {
+        "name": "Spotify",
+        "color": "#1DB954",
+        "href": "https://open.spotify.com/user/31to572so4aje5seeeqhuqftajva?si=d3f656c7532845a7",
+        "tooltip": "Spotify"
+    },
+    {
+        "name": "Youtube",
+        "color": "#FF0000",
+        "href": "https://youtube.com/@a5pizu",
+        "tooltip": "YouTube"
+    },
+    {
+        "name": "X",
+        "color": "#000000",
+        "href": "https://x.com/a5pizu",
+        "tooltip": "X"
+    },
+    {
+        "name": "Codeberg",
+        "color": "#2185D0",
+        "href": "https://codeberg.org/aspizu",
+        "tooltip": "Codeberg"
+    },
+    {
+        "name": "Telegram",
+        "color": "#26A5E4",
+        "href": "https://t.me/aspizu",
+        "tooltip": "Telegram"
+    },
+    {
+        "name": "Discord",
+        "color": "#5865F2",
+        "href": "https://discord.gg/mKQqsJ6UtK",
+        "tooltip": "Discord"
+    }
+]

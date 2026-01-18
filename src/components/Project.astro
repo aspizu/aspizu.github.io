@@ -14,7 +14,7 @@ const {name, description, href, repo, docs, image} = Astro.props
 ---
 
 <div
-    class="Project transition-opacity p-0.5 rounded-sm shadow-sm bg-cover bg-center bg-white/10"
+    class="Project transition-all p-0.5 rounded-md shadow-sm bg-cover bg-center bg-white/10"
     data-project={name}
     style={{
         backgroundImage: image ? `url('${image}')` : undefined,

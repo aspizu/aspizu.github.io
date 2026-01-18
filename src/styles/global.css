@@ -28,5 +28,15 @@
 
 .Project:hover ~ .Project,
 .Project:has(~ .Project:hover) {
-    opacity: 0.5;
+    opacity: 0.75;
+}
+
+.Social:hover {
+    scale: 1.1;
+}
+
+.Social:hover ~ .Social,
+.Social:has(~ .Social:hover) {
+    opacity: 0.75;
+    scale: 0.95;
 }

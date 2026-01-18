@@ -1,4 +1,6 @@
 ---
+import Mail from "@lucide/astro/icons/mail"
+import {Fragment} from "astro/jsx-runtime"
 import Card from "../components/Card.astro"
 import LastFM from "../components/LastFM.astro"
 import Project from "../components/Project.astro"
@@ -6,8 +8,6 @@ import Socials from "../components/Socials.astro"
 import StatusCafe from "../components/StatusCafe.astro"
 import projects from "../data/projects.json"
 import Layout from "../layouts/Layout.astro"
-
-import {Fragment} from "astro/jsx-runtime"
 ---
 
 <Layout>
@@ -31,6 +31,7 @@ import {Fragment} from "astro/jsx-runtime"
                 >
                 </div>
                 <img
+                    id="avatar"
                     src="/avatar.png"
                     alt="avatar"
                     class="absolute top-8 left-4 size-32 rounded-full border border-black shadow"
@@ -44,11 +45,22 @@ import {Fragment} from "astro/jsx-runtime"
                         <span class="text-neutral-400 font-light">he/him</span>
                         <img src="/india.png" class="inline size-6" />
                     </h1>
-                    <p>Hey there, I like to make stuff. I'm 21</p>
+                    <p>
+                        I'm a recreational coder, sometimes I make (often terrible)
+                        music. I'm currently looking for a job.
+                    </p>
+
                     <LastFM />
                     <Socials />
                 </div>
             </div>
+            <a
+                href="mailto:aspizu@protonmail.com"
+                class="absolute top-4 right-4 z-10 inline-flex items-center justify-center gap-1 px-2 py-1 bg-white/85 hover:bg-white text-black font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg text-sm"
+            >
+                <Mail class="size-3.5" />
+                email me
+            </a>
         </div>
         <p class="text-center text-white/75 text-xs font-medium mt-2">
             MADE WITH ❤️ BY ASPIZU
@@ -57,4 +69,19 @@ import {Fragment} from "astro/jsx-runtime"
     <Card>
         {projects.map((project) => <Project {...project} />)}
     </Card>
+    <script>
+        const avatar = document.getElementById("avatar")
+        let sr = 14.5
+        let r = 0
+        let interval = null
+        function update() {
+            sr *= 0.99
+            r += sr
+            avatar.style.rotate = `${r}deg`
+            if (sr < 0.01) {
+                clearInterval(interval)
+            }
+        }
+        interval = setInterval(update, 25)
+    </script>
 </Layout>

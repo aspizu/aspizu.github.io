@@ -1,4 +1,6 @@
 ---
+import socials from "../data/socials.json"
+import Social from "../components/Social.astro"
 import Bluesky from "simple-icons-astro/Bluesky"
 import Codeberg from "simple-icons-astro/Codeberg"
 import Discord from "simple-icons-astro/Discord"
@@ -11,73 +13,36 @@ import Steam from "simple-icons-astro/Steam"
 import Telegram from "simple-icons-astro/Telegram"
 import X from "simple-icons-astro/X"
 import Youtube from "simple-icons-astro/Youtube"
-import Social from "../components/Social.astro"
+
+const iconMap = {
+    Bluesky,
+    Codeberg,
+    Discord,
+    Github,
+    Pinterest,
+    Reddit,
+    Scratch,
+    Spotify,
+    Steam,
+    Telegram,
+    X,
+    Youtube,
+}
+
+const socialsWithIcons = socials.map((social) => ({
+    ...social,
+    Icon: iconMap[social.name],
+}))
 ---
 
-<div class="mt-4 gap-3 grid grid-cols-6" id="socials-container">
-    <Social color="#181717" href="https://github.com/aspizu" tooltip="GitHub">
-        <Github />
-    </Social>
-
-    <Social
-        color="#FFC83D"
-        href="https://scratch.mit.edu/users/aspizu"
-        tooltip="Scratch"
-    >
-        <Scratch />
-    </Social>
-
-    <Social color="#FF4500" href="https://reddit.com/u/aspizu" tooltip="Reddit">
-        <Reddit />
-    </Social>
-
-    <Social
-        color="#171A21"
-        href="https://steamcommunity.com/id/aspizu/"
-        tooltip="Steam"
-    >
-        <Steam />
-    </Social>
-
-    <Social
-        color="#0085FF"
-        href="https://bsky.app/profile/did:plc:ntwh75drpbi3irhf272raokr"
-        tooltip="Bluesky"
-    >
-        <Bluesky />
-    </Social>
-
-    <Social color="#E60023" href="https://in.pinterest.com/a5pizu/" tooltip="Pinterest">
-        <Pinterest />
-    </Social>
-
-    <Social
-        color="#1DB954"
-        href="https://open.spotify.com/user/31to572so4aje5seeeqhuqftajva?si=d3f656c7532845a7"
-        tooltip="Spotify"
-    >
-        <Spotify />
-    </Social>
-
-    <Social color="#FF0000" href="https://youtube.com/@a5pizu" tooltip="YouTube">
-        <Youtube />
-    </Social>
-
-    <Social color="#000000" href="https://x.com/a5pizu" tooltip="X">
-        <X />
-    </Social>
-
-    <Social color="#2185D0" href="https://codeberg.org/aspizu" tooltip="Codeberg">
-        <Codeberg />
-    </Social>
-
-    <Social color="#26A5E4" href="https://t.me/aspizu" tooltip="Telegram">
-        <Telegram />
-    </Social>
-
-    <Social color="#5865F2" href="https://discord.gg/yourinvite" tooltip="Discord">
-        <Discord />
-    </Social>
+<div class="mx-auto mt-4 gap-2.5 grid grid-cols-6" id="socials-container">
+    {
+        socialsWithIcons.map(({Icon, color, href, tooltip}) => (
+            <Social color={color} href={href} tooltip={tooltip}>
+                <Icon class="size-8" />
+            </Social>
+        ))
+    }
 </div>
 
 <script>
