@@ -9,7 +9,7 @@ import "../styles/global.css"
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>aspizu</title>
-        <script is:inline src="/particles.min.js"></script>
+        <!-- <script is:inline src="/particles.min.js"></script> -->
         <script
             is:inline
             src="https://louisabraham.github.io/nekojs/neko.js"
@@ -29,7 +29,7 @@ import "../styles/global.css"
         ></script> -->
     </head>
     <body class="dark bg-black text-white flex flex-col items-center">
-        <div id="particles" class="absolute inset-0 -z-1"></div>
+        <!-- <div id="particles" class="absolute inset-0 -z-1"></div> -->
 
         <slot />
     </body>
@@ -37,8 +37,9 @@ import "../styles/global.css"
 
 <script>
     import {GhostCursor} from "../scripts/ghost-cursor.ts"
+    import "../scripts/main.ts"
 
     const cursor = new GhostCursor()
     // @ts-ignore
-    particlesJS.load("particles", "particles.json", function () {})
+    // particlesJS.load("particles", "particles.json", function () {})
 </script>
