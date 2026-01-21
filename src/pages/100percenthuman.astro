@@ -1,0 +1,99 @@
+---
+const code = `\
+<a href="https://aspiz.uk/100percenthuman">
+    <img src="https://aspiz.uk/100percenthuman.gif" />
+</a>`
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>aspizu</title>
+        <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
+        ></script>
+        <script src="https://unpkg.com/hyperscript.org@0.9.14"></script>
+    </head>
+    <body>
+        <a href="/100percenthuman">
+            <img src="/100percenthuman.gif" alt="AI-Free, 100% HUMAN" />
+        </a>
+        <code>
+            <pre set:text={code} />
+        </code>
+        <button
+            _="on click navigator.clipboard.writeText(me.dataset.code)"
+            data-code={code}>Copy to clipboard</button
+        > or <a href="/100percenthuman.gif" download><button>Download image</button></a>
+        <p>
+            Use this badge for websites, software, music, art, ... that were created
+            completely by humans with no help from generative artificial intelligence.
+            Use this badge to communicate that you have not used even a little bit of
+            generative AI in your work.
+        </p>
+
+        <p>
+            What this badge is <strong>NOT</strong>:
+            <ul>
+                <li>
+                    A guarantee that no generative artificial intelligence was used.
+                </li>
+                <li>A badge to promote the Anti-AI ideaological standpoint.</li>
+                <li>
+                    A badge for activists to promote any kind of religious, political or
+                    philosophical ideaology.
+                </li>
+            </ul>
+        </p>
+
+        <p>
+            This badge is not meant to promote the dis-use of generative AI. I'm not an
+            activist. You may use this badge regardless of your views on AI or the use
+            of generative AI in Art.
+        </p>
+
+        <p>
+            This work is marked <a
+                href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a
+            ><img
+                src="https://mirrors.creativecommons.org/presskit/icons/cc.svg"
+                alt=""
+                style="max-width: 1em;max-height:1em;margin-left: .2em;"
+            /><img
+                src="https://mirrors.creativecommons.org/presskit/icons/zero.svg"
+                alt=""
+                style="max-width: 1em;max-height:1em;margin-left: .2em;"
+            />
+        </p>
+        <footer>
+            <p>Made with ❤️ by <a href="/">aspizu</a></p>
+        </footer>
+    </body>
+    <style>
+        body {
+            max-width: 65ch;
+            margin-inline: auto;
+            margin-block: 64px;
+            font-family: sans-serif;
+        }
+
+        footer {
+            font-size: 0.85rem;
+        }
+
+        img[src="/100percenthuman.gif"] {
+            border: 1px solid black;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                color-scheme: dark;
+            }
+
+            img[src="/100percenthuman.gif"] {
+                border: 1px solid white;
+            }
+        }
+    </style>
+</html>
