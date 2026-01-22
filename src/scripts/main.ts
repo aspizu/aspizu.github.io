@@ -21,13 +21,15 @@ function update() {
 
 function render() {
     ctx.resetTransform()
-    ctx.fillStyle = "black"
+    ctx.fillStyle = "#fff"
     ctx.fillRect(0, 0, canvas.width, canvas.height)
     ctx.translate(canvas.width / 2, canvas.height / 2)
     ctx.rotate(Math.PI / 4)
     const dx = 0
     const dy = 0
     for (const rect of rects) {
+        ctx.fillStyle = "#000"
+        ctx.fillRect(rect.x + dx, rect.y + dy, rect.w, rect.h)
         drawRightTriangle(ctx, rect.x + dx, rect.y + dy, 5, rect.h, "top-left", "#222")
         drawRightTriangle(
             ctx,
