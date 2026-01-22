@@ -1,334 +1,247 @@
-interface ForestFireConfig {
-    width?: number
-    height?: number
-    cellSize?: number
-    forestDensity?: number
-    burnProbability?: number
-    fps?: number
-    initialIgnitions?: number
-    blurAmount?: number
+type Rect = {x: number; y: number; w: number; h: number}
+const canvas = document.createElement("canvas")
+const ctx = canvas.getContext("2d")!
+const mouse = {x: 0, y: 0, down: false}
+let rects: Rect[] = []
+let time = 0
+
+function setup() {
+    rects.length = 0
+    const s = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height)
+    rects.push({x: -s / 2, y: -s / 2, w: s, h: s})
+    for (let i = 0; i < 10; i++) {
+        rects = randomlySubdivide(rects, 0.5, 0.75, 40)
+    }
 }
 
-enum CellState {
-    NONFLAMMABLE = 0,
-    UNBURNED = 1,
-    BURNING = 2,
-    BURNED_OUT = 3,
-    GROWING = 4,
-    GROWTH_FIRE = 5,
+function update() {
+    rects = randomlySubdivide(rects, 0.5, 0.75, 40)
+    rects = randomlyDelete(rects, 0.01, 200)
 }
 
-class ForestFireCA {
-    private canvas: HTMLCanvasElement
-    private ctx: CanvasRenderingContext2D
-    private cols: number
-    private rows: number
-    private world: CellState[]
-    private cellSize: number
-    private forestDensity: number
-    private burnProbability: number
-    private fps: number
-    private blurAmount: number
-    private intervalId: number | null = null
-
-    constructor(config: ForestFireConfig = {}) {
-        // Apply defaults
-        const {
-            width = window.innerWidth,
-            height = window.innerHeight,
-            cellSize = 5,
-            forestDensity = 0.7,
-            burnProbability = 0.6,
-            fps = 5,
-            initialIgnitions = 3,
-            blurAmount = 2,
-        } = config
-
-        this.cellSize = cellSize
-        this.forestDensity = forestDensity
-        this.burnProbability = burnProbability
-        this.fps = fps
-        this.blurAmount = blurAmount
-
-        // Setup canvas
-        this.canvas = document.createElement("canvas")
-        this.ctx = this.canvas.getContext("2d")!
-        this.canvas.width = width
-        this.canvas.height = height
-        this.canvas.style.position = "fixed"
-        this.canvas.style.inset = "0"
-        this.canvas.style.display = "block"
-        this.canvas.style.zIndex = "-10"
-        this.canvas.style.filter = `blur(${blurAmount}px)`
-        document.body.appendChild(this.canvas)
-
-        // Calculate grid dimensions
-        this.cols = Math.floor(width / cellSize)
-        this.rows = Math.floor(height / cellSize)
-        this.world = []
-
-        // Initialize world
-        this.initialize(initialIgnitions)
-
-        // Handle resize
-        window.addEventListener("resize", () => {
-            this.canvas.width = window.innerWidth
-            this.canvas.height = window.innerHeight
-            this.cols = Math.floor(this.canvas.width / this.cellSize)
-            this.rows = Math.floor(this.canvas.height / this.cellSize)
-            this.initialize(initialIgnitions)
-        })
-
-        // Start simulation
-        this.start()
+function render() {
+    ctx.resetTransform()
+    ctx.fillStyle = "black"
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    ctx.translate(canvas.width / 2, canvas.height / 2)
+    ctx.rotate(Math.PI / 4)
+    const dx = 0
+    const dy = 0
+    for (const rect of rects) {
+        drawRightTriangle(ctx, rect.x + dx, rect.y + dy, 5, rect.h, "top-left", "#222")
+        drawRightTriangle(
+            ctx,
+            rect.x + dx + rect.w,
+            rect.y + dy + rect.h,
+            5,
+            rect.h,
+            "bottom-right",
+            "#111",
+        )
+        ctx.strokeStyle = "gray"
+        ctx.strokeRect(rect.x + dx, rect.y + dy, rect.w, rect.h)
     }
+}
 
-    private initialize(initialIgnitions: number): void {
-        this.world = []
-
-        // Create world with forest and nonflammable cells
-        for (let y = 0; y < this.rows; y++) {
-            for (let x = 0; x < this.cols; x++) {
-                const state =
-                    Math.random() < this.forestDensity ?
-                        CellState.UNBURNED
-                    :   CellState.NONFLAMMABLE
-                this.world.push(state)
-            }
-        }
-
-        // Add initial ignition points
-        for (let i = 0; i < initialIgnitions; i++) {
-            const idx = Math.floor(Math.random() * this.world.length)
-            if (this.world[idx] === CellState.UNBURNED) {
-                this.world[idx] = CellState.BURNING
-            }
-        }
-    }
-
-    private getIndex(x: number, y: number): number {
-        if (x < 0 || x >= this.cols || y < 0 || y >= this.rows) return -1
-        return x + y * this.cols
-    }
-
-    private hasNeighborState(x: number, y: number, state: CellState): boolean {
-        const neighbors = [
-            [x - 1, y],
-            [x + 1, y],
-            [x, y - 1],
-            [x, y + 1],
-            [x - 1, y - 1],
-            [x + 1, y - 1],
-            [x - 1, y + 1],
-            [x + 1, y + 1],
+function subdivideRect(rect: Rect, d: number): [Rect, Rect] {
+    if (rect.w > rect.h) {
+        const w1 = Math.floor(rect.w * d)
+        const w2 = rect.w - w1
+        return [
+            {x: rect.x, y: rect.y, w: w1, h: rect.h},
+            {x: rect.x + w1, y: rect.y, w: w2, h: rect.h},
         ]
-
-        for (const [nx, ny] of neighbors) {
-            const idx = this.getIndex(nx, ny)
-            if (idx !== -1 && this.world[idx] === state) {
-                return true
-            }
-        }
-        return false
-    }
-
-    private update(): void {
-        const newWorld = [...this.world]
-
-        for (let y = 0; y < this.rows; y++) {
-            for (let x = 0; x < this.cols; x++) {
-                const idx = this.getIndex(x, y)
-                const state = this.world[idx]
-
-                // Rule 1: Burning -> Burned-out
-                if (state === CellState.BURNING) {
-                    newWorld[idx] = CellState.BURNED_OUT
-                }
-                // Rule 2: Growth fire -> Growing
-                else if (state === CellState.GROWTH_FIRE) {
-                    newWorld[idx] = CellState.GROWING
-                }
-                // Rule 3: Nonflammable stays nonflammable
-                else if (state === CellState.NONFLAMMABLE) {
-                    newWorld[idx] = CellState.NONFLAMMABLE
-                }
-                // Rule 4: Burned-out -> Growing (tree regrowth)
-                else if (state === CellState.BURNED_OUT) {
-                    if (Math.random() < 0.02) {
-                        // 2% chance to start growing
-                        newWorld[idx] = CellState.GROWING
-                    }
-                }
-                // Rule 5: Growing -> Unburned (mature tree)
-                else if (state === CellState.GROWING) {
-                    if (Math.random() < 0.1) {
-                        // 10% chance to mature
-                        newWorld[idx] = CellState.UNBURNED
-                    }
-                }
-                // Rule 6: Unburned with burning neighbor might catch fire
-                else if (state === CellState.UNBURNED) {
-                    if (this.hasNeighborState(x, y, CellState.BURNING)) {
-                        const randomThreshold = Math.random()
-                        if (this.burnProbability >= randomThreshold) {
-                            newWorld[idx] = CellState.BURNING
-                        }
-                    }
-                }
-                // Rule 7: Growing with growth fire neighbor might catch growth fire
-                else if (state === CellState.GROWING) {
-                    if (this.hasNeighborState(x, y, CellState.GROWTH_FIRE)) {
-                        if (Math.random() < 0.8) {
-                            // High probability for growth fire spread
-                            newWorld[idx] = CellState.GROWTH_FIRE
-                        }
-                    }
-                }
-                // Rule 8: Unburned with growth fire neighbor might catch growth fire
-                else if (state === CellState.UNBURNED) {
-                    if (this.hasNeighborState(x, y, CellState.GROWTH_FIRE)) {
-                        if (Math.random() < 0.3) {
-                            // Lower probability for mature trees
-                            newWorld[idx] = CellState.GROWTH_FIRE
-                        }
-                    }
-                }
-            }
-        }
-
-        // Randomly spawn growth fires
-        for (let i = 0; i < 3; i++) {
-            const idx = Math.floor(Math.random() * this.world.length)
-            if (this.world[idx] === CellState.GROWING && Math.random() < 0.01) {
-                newWorld[idx] = CellState.GROWTH_FIRE
-            }
-        }
-
-        // Randomly spawn regular fires
-        for (let i = 0; i < 2; i++) {
-            const idx = Math.floor(Math.random() * this.world.length)
-            if (this.world[idx] === CellState.UNBURNED && Math.random() < 0.005) {
-                newWorld[idx] = CellState.BURNING
-            }
-        }
-
-        this.world = newWorld
-    }
-
-    private render(): void {
-        this.ctx.fillStyle = "#000"
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
-
-        const centerX = this.cols / 2
-        const centerY = this.rows / 2
-        const maxDistance = Math.sqrt(centerX * centerX + centerY * centerY)
-
-        for (let y = 0; y < this.rows; y++) {
-            for (let x = 0; x < this.cols; x++) {
-                const idx = this.getIndex(x, y)
-                const state = this.world[idx]
-
-                // Calculate distance from center and normalize brightness
-                const distance = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2)
-                const brightness = 1 - (distance / maxDistance) * 0.7 // Keep some darkness at edges
-
-                let baseColor = ""
-                switch (state) {
-                    case CellState.UNBURNED:
-                        baseColor = "#808080" // Gray
-                        break
-                    case CellState.BURNING:
-                        baseColor = "#FFFFFF" // White
-                        break
-                    case CellState.BURNED_OUT:
-                        baseColor = "#404040" // Dark gray
-                        break
-                    case CellState.NONFLAMMABLE:
-                        baseColor = "#202020" // Very dark gray
-                        break
-                    case CellState.GROWING:
-                        baseColor = "#606060" // Medium gray - growing trees
-                        break
-                    case CellState.GROWTH_FIRE:
-                        baseColor = "#E0E0E0" // Light gray - growth fires
-                        break
-                }
-
-                // Parse hex color and apply brightness
-                const r = parseInt(baseColor.slice(1, 3), 16)
-                const g = parseInt(baseColor.slice(3, 5), 16)
-                const b = parseInt(baseColor.slice(5, 7), 16)
-
-                const adjustedR = Math.min(255, Math.floor(r * brightness))
-                const adjustedG = Math.min(255, Math.floor(g * brightness))
-                const adjustedB = Math.min(255, Math.floor(b * brightness))
-
-                this.ctx.fillStyle = `rgb(${adjustedR}, ${adjustedG}, ${adjustedB})`
-
-                this.ctx.fillRect(
-                    x * this.cellSize,
-                    y * this.cellSize,
-                    this.cellSize,
-                    this.cellSize,
-                )
-            }
-        }
-    }
-
-    private step(): void {
-        this.update()
-        this.render()
-    }
-
-    public start(): void {
-        if (this.intervalId !== null) return
-        this.intervalId = window.setInterval(() => this.step(), 1000 / this.fps)
-    }
-
-    public stop(): void {
-        if (this.intervalId !== null) {
-            clearInterval(this.intervalId)
-            this.intervalId = null
-        }
-    }
-
-    public reset(initialIgnitions: number = 3): void {
-        this.initialize(initialIgnitions)
-    }
-
-    public setConfig(config: Partial<ForestFireConfig>): void {
-        if (config.forestDensity !== undefined) {
-            this.forestDensity = config.forestDensity
-        }
-        if (config.burnProbability !== undefined) {
-            this.burnProbability = config.burnProbability
-        }
-        if (config.fps !== undefined) {
-            this.fps = config.fps
-            if (this.intervalId !== null) {
-                this.stop()
-                this.start()
-            }
-        }
-        if (config.cellSize !== undefined) {
-            this.cellSize = config.cellSize
-            this.cols = Math.floor(this.canvas.width / this.cellSize)
-            this.rows = Math.floor(this.canvas.height / this.cellSize)
-            this.reset()
-        }
-        if (config.blurAmount !== undefined) {
-            this.blurAmount = config.blurAmount
-            this.canvas.style.filter = `blur(${this.blurAmount}px)`
-        }
+    } else {
+        const h1 = Math.floor(rect.h * d)
+        const h2 = rect.h - h1
+        return [
+            {x: rect.x, y: rect.y, w: rect.w, h: h1},
+            {x: rect.x, y: rect.y + h1, w: rect.w, h: h2},
+        ]
     }
 }
 
-// Bootstrap the simulation
-const simulation = new ForestFireCA({
-    cellSize: 10,
-    forestDensity: 0.7,
-    burnProbability: 0.7,
-    fps: 30,
-    initialIgnitions: 10,
-    blurAmount: 20,
-})
+function randomlySubdivide(rects: Rect[], p: number, d: number, minSize: number) {
+    const newRects = []
+    for (const rect of rects) {
+        const touching = isRectangleCircleColliding(rect, {
+            x: mouse.x,
+            y: mouse.y,
+            radius: 50,
+        })
+        const size = Math.sqrt(rect.w * rect.w + rect.h * rect.h)
+        if (Math.random() < p && size > minSize && touching) {
+            const D = 0.5 + (Math.random() - 0.5) * d
+            newRects.push(...subdivideRect(rect, D))
+        } else {
+            newRects.push(rect)
+        }
+    }
+    return newRects
+}
+
+function randomlyDelete(rects: Rect[], p: number, maxSize: number) {
+    const newRects = []
+    for (const rect of rects) {
+        const touching = isRectangleCircleColliding(rect, {
+            x: mouse.x,
+            y: mouse.y,
+            radius: 50,
+        })
+        const size = Math.sqrt(rect.w * rect.w + rect.h * rect.h)
+        if (touching && size < maxSize && Math.random() < p) {
+        } else {
+            newRects.push(rect)
+        }
+    }
+    return newRects
+}
+
+function initializeCanvas() {
+    document.body.append(canvas)
+    canvas.style.position = "fixed"
+    canvas.style.inset = "0"
+    canvas.style.zIndex = "-1"
+    canvas.style.pointerEvents = "none"
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+    window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+        setup()
+    })
+}
+
+function initializeMouse() {
+    window.addEventListener("mousedown", () => {
+        mouse.down = true
+    })
+    window.addEventListener("mouseup", () => {
+        mouse.down = true
+    })
+    window.addEventListener("focusout", () => {
+        mouse.down = false
+    })
+    window.addEventListener("mousemove", (event) => {
+        const rawX = event.clientX - canvas.width / 2
+        const rawY = event.clientY - canvas.height / 2
+
+        // Rotate by 45 degrees (π/4 radians)
+        const angle = -Math.PI / 4 // 45 degrees in radians
+        const cos = Math.cos(angle)
+        const sin = Math.sin(angle)
+
+        mouse.x = rawX * cos - rawY * sin
+        mouse.y = rawX * sin + rawY * cos
+    })
+}
+
+function beginGameloop() {
+    const MAX_FPS = 30
+    const FRAME_INTERVAL_MS = 1000 / MAX_FPS
+    let previousTimeMs = 0
+
+    function gameloop() {
+        requestAnimationFrame((currentTimeMs) => {
+            const deltaTimeMs = currentTimeMs - previousTimeMs
+            if (deltaTimeMs >= FRAME_INTERVAL_MS) {
+                update()
+                time++
+                previousTimeMs = currentTimeMs - (deltaTimeMs % FRAME_INTERVAL_MS)
+            }
+            render()
+            gameloop()
+        })
+    }
+
+    gameloop()
+}
+
+function dist(x1: number, y1: number, x2: number, y2: number) {
+    const x = x2 - x1
+    const y = y2 - y1
+    return Math.sqrt(x * x + y * y)
+}
+interface Circle {
+    x: number // center x coordinate
+    y: number // center y coordinate
+    radius: number
+}
+function isRectangleCircleColliding(rect: Rect, circle: Circle): boolean {
+    // Find the closest point on the rectangle to the circle's center
+    const closestX = Math.max(rect.x, Math.min(circle.x, rect.x + rect.w))
+    const closestY = Math.max(rect.y, Math.min(circle.y, rect.y + rect.h))
+
+    // Calculate the distance between the circle's center and this closest point
+    const distanceX = circle.x - closestX
+    const distanceY = circle.y - closestY
+
+    // If the distance is less than the circle's radius, they're colliding
+    const distanceSquared = distanceX * distanceX + distanceY * distanceY
+
+    return distanceSquared < circle.radius * circle.radius
+}
+
+type TriangleDirection = "top-left" | "top-right" | "bottom-left" | "bottom-right"
+
+function drawRightTriangle(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    direction: TriangleDirection = "bottom-left",
+    fillColor?: string,
+    strokeColor?: string,
+) {
+    ctx.beginPath()
+
+    switch (direction) {
+        case "bottom-left":
+            // Right angle at bottom-left
+            ctx.moveTo(x, y)
+            ctx.lineTo(x, y - height)
+            ctx.lineTo(x + width, y)
+            break
+
+        case "bottom-right":
+            // Right angle at bottom-right
+            ctx.moveTo(x, y)
+            ctx.lineTo(x - width, y)
+            ctx.lineTo(x, y - height)
+            break
+
+        case "top-left":
+            // Right angle at top-left
+            ctx.moveTo(x, y)
+            ctx.lineTo(x + width, y)
+            ctx.lineTo(x, y + height)
+            break
+
+        case "top-right":
+            // Right angle at top-right
+            ctx.moveTo(x, y)
+            ctx.lineTo(x, y + height)
+            ctx.lineTo(x - width, y)
+            break
+    }
+
+    ctx.closePath()
+
+    // Fill if color provided
+    if (fillColor) {
+        ctx.fillStyle = fillColor
+        ctx.fill()
+    }
+
+    // Stroke if color provided
+    if (strokeColor) {
+        ctx.strokeStyle = strokeColor
+        ctx.stroke()
+    }
+}
+
+initializeCanvas()
+initializeMouse()
+setup()
+beginGameloop()

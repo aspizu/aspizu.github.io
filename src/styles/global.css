@@ -2,6 +2,7 @@
 
 @theme {
     --font-sans: "Figtree Variable", "sans-serif";
+    --font-mono: "UnifontEX", "monospace";
 }
 
 .card {

@@ -1,0 +1,148 @@
+Booting Aspizu Linux...
+
+Starting aspizu-init 269
+Detected virtualization none
+Detected architecture x86-64
+Firmware: UEFI
+Secure Boot: disabled
+
+Welcome to Aspizu Linux!
+
+Setting up system environment...
+Mounted /sys
+Mounted /proc
+Mounted /dev
+Mounted /run
+
+Loading kernel modules...
+aspizu_drm
+aspizu_gpu
+aspizu_net
+aspizu_usb
+aspizu_sound
+aspizu_input
+
+Initializing hardware...
+Found CPU: AMD Ryzen 9 7950X 16-Core Processor
+Found GPU: NVIDIA GeForce RTX 4090 (aspizu-nvidia driver)
+Found 64GB RAM
+Found 2TB NVMe SSD (aspizu-nvme)
+
+Starting udev daemon...
+aspizu-udevd: starting version 269
+Monitoring hardware events
+
+Detecting storage devices...
+Found: /dev/sda (ASPIZU-SSD-PRO-2TB)
+Found: /dev/sdb (WD Blue 4TB HDD)
+Partitions discovered: sda1, sda2, sda3
+
+Loading file system drivers...
+ext4
+btrfs
+aspizufs
+xfs
+ntfs3
+
+Checking file systems...
+Checking /dev/sda2 (aspizufs): clean, 487362/125829120 files, 89234567/503316480 blocks
+Checking /dev/sda3 (ext4): clean, 12845/7864320 files, 2345678/31457280 blocks
+
+Mounting file systems...
+Mounted /dev/sda2 on / (aspizufs, rw, relatime)
+Mounted /dev/sda1 on /boot/efi (vfat, rw, relatime)
+Mounted /dev/sda3 on /home (ext4, rw, relatime)
+
+Activating swap...
+Swap enabled: /dev/sda4 (16GB)
+
+Starting Aspizu System Manager...
+aspizu-systemd: running in system mode
+aspizu-systemd: detected preset mode: enable
+
+Starting early services...
+Started aspizu-journald (Aspizu Journal Service)
+Started aspizu-tmpfiles (Aspizu Temporary Files Service)
+Started aspizu-sysctl (Aspizu Kernel Parameter Service)
+
+Configuring network devices...
+aspizu-networkd: Link eth0 (Realtek RTL8125 2.5GbE)
+aspizu-networkd: Link wlan0 (Intel Wi-Fi 6E AX210)
+
+Starting aspizu-networkd (Aspizu Network Manager)...
+aspizu-networkd: Configuring network interfaces
+aspizu-networkd: eth0: Link is up
+aspizu-networkd: eth0: Gained carrier
+aspizu-networkd: eth0: DHCPv4 address 192.168.1.142/24 via 192.168.1.1
+aspizu-networkd: eth0: Configured
+
+Starting name resolution service...
+Started aspizu-resolved (Aspizu DNS Resolver)
+aspizu-resolved: Using DNS servers 1.1.1.1 and 8.8.8.8
+
+Starting time synchronization...
+Started aspizu-timesyncd (Aspizu Time Sync)
+aspizu-timesyncd: Synchronized with time server pool.aspizu.org
+
+Loading additional kernel modules...
+aspizu_bluetooth
+aspizu_webcam
+aspizu_thermal
+aspizu_acpi
+
+Starting hardware services...
+Started aspizu-bluetooth (Aspizu Bluetooth Service)
+Started aspizu-thermal (Aspizu Thermal Management)
+Started aspizu-power (Aspizu Power Management)
+
+Initializing audio system...
+Started aspizu-sound (Aspizu Sound Server)
+aspizu-sound: Found audio device: Realtek ALC1220
+aspizu-sound: Found audio device: NVIDIA GA102 HDMI/DP
+aspizu-sound: Default sink set to aspizu-analog-stereo
+
+Starting login manager...
+Started aspizu-logind (Aspizu Login Manager)
+
+Starting user services...
+Started aspizu-dbus (Aspizu Message Bus)
+Started aspizu-cron (Aspizu Task Scheduler)
+Started aspizu-cups (Aspizu Printing Service)
+
+Starting security services...
+Started aspizu-firewall (Aspizu Firewall)
+aspizu-firewall: Loaded 47 rules
+aspizu-firewall: IPv4 forwarding: disabled
+aspizu-firewall: IPv6 forwarding: disabled
+
+Loading display drivers...
+aspizu-drm: Loaded aspizu-nvidia 545.29.06
+aspizu-drm: Initialized GPU: GeForce RTX 4090
+aspizu-drm: Display output: 3840x2160@144Hz
+
+System initialization complete.
+
+Starting getty on tty1...
+Started aspizu-getty@tty1 (Aspizu Console on tty1)
+Started aspizu-getty@tty2 (Aspizu Console on tty2)
+Started aspizu-getty@tty3 (Aspizu Console on tty3)
+
+Aspizu Linux 6.7.2-aspizu-1 (Aspizu LTS)
+Kernel: 6.7.2-aspizu-1-lts x86_64
+Build Date: 2025-01-15
+
+System performance metrics:
+  Boot time: 3.847s (kernel: 1.243s, userspace: 2.604s)
+  Memory usage: 2.3GB / 64GB (3%)
+  Swap usage: 0GB / 16GB (0%)
+  CPU load: 0.12, 0.08, 0.05
+  Running processes: 147
+  Network: eth0 up (1000Mbps full-duplex)
+
+All services operational. System ready.
+
+AspizuDM 1.4.2 running on :0
+
+Welcome to Aspizu Linux
+
+localhost login: _

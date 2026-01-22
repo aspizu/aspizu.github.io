@@ -1,5 +1,6 @@
 ---
 import "@fontsource-variable/figtree"
+import "@fontsource/unifontex"
 import "../styles/global.css"
 ---
 
@@ -28,7 +29,9 @@ import "../styles/global.css"
             src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/chiptune2.js"
         ></script> -->
     </head>
-    <body class="dark bg-black text-white flex flex-col items-center">
+    <body
+        class="scheme-dark bg-black text-white grid grid-cols-[1fr_min(24rem,100%-1rem)_1fr]"
+    >
         <!-- <div id="particles" class="absolute inset-0 -z-1"></div> -->
 
         <slot />
