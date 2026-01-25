@@ -5,17 +5,16 @@
     },
     "dependencies": {
         "@fontsource-variable/figtree": "^5.2.10",
-        "@fontsource/unifontex": "^5.2.6",
         "@lucide/astro": "^0.562.0",
         "@tailwindcss/vite": "^4.1.18",
-        "astro": "^5.16.11",
+        "astro": "^5.16.15",
         "particles.js": "^2.0.0",
-        "prettier": "^3.8.0",
+        "prettier": "^3.8.1",
         "prettier-plugin-tailwindcss": "^0.7.2",
         "simple-icons-astro": "^16.1.0",
         "tailwindcss": "^4.1.18"
     },
     "devDependencies": {
-        "@types/node": "^25.0.9"
+        "@types/node": "^25.0.10"
     }
 }
