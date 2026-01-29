@@ -4,54 +4,50 @@ import ExternalLink from "@lucide/astro/icons/external-link"
 interface Props {
     name: string
     description: string
-    href: string
     repo?: string
     docs?: string
+    deployment?: string
     image?: string
 }
+const badgeClass =
+    "bg-white flex text-black shadow-sm text-sm font-semibold rounded-md pl-1.5 items-center gap-1 pr-1"
 
-const {name, description, href, repo, docs, image} = Astro.props
+const {name, description, deployment, repo, docs, image} = Astro.props
 ---
 
-<div
-    class="Project col-2 mt-3 z-1 transition-all p-0.5 rounded-md shadow-sm bg-cover bg-center bg-white/10"
-    data-project={name}
->
-    <div
-        class="flex flex-col bg-linear-to-b from-black to-black/50 gap-1 p-4 rounded-sm shadow-sm"
-    >
-        <a rel="noreferrer" target="_blank" href={href} class="block">
-            <h2 class="text-lg font-medium underline underline-offset-2">{name}</h2>
-        </a>
-        <p class="text-pretty text-neutral-200">{description}</p>
-        <slot />
-        <div class="flex items-start gap-2">
-            {
-                repo && (
-                    <a
-                        class="bg-white flex text-black shadow-sm text-sm font-semibold rounded-md pl-1.5 items-center gap-1 pr-1"
-                        rel="noreferrer"
-                        target="_blank"
-                        href={repo}
-                    >
-                        GitHub
-                        <ExternalLink class="size-4" />
-                    </a>
-                )
-            }
-            {
-                docs && (
-                    <a
-                        class="bg-white flex text-black shadow-sm text-sm font-semibold rounded-md pl-1.5 items-center gap-1 pr-1"
-                        rel="noreferrer"
-                        target="_blank"
-                        href={docs}
-                    >
-                        Documentation
-                        <ExternalLink class="size-4" />
-                    </a>
-                )
-            }
-        </div>
+<div class="col-2 flex flex-col p-4">
+    <h2 class="text-xl font-medium">{name}</h2>
+    <p class="mt-1 mb-2 text-pretty text-neutral-200">{description}</p>
+    <slot />
+    <div class="flex items-start gap-2">
+        {
+            deployment && (
+                <a
+                    class={badgeClass}
+                    target="_blank"
+                    rel="noreferrer"
+                    href={deployment}
+                >
+                    Deployment
+                    <ExternalLink class="size-4" />
+                </a>
+            )
+        }
+        {
+            repo && (
+                <a class={badgeClass} rel="noreferrer" target="_blank" href={repo}>
+                    GitHub
+                    <ExternalLink class="size-4" />
+                </a>
+            )
+        }
+        {
+            docs && (
+                <a class={badgeClass} target="_blank" rel="noreferrer" href={docs}>
+                    Docs
+                    <ExternalLink class="size-4" />
+                </a>
+            )
+        }
     </div>
 </div>

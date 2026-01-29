@@ -1,50 +1,48 @@
 [
     {
         "name": "goboscript",
-        "description": "Text-based language that compiles to Scratch projects. Enables complex, versionable workflows while remaining compatible with Scratch's visual runtime.",
+        "description": "Programming language with web-based IDE that compiles to children's block-based programming language Scratch.",
         "repo": "https://github.com/aspizu/goboscript",
-        "href": "https://aspizu.github.io/goboscript.ide/",
-        "docs": "https://aspizu.github.io/goboscript/",
-        "image": "https://camo.githubusercontent.com/4d5d6bd985ec424d041a4b1211de990cf3e66047733de3edcdb4ffa26152e46b/68747470733a2f2f752e6375626575706c6f61642e636f6d2f617370697a752f556e7469746c65643230323431323131313931342e706e67"
+        "deployment": "https://aspizu.github.io/goboscript.ide/",
+        "docs": "https://aspizu.github.io/goboscript/"
     },
     {
         "name": "Nixite",
-        "description": "Generates unattended Linux install scripts. Automatically selects optimal methods and minimizes prompts for fast system bootstrap.",
+        "description": "Generates bash scripts to unattendedly install selected Linux software. Automatically configures system, suppresses confirmation prompts and uses the best available installation method.",
         "repo": "https://github.com/aspizu/nixite",
-        "href": "https://aspizu.github.io/nixite",
-        "image": "https://github.com/aspizu/nixite/raw/main/public/screenshot.png"
+        "deployment": "https://aspizu.github.io/nixite"
     },
     {
         "name": "tshu",
         "description": "Python library for safe, cross-platform shell execution. Uses t-strings and a Rust-backed bash implementation.",
         "repo": "https://github.com/aspizu/tshu",
-        "href": "https://aspizu.github.io/tshu",
         "docs": "https://aspizu.github.io/tshu"
     },
     {
-        "name": "musync",
-        "description": "Batch copy, rename, and convert lossless audio. Optimized pipeline for producing high-quality MP3 output.",
-        "repo": "https://github.com/aspizu/musync",
-        "href": "https://github.com/aspizu/musync",
-        "image": "https://github.com/aspizu/musync/raw/main/screenshot.png"
-    },
-    {
-        "name": "msglint",
-        "description": "Fast commit message linter. Enforces format and conventions before changes enter version control.",
-        "repo": "https://github.com/aspizu/msglint",
-        "href": "https://github.com/aspizu/msglint",
-        "image": "https://github.com/aspizu/msglint/raw/main/docs/assets/screenshot.png"
-    },
-    {
-        "name": "neocities-sync",
-        "description": "Deploys projects to Neocities with minimal API usage. Suitable for Vite, Astro, and Next.js builds.",
-        "repo": "https://github.com/aspizu/neocities-sync",
-        "href": "https://github.com/aspizu/neocities-sync"
+        "name": "PIXELATEDKISSES",
+        "description": "Camera app that applies a duotone filter inspired by the album artwork of Joji.",
+        "repo": "https://github.com/aspizu/PIXELATEDKISSES",
+        "deployment": "https://aspiz.uk/PIXELATEDKISSES"
     },
     {
         "name": "instax",
-        "description": "Generates realistic instant-camera prints. Exports dimension-accurate guides for original Instax film.",
+        "description": "Generates printable PDFs for DIY instant camera photographs.",
         "repo": "https://github.com/aspizu/instax",
-        "href": "https://aspizu.github.io/instax"
+        "deployment": "https://aspizu.github.io/instax"
+    },
+    {
+        "name": "musync",
+        "description": "Sync lossless music collection to MP3 efficiently. Useful for old car stereos that only support MP3.",
+        "repo": "https://github.com/aspizu/musync"
+    },
+    {
+        "name": "msglint",
+        "description": "Opinionated commit messages linter. Enforces conventional commits, imperative mood, discourages laziness.",
+        "repo": "https://github.com/aspizu/msglint"
+    },
+    {
+        "name": "neocities-sync",
+        "description": "Deploys projects to Neocities using diffed updates. Suitable for Vite, Astro, and Next.js builds.",
+        "repo": "https://github.com/aspizu/neocities-sync"
     }
 ]
