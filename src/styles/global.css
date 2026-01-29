@@ -62,6 +62,7 @@
     left: 0;
     right: 0;
     height: 128px;
+    z-index: -1;
     filter: contrast(100%) brightness(190%) invert(100%);
     background:
         radial-gradient(
