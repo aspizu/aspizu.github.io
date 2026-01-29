@@ -20,7 +20,7 @@ const {name, description, deployment, repo, docs, image} = Astro.props
 const githubToken = getGitHubToken()
 
 // Fetch GitHub stars at build time if repo is provided
-let stars = null
+let stars: number = 0
 if (repo && repo.includes("github.com")) {
     try {
         const match = repo.match(/github\.com\/([^\/]+)\/([^\/]+)/)
@@ -55,7 +55,7 @@ function flexCount(count: number): string {
     <div class="flex items-center justify-between">
         <h2 class="text-xl font-medium">{name}</h2>
         {
-            stars && stars > 100 && (
+            stars > 100 && (
                 <div class="flex items-center gap-1">
                     <Star class="size-4 text-white/50" />
                     <span class="stars-count font-medium tabular-nums text-white/50">
