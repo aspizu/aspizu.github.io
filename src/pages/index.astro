@@ -24,7 +24,7 @@ import projects from "../data/projects.json"
         ></script>
         <script src="https://unpkg.com/hyperscript.org@0.9.14"></script>
     </head>
-    <body class="relative bg-[#8d3030]">
+    <body class="relative bg-black">
         <div
             class="scheme-dark bg-black text-white grid grid-cols-[1fr_min(24rem,100%-1rem)_1fr] pb-16"
         >
@@ -98,4 +98,16 @@ import projects from "../data/projects.json"
         }
     }
     interval = setInterval(update, 25)
+    function setBgColor() {
+        const maxScroll = document.body.scrollHeight - window.innerHeight
+        const scrollPercent = Math.min(window.scrollY / maxScroll, 1)
+
+        // Interpolate from black (0,0,0) to red (141,48,48)
+        const r = Math.round(141 * scrollPercent)
+        const g = Math.round(48 * scrollPercent)
+        const b = Math.round(48 * scrollPercent)
+
+        document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
+    }
+    window.addEventListener("scroll", setBgColor)
 </script>
