@@ -9,6 +9,11 @@
     --shadow-color: rgba(255, 64, 64, 0.2);
     --shadow-ambient: rgba(255, 64, 64, 0.144);
     animation: float-shadow 8s ease-in-out infinite;
+    background: linear-gradient(
+        to bottom,
+        rgba(128, 64, 64, 0.25),
+        rgba(255, 128, 128, 0.5)
+    );
 }
 
 @keyframes float-shadow {
@@ -62,7 +67,6 @@
     left: 0;
     right: 0;
     height: 128px;
-    z-index: -1;
     filter: contrast(100%) brightness(190%) invert(100%);
     background:
         radial-gradient(

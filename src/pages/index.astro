@@ -24,62 +24,60 @@ import projects from "../data/projects.json"
         ></script>
         <script src="https://unpkg.com/hyperscript.org@0.9.14"></script>
     </head>
-    <body
-        class="relative scheme-dark bg-black text-white grid grid-cols-[1fr_min(24rem,100%-1rem)_1fr]"
-    >
+    <body class="relative bg-[#8d3030]">
         <div
-            class="col-2 my-16 relative grid bg-linear-to-b from-red-400/20 to-red-400/50 p-1 rounded-3xl card"
+            class="scheme-dark bg-black text-white grid grid-cols-[1fr_min(24rem,100%-1rem)_1fr] pb-16"
         >
-            <div
-                class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow overflow-hidden"
-            >
-                <StatusCafe />
+            <div class="col-2 my-16 relative grid bg-linear-to-b p-1 rounded-3xl card">
                 <div
-                    class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/banner.png')] bg-cover bg-top opacity-50"
+                    class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow overflow-hidden"
                 >
-                </div>
-                <img
-                    id="avatar"
-                    src="/avatar.png"
-                    alt="avatar"
-                    class="absolute top-8 left-4 size-32 rounded-full border border-black shadow"
-                />
-                <div class="flex flex-col p-4 pt-8">
-                    <h1 class="text-2xl font-medium">
-                        <img
-                            src="/minecraft_title.png"
-                            alt="aspizu"
-                            class="h-6 inline-block"
-                        />
-                        <span class="text-neutral-400 font-light">he/him</span>
-                        <img src="/india.png" class="inline size-6" />
-                    </h1>
-                    <p>
-                        I'm a recreational coder, sometimes I make (often terrible)
-                        music. I'm currently looking for a job.
-                    </p>
+                    <StatusCafe />
+                    <div
+                        class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/banner.png')] bg-cover bg-top opacity-50"
+                    >
+                    </div>
+                    <img
+                        id="avatar"
+                        src="/avatar.png"
+                        alt="avatar"
+                        class="absolute top-8 left-4 size-32 rounded-full border border-black shadow"
+                    />
+                    <div class="flex flex-col p-4 pt-8">
+                        <h1 class="text-2xl font-medium">
+                            <img
+                                src="/minecraft_title.png"
+                                alt="aspizu"
+                                class="h-6 inline-block"
+                            />
+                            <span class="text-neutral-400 font-light">he/him</span>
+                            <img src="/india.png" class="inline size-6" />
+                        </h1>
+                        <p>
+                            I'm a recreational coder, sometimes I make (often terrible)
+                            music. I'm currently looking for a job.
+                        </p>
 
-                    <LastFM />
-                    <Socials />
+                        <LastFM />
+                        <Socials />
+                    </div>
                 </div>
+                <a
+                    href="mailto:aspizu@protonmail.com"
+                    class="absolute top-4 right-4 z-10 inline-flex items-center justify-center gap-1 px-2 py-1 bg-white/85 hover:bg-white text-black font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg text-sm"
+                >
+                    <Mail class="size-3.5" />
+                    email me
+                </a>
             </div>
-            <a
-                href="mailto:aspizu@protonmail.com"
-                class="absolute top-4 right-4 z-10 inline-flex items-center justify-center gap-1 px-2 py-1 bg-white/85 hover:bg-white text-black font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg text-sm"
-            >
-                <Mail class="size-3.5" />
-                email me
-            </a>
+
+            <h1 class="col-2 relative text-sm mx-auto font-semibold px-1 bg-black z-3">
+                PROJECTS
+            </h1>
+            <div class="col-2 -translate-y-2.75 h-px bg-white/10"></div>
+            {projects.map((project) => <Project {...project} />)}
         </div>
-
-        <h1 class="col-2 relative text-sm mx-auto font-semibold px-1 bg-black z-3">
-            PROJECTS
-        </h1>
-        <div class="col-2 -translate-y-2.75 h-px bg-white/10"></div>
-        {projects.map((project) => <Project {...project} />)}
-
-        <div class="footer">hello</div>
-        <div class="col-2 h-16"></div>
+        <div class="footer"></div>
     </body>
 </html>
 
