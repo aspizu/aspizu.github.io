@@ -1,20 +1,43 @@
-<div
-    class="bg-neutral-900 size-3 absolute left-37 top-26 translate-y-[50%] z-1 rounded-full"
->
+<div class="hidden absolute z-1 top-35 left-8" id="status-cafe">
+    <div
+        class="absolute -bottom-0.5 left-4 w-4 h-4 rotate-45 bg-linear-to-b from-neutral-50/90 to-neutral-100/90 dark:from-neutral-800 dark:to-neutral-700 border-l border-b border-neutral-200 dark:border-neutral-700 shadow-sm -z-1"
+        aria-hidden="true"
+    >
+    </div>
+
+    <div
+        id="status-bubble"
+        class="bg-linear-to-b from-neutral-50/90 to-neutral-100/90 dark:from-neutral-800 dark:to-neutral-700 backdrop-blur-sm border border-neutral-200 dark:border-neutral-700 shadow-md rounded-xl px-1.5 py-1 max-w-64 z-3"
+        role="status"
+        aria-live="polite"
+    >
+        <p
+            id="status-content"
+            class="text-sm leading-5 text-neutral-900 dark:text-neutral-100 truncate m-0"
+        >
+        </p>
+    </div>
 </div>
-<div
-    class="bg-neutral-900 size-6 absolute left-39 top-28 translate-y-[50%] z-1 rounded-full"
->
-</div>
-<div
-    class="flex bg-neutral-900 absolute top-30 left-35 translate-y-[50%] z-1 px-2 py-1 items-baseline gap-1 rounded-full"
-    _="
-    on load fetch https://status.cafe/users/aspizu/status.json
-    set result to JSON.parse(result)
-    put result.face into #status-face
-    put result.content into #status-content
-    "
->
-    <p id="status-content" class="text-xs truncate"></p>
-    <span id="status-face" class="text-xs"></span>
-</div>
+
+<script>
+    const statusCafe = document.getElementById("status-cafe")
+
+    async function updateStatus() {
+        const target = document.getElementById("status-content")
+        try {
+            const res = await fetch("https://status.cafe/users/aspizu/status.json", {
+                cache: "no-cache",
+            })
+            if (!res.ok) throw new Error("network response not ok")
+            const result = await res.json()
+            target.textContent =
+                `${result.content ?? ""} ${result.face ?? ""}`.trim() || "No status"
+            statusCafe.style.display = "inline-block"
+        } catch (err) {
+            console.error("status fetch failed", err)
+            target.textContent = "Status unavailable"
+        }
+    }
+
+    updateStatus()
+</script>
