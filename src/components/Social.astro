@@ -4,34 +4,20 @@ import Tooltip from "./Tooltip.astro"
 interface Props {
     href: string
     color: string
-    tooltip?: string
+    tooltip: string
 }
 
 const {href, color, tooltip} = Astro.props
 ---
 
-<div class="Social transition-all">
-    {
-        tooltip ?
-            <Tooltip text={tooltip}>
-                <a
-                    class="bg-white rounded-2xl size-12 flex items-center justify-center shadow"
-                    style={{color}}
-                    target="_blank"
-                    rel="noreferrer"
-                    href={href}
-                >
-                    <slot />
-                </a>
-            </Tooltip>
-        :   <a
-                class="bg-white rounded-2xl size-12 flex items-center justify-center shadow"
-                style={{color}}
-                target="_blank"
-                rel="noreferrer"
-                href={href}
-            >
-                <slot />
-            </a>
-    }
-</div>
+<Tooltip class="Social transition-all" text={tooltip}>
+    <a
+        class="bg-white rounded-[35%] aspect-square flex items-center justify-center shadow"
+        style={{color}}
+        target="_blank"
+        rel="noreferrer"
+        href={href}
+    >
+        <slot />
+    </a>
+</Tooltip>

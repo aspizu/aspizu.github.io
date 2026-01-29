@@ -1,12 +1,13 @@
 ---
 interface Props {
+    class?: string
     text: string
 }
 
-const {text} = Astro.props
+const {class: className, text} = Astro.props
 ---
 
-<div class="relative group inline-block">
+<div class:list={["relative group inline-block", className]}>
     <slot />
     <div
         class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-yellow-100 text-neutral-800 text-xs rounded-md whitespace-nowrap opacity-0 scale-0 translate-y-2 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 transition-all duration-300 ease-out pointer-events-none"

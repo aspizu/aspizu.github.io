@@ -35,11 +35,11 @@ const socialsWithIcons = socials.map((social) => ({
 }))
 ---
 
-<div class="mx-auto mt-4 gap-2 grid grid-cols-6" id="socials-container">
+<div class="w-full mt-4 gap-1.5 grid grid-cols-6" id="socials-container">
     {
         socialsWithIcons.map(({Icon, color, href, tooltip}) => (
             <Social color={color} href={href} tooltip={tooltip}>
-                <Icon class="size-8" />
+                <Icon class="size-[70%]" />
             </Social>
         ))
     }
