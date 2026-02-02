@@ -1,10 +1,12 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @theme {
     --font-sans: "Figtree Variable", "sans-serif";
+    --font-mono: "JetBrains Mono Variable", "monospace";
 }
 
-.card {
+.Profile {
     --shadow-blur: 48px;
     --shadow-color: rgba(255, 64, 64, 0.2);
     --shadow-ambient: rgba(255, 64, 64, 0.144);
@@ -49,6 +51,31 @@
     opacity: 0.75;
 }
 
+.zoom-in-bounce {
+    animation: zoom-in-bounce 0.5s ease forwards;
+}
+
+@keyframes zoom-in-bounce {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    65% {
+        transform: scale(0.98);
+    }
+    80% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 .Social:hover {
     scale: 1.1;
 }
@@ -76,4 +103,11 @@
             rgba(0, 88, 86, 1) 140%
         ),
         url("data:image/svg+xml,%3Csvg viewBox='0 0 97 97' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.58' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.Terminal {
+    box-shadow:
+        0 16px 64px 0 rgba(255, 255, 255, 0.15),
+        0 1px 1px 0 rgba(255, 255, 255, 0.2),
+        0 4px 4px 0 rgba(255, 255, 255, 0.1);
 }
