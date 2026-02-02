@@ -1,0 +1,62 @@
+---
+import "@fontsource-variable/figtree"
+import Mail from "@lucide/astro/icons/mail"
+import {Fragment} from "astro/jsx-runtime"
+import LastFM from "../components/LastFM.astro"
+import Socials from "../components/Socials.astro"
+import StatusCafe from "../components/StatusCafe.astro"
+---
+
+<div class="Profile relative flex flex-col bg-linear-to-b p-1 rounded-3xl">
+    <div
+        class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow"
+    >
+        <StatusCafe />
+        <div
+            class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/banner.png')] bg-cover bg-top opacity-50 border-b border-white/25"
+        >
+        </div>
+        <img
+            id="avatar"
+            src="/avatar.png"
+            alt="avatar"
+            class="absolute top-8 left-4 size-32 rounded-full border border-black shadow"
+        />
+        <div class="flex flex-col p-4 pt-8">
+            <h1 class="text-2xl font-medium">
+                <img src="/minecraft_title.png" alt="aspizu" class="h-6 inline-block" />
+                <span class="text-neutral-400 font-light">he/him</span>
+                <img src="/india.png" class="inline size-6" />
+            </h1>
+            <p class="my-2 leading-relaxed">
+                I make things, mostly software, sometimes music, often mediocre.
+            </p>
+
+            <LastFM />
+            <Socials />
+        </div>
+    </div>
+    <a
+        href="mailto:hello@aspiz.uk"
+        class="absolute top-4 right-4 z-10 inline-flex items-center justify-center gap-1 px-2 py-1 bg-white/85 hover:bg-white text-black font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg text-sm"
+    >
+        <Mail class="size-3.5" />
+        hello@aspiz.uk
+    </a>
+</div>
+
+<script>
+    const avatar = document.getElementById("avatar")
+    let sr = 14.5
+    let r = 0
+    let interval = null
+    function update() {
+        sr *= 0.99
+        r += sr
+        avatar.style.rotate = `${r}deg`
+        if (sr < 0.01) {
+            clearInterval(interval)
+        }
+    }
+    interval = setInterval(update, 25)
+</script>
