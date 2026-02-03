@@ -22,6 +22,11 @@
     ],
     "side": [
         {
+            "name": "Skriptl",
+            "description": "skribbl.io clone but u draw by live-coding p5.js sketches.",
+            "repo": "https://github.com/aspizu/skriptl"
+        },
+        {
             "name": "PIXELATEDKISSES",
             "description": "Camera app that applies a duotone filter inspired by the album artwork of Joji.",
             "repo": "https://github.com/aspizu/PIXELATEDKISSES",
