@@ -1,5 +1,6 @@
 ---
 import ExternalLink from "@lucide/astro/icons/external-link"
+import GitHub from "@lucide/astro/icons/github"
 import Star from "@lucide/astro/icons/star"
 import {getGitHubToken} from "../utils/github-token"
 
@@ -47,27 +48,17 @@ if (repo && repo.includes("github.com")) {
 }
 
 function flexCount(count: number): string {
-    return `${Math.round(count / 100)}00+`
+    return `${Math.round(count / 100)}00`
 }
 ---
 
 <div class="flex flex-col">
-    <div class="flex items-center justify-between">
-        <h2 class="text-xl font-medium">{name}</h2>
-        {
-            stars > 100 && (
-                <div class="flex items-center gap-1">
-                    <Star class="size-4 text-white/50" />
-                    <span class="stars-count font-medium tabular-nums text-white/50">
-                        {flexCount(stars)}
-                    </span>
-                </div>
-            )
-        }
+    <div class="flex items-center">
+        <h2 class="text-xl font-medium tracking-tight">{name}</h2>
     </div>
     <p class="mt-1 mb-2 text-pretty text-neutral-200">{description}</p>
     <slot />
-    <div class="flex items-start gap-2">
+    <div class="flex items-center gap-2">
         {
             deployment && (
                 <a
@@ -82,18 +73,35 @@ function flexCount(count: number): string {
             )
         }
         {
-            repo && (
-                <a class={badgeClass} rel="noreferrer" target="_blank" href={repo}>
-                    GitHub
+            docs && (
+                <a class={badgeClass} target="_blank" rel="noreferrer" href={docs}>
+                    Docs
                     <ExternalLink class="size-4" />
                 </a>
             )
         }
         {
-            docs && (
-                <a class={badgeClass} target="_blank" rel="noreferrer" href={docs}>
-                    Docs
-                    <ExternalLink class="size-4" />
+            repo && (
+                <a
+                    class="flex items-center gap-0.5 text-sm  text-white font-medium decoration-neutral-400/75 underline transition-all underline-offset-4 decoration-1 hover:opacity-75"
+                    rel="noreferrer"
+                    target="_blank"
+                    href={repo}
+                >
+                    {stars > 99 ?
+                        <>
+                            <Star class="size-3 translate-y-px" />
+                            <span class="flex items-baseline">
+                                {flexCount(stars)}
+                                <span class="text-lg font-thin">+</span>
+                                &nbsp;on GitHub
+                            </span>
+                        </>
+                    :   <>
+                            <GitHub class="size-3 translate-y-px" />
+                            GitHub
+                        </>
+                    }
                 </a>
             )
         }
