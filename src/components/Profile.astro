@@ -5,6 +5,7 @@ import {Fragment} from "astro/jsx-runtime"
 import LastFM from "../components/LastFM.astro"
 import Socials from "../components/Socials.astro"
 import StatusCafe from "../components/StatusCafe.astro"
+import {Image} from "astro:assets"
 ---
 
 <div class="Profile relative flex flex-col bg-linear-to-b p-1 rounded-3xl">
@@ -16,12 +17,18 @@ import StatusCafe from "../components/StatusCafe.astro"
             class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/banner.png')] bg-cover bg-top opacity-50 border-b border-white/25"
         >
         </div>
-        <img
-            id="avatar"
-            src="/avatar.png"
-            alt="avatar"
-            class="absolute top-8 left-4 size-32 rounded-full border border-black shadow"
-        />
+        <div
+            class="absolute top-8 left-4 size-32 rounded-full border-black border-2 transition-all shadow-lg shadow-white/25 animate-in fade-in zoom-in duration-500"
+        >
+            <Image
+                id="avatar"
+                src="/avatar.png"
+                width={128}
+                height={128}
+                alt="avatar"
+                class="rounded-full"
+            />
+        </div>
         <div class="flex flex-col p-4 pt-8">
             <h1 class="text-2xl font-medium">
                 <img src="/minecraft_title.png" alt="aspizu" class="h-6 inline-block" />
