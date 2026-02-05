@@ -53,12 +53,15 @@ const socialsWithIcons = socials.map((social) => ({
     }
     for (const social_ of document.querySelectorAll(".Social")) {
         const social = social_ as HTMLElement
-        setTimeout(() => {
-            social.classList.remove("opacity-0")
-            social.classList.add("zoom-in-bounce")
-            social.addEventListener("animationend", () => {
-                social.classList.remove("zoom-in-bounce")
-            })
-        }, Math.random() * 500)
+        setTimeout(
+            () => {
+                social.classList.remove("opacity-0")
+                social.classList.add("zoom-in-bounce")
+                social.addEventListener("animationend", () => {
+                    social.classList.remove("zoom-in-bounce")
+                })
+            },
+            256 + Math.random() * 768,
+        )
     }
 </script>
