@@ -1,5 +1,5 @@
 ---
-
+import Headphones from "@lucide/astro/icons/headphones"
 ---
 
 <a
@@ -7,21 +7,66 @@
     target="_blank"
     href="https://www.last.fm/user/aspizu"
     class="mt-2 flex gap-3 p-1 items-center bg-black/40 rounded-xl shadow hover:scale-[1.01] transition-all"
-    _="
-    on load fetch https://lastfm-last-played.biancarosa.com.br/aspizu/latest-song
-    set result to JSON.parse(result)
-    put result.track.artist['#text'] into #player-artist
-    put result.track.name into #player-title
-    put result.track.image[result.track.image.length-1]['#text'] into #player-cover's src
-    "
+    id="lastfm-player"
 >
-    <img id="player-cover" src="/avatar.png" class="size-12 flex rounded-lg shadow" />
+    <div class="size-12 flex items-center justify-center rounded-lg shadow bg-black">
+        <img
+            id="player-cover"
+            class="rounded-lg hidden"
+            onerror="this.style.display='none'"
+        />
+        <Headphones class="size-5 text-neutral-200" />
+    </div>
     <div class="flex flex-col overflow-hidden">
-        <h2 class="font-medium truncate" id="player-title">Loading</h2>
-        <h3 class="text-xs truncate" id="player-artist">Loading</h3>
+        <h2 class="font-medium truncate tracking-tight leading-tight" id="player-title">
+            Loading
+        </h2>
+        <h3 class="text-xs truncate leading-tight" id="player-artist">Loading</h3>
     </div>
     <span
         class="text-xs shadow-sm ml-auto mt-auto text-black font-semibold px-1.5 bg-white rounded-md"
         >LAST.FM</span
     >
 </a>
+
+<script>
+    async function fetchLastFmData() {
+        try {
+            const response = await fetch(
+                "https://lastfm-last-played.biancarosa.com.br/aspizu/latest-song",
+            )
+            return await response.json()
+        } catch (error) {
+            console.error("Failed to fetch Last.fm data:", error)
+            return null
+        }
+    }
+
+    function updateElements(updates: Record<string, Record<string, any>>) {
+        Object.entries(updates).forEach(([id, props]) => {
+            const element = document.getElementById(id)
+            if (!element) return
+
+            Object.entries(props).forEach(([key, value]) => {
+                if (typeof value === "object" && key === "style") {
+                    Object.assign(element.style, value)
+                } else {
+                    ;(element as any)[key] = value
+                }
+            })
+        })
+    }
+
+    const data = await fetchLastFmData()
+    if (data) {
+        const track = data.track
+        const coverUrl = track.image[track.image.length - 1]["#text"]
+
+        updateElements({
+            "player-artist": {textContent: track.artist["#text"]},
+            "player-title": {textContent: track.name},
+            "player-cover": {src: coverUrl, style: {display: "block"}},
+            "player-color": {style: {display: "flex"}},
+        })
+    }
+</script>
