@@ -3,7 +3,7 @@
 
 @theme {
     --font-sans: "Figtree Variable", "sans-serif";
-    --font-mono: "JetBrains Mono Variable", "monospace";
+    --font-mono: "JetBrains Mono Variable", monospace;
 }
 
 .Profile {
@@ -110,4 +110,8 @@
         0 16px 64px 0 rgba(255, 255, 255, 0.15),
         0 1px 1px 0 rgba(255, 255, 255, 0.2),
         0 4px 4px 0 rgba(255, 255, 255, 0.1);
+}
+
+.player-cover:not([src="*"]) {
+    visibility: hidden;
 }
