@@ -1,11 +1,11 @@
 ---
 import "@fontsource-variable/figtree"
 import "@fontsource-variable/jetbrains-mono"
-import "../styles/global.css"
-import {Fragment} from "astro/jsx-runtime"
-import Project from "../components/Project.astro"
-import projects from "../data/projects.json"
-import Profile from "../components/Profile.astro"
+import "@/styles/global.css"
+import Profile from "@/components/Profile.astro"
+import Terminal from "@/components/Terminal.astro"
+import ProjectSection from "@/components/ProjectSection.astro"
+import projects from "@/data/projects.json"
 ---
 
 <!doctype html>
@@ -22,77 +22,12 @@ import Profile from "../components/Profile.astro"
                     class="relative flex flex-col max-w-96 gap-12 animate-in slide-in-from-bottom duration-500 fade-in"
                 >
                     <Profile />
-                    <div
-                        class="Terminal flex flex-col bg-neutral-900 rounded-xl overflow-hidden shadow-xl border border-neutral-800 transition-colors"
-                    >
-                        <!-- Terminal header -->
-                        <div
-                            class="flex items-center gap-3 bg-neutral-950 px-3 py-1 border-b border-neutral-800"
-                        >
-                            <div class="flex gap-1.5">
-                                <div
-                                    class="w-3 h-3 rounded-full bg-red-500/80 hover:bg-red-500 transition-colors"
-                                >
-                                </div>
-                                <div
-                                    class="w-3 h-3 rounded-full bg-yellow-500/80 hover:bg-yellow-500 transition-colors"
-                                >
-                                </div>
-                                <div
-                                    class="w-3 h-3 rounded-full bg-green-500/80 hover:bg-green-500 transition-colors"
-                                >
-                                </div>
-                            </div>
-                            <p class="text-neutral-500 text-xs font-medium hackertext">
-                                Dig the stuff I do? Try digging my CTF
-                            </p>
-                        </div>
-                        <!-- Terminal body -->
-                        <div class="p-4 font-mono text-sm">
-                            <div class="flex items-center gap-2">
-                                <span class="text-emerald-400 select-none">➜</span>
-                                <span class="text-blue-400 select-none">~</span>
-                                <code class="text-neutral-300">
-                                    <span class="text-emerald-400">dig</span>
-                                    <span class="text-yellow-400"> -t</span>
-                                    <span class="text-neutral-300"> txt</span>
-                                    <span class="text-yellow-400"> +short</span>
-                                    <span class="text-neutral-300"> ctf.aspiz.uk</span>
-                                </code>
-                            </div>
-                        </div>
-                    </div>
+                    <Terminal />
                 </div>
 
-                <div
-                    class="relative flex flex-col max-w-96 gap-8 animate-in slide-in-from-bottom duration-500 fade-in"
-                >
-                    <h1
-                        class="text-xs mx-auto font-semibold px-1 bg-black z-2 text-neutral-400 hackertext"
-                    >
-                        OPEN SOURCE
-                    </h1>
-                    <div
-                        class="absolute inset-x-0 w-full h-px bg-neutral-800 top-2 z-1"
-                    >
-                    </div>
-                    {projects.foss.map((project) => <Project {...project} />)}
-                </div>
+                <ProjectSection title="OPEN SOURCE" projects={projects.foss} />
 
-                <div
-                    class="relative flex flex-col max-w-96 gap-8 animate-in slide-in-from-bottom duration-500 fade-in"
-                >
-                    <h1
-                        class="text-xs mx-auto font-semibold px-1 bg-black z-2 text-neutral-400 hackertext"
-                    >
-                        SIDE PROJECTS
-                    </h1>
-                    <div
-                        class="absolute inset-x-0 w-full h-px bg-neutral-800 top-2 z-1"
-                    >
-                    </div>
-                    {projects.side.map((project) => <Project {...project} />)}
-                </div>
+                <ProjectSection title="SIDE PROJECTS" projects={projects.side} />
             </div>
         </div>
         <div class="footer"></div>
@@ -100,66 +35,8 @@ import Profile from "../components/Profile.astro"
 </html>
 
 <script>
-    import {GhostCursor} from "../scripts/ghost-cursor.ts"
+    import {GhostCursor} from "@/scripts/ghost-cursor.ts"
+    import "@/scripts/hacker-text.ts"
+    import "@/scripts/scroll-background.ts"
     new GhostCursor()
-    function setBgColor() {
-        const maxScroll = document.body.scrollHeight - window.innerHeight
-        const gradientHeight = 128
-
-        // Calculate how far into the gradient zone we are
-        const distanceFromBottom = maxScroll - window.scrollY
-        const scrollPercent = Math.max(
-            0,
-            Math.min(1, 1 - distanceFromBottom / gradientHeight),
-        )
-
-        // Interpolate from black (0,0,0) to red (141,48,48)
-        const r = Math.round(141 * scrollPercent)
-        const g = Math.round(48 * scrollPercent)
-        const b = Math.round(48 * scrollPercent)
-
-        document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`
-    }
-    window.addEventListener("scroll", setBgColor)
-
-    const hackertexts = []
-    for (const text_ of document.querySelectorAll(".hackertext")) {
-        const text = text_ as HTMLElement
-        const originalText = text.textContent || ""
-        hackertexts.push({element: text, originalText})
-    }
-
-    let interval = null
-
-    let i = 0
-    const chars =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?"
-    function render() {
-        for (const {element, originalText} of hackertexts) {
-            const length = Math.min(i, originalText.length)
-            element.textContent = originalText.slice(0, length)
-            for (let i = 0; i < originalText.length - length; i++) {
-                const part = chars.charAt(Math.floor(Math.random() * chars.length))
-                const node = document.createElement("span")
-                node.textContent = part
-                const opacity = Math.round(
-                    100 * (1 - i / Math.max(1, originalText.length - length - 1)),
-                )
-                node.style.opacity = `${opacity}%`
-                element.appendChild(node)
-                element.appendChild(document.createElement("wbr"))
-            }
-        }
-        i += 2
-        if (
-            i >
-            hackertexts
-                .map((x) => x.originalText.length)
-                .reduce((a, b) => Math.max(a, b), 0)
-        ) {
-            clearInterval(interval)
-        }
-    }
-
-    interval = setInterval(render, 66)
 </script>
