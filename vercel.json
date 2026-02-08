@@ -12,6 +12,10 @@
         {
             "source": "/goboscript/ide/:match*",
             "destination": "https://aspizu.github.io/goboscript-ide/:match*"
+        },
+        {
+            "source": "/tshu/docs/:match*",
+            "destination": "https://tshu.vercel.app/:match*"
         }
     ],
     "redirects": [
