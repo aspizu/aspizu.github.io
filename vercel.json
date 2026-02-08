@@ -8,6 +8,10 @@
         {
             "source": "/goboscript/docs/:match*",
             "destination": "https://goboscript-docs.vercel.app/:match*"
+        },
+        {
+            "source": "/goboscript/ide/:match*",
+            "destination": "https://aspizu.github.io/goboscript-ide/:match*"
         }
     ],
     "redirects": [
