@@ -25,13 +25,18 @@
             "permanent": true
         },
         {
+            "source": "/goboscript/docs",
+            "destination": "/goboscript/docs/install",
+            "permanent": true
+        },
+        {
             "source": "/tshu",
             "destination": "https://github.com/aspizu/tshu",
             "permanent": true
         },
         {
-            "source": "/goboscript/docs",
-            "destination": "/goboscript/docs/install",
+            "source": "/tshu/docs",
+            "destination": "/tshu/docs/reference/command",
             "permanent": true
         }
     ],
