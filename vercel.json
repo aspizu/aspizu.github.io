@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/nixite/:match*",
+            "destination": "https://nixite.vercel.app/:match*"
+        }
+    ]
+}
