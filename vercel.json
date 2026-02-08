@@ -4,6 +4,22 @@
         {
             "source": "/nixite/:match*",
             "destination": "https://nixite.vercel.app/:match*"
+        },
+        {
+            "source": "/goboscript/docs/:match*",
+            "destination": "https://goboscript-docs.vercel.app/:match*"
+        }
+    ],
+    "redirects": [
+        {
+            "source": "/goboscript",
+            "destination": "https://github.com/aspizu/goboscript",
+            "permanent": true
+        },
+        {
+            "source": "/goboscript/docs",
+            "destination": "/goboscript/docs/install",
+            "permanent": true
         }
     ],
     "trailingSlash": false
