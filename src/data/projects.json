@@ -4,20 +4,20 @@
             "name": "goboscript",
             "description": "Programming language with web-based IDE that compiles to children's block-based programming language Scratch.",
             "repo": "https://github.com/aspizu/goboscript",
-            "deployment": "https://aspizu.github.io/goboscript.ide/",
-            "docs": "https://aspizu.github.io/goboscript/"
+            "deployment": "/goboscript/ide",
+            "docs": "/goboscript/docs"
         },
         {
             "name": "Nixite",
             "description": "Generates bash scripts to unattendedly install selected Linux software. Automatically configures system, suppresses confirmation prompts and uses the best available installation method.",
             "repo": "https://github.com/aspizu/nixite",
-            "deployment": "https://aspizu.github.io/nixite"
+            "deployment": "/nixite"
         },
         {
             "name": "tshu",
             "description": "Python library for safe, cross-platform shell execution. Uses t-strings and a Rust-backed bash implementation.",
             "repo": "https://github.com/aspizu/tshu",
-            "docs": "https://aspizu.github.io/tshu"
+            "docs": "/tshu"
         }
     ],
     "side": [
@@ -30,7 +30,7 @@
             "name": "PIXELATEDKISSES",
             "description": "Camera app that applies a duotone filter inspired by the album artwork of Joji.",
             "repo": "https://github.com/aspizu/PIXELATEDKISSES",
-            "deployment": "https://aspiz.uk/PIXELATEDKISSES"
+            "deployment": "/PIXELATEDKISSES"
         },
         {
             "name": "bunnie",
@@ -57,7 +57,7 @@
             "name": "instax",
             "description": "Generates printable PDFs for DIY instant camera photographs.",
             "repo": "https://github.com/aspizu/instax",
-            "deployment": "https://aspizu.github.io/instax"
+            "deployment": "/instax"
         }
     ]
 }
