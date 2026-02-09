@@ -20,6 +20,10 @@
         {
             "source": "/PIXELATEDKISSES/:match*",
             "destination": "https://pixelatedkisses.vercel.app/:match*"
+        },
+        {
+            "source": "/instax/:match*",
+            "destination": "https://instax.vercel.app/:match*"
         }
     ],
     "redirects": [
