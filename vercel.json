@@ -23,7 +23,7 @@
         },
         {
             "source": "/instax/:match*",
-            "destination": "https://instax.vercel.app/:match*"
+            "destination": "https://instax-sepia.vercel.app/:match*"
         }
     ],
     "redirects": [
