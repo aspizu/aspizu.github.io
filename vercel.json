@@ -16,6 +16,10 @@
         {
             "source": "/tshu/docs/:match*",
             "destination": "https://tshu.vercel.app/:match*"
+        },
+        {
+            "source": "/PIXELATEDKISSES/:match*",
+            "destination": "https://pixelatedkisses.vercel.app/:match*"
         }
     ],
     "redirects": [
