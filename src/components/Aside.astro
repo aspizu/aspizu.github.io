@@ -1,0 +1,38 @@
+---
+import CircleAlert from "@lucide/astro/icons/circle-alert"
+import Info from "@lucide/astro/icons/info"
+import Lightbulb from "@lucide/astro/icons/lightbulb"
+import OctagonAlert from "@lucide/astro/icons/octagon-alert"
+import TriangleAlert from "@lucide/astro/icons/triangle-alert"
+
+interface Props {
+    type: "note" | "tip" | "important" | "warning" | "caution"
+    class?: string
+}
+
+const {type, class: className} = Astro.props
+
+const icons = {
+    note: Info,
+    tip: Lightbulb,
+    important: CircleAlert,
+    warning: TriangleAlert,
+    caution: OctagonAlert,
+}
+
+const Icon = icons[type]
+---
+
+<aside
+    class:list={[
+        "aside flex flex-col px-8 mr-16 pt-8 pb-4 gap-1 mb-6 rounded-xs",
+        className,
+    ]}
+    data-type={type}
+>
+    <div class="flex gap-2 items-center">
+        <Icon class="size-5" />
+        <div class="font-medium capitalize">{type}</div>
+    </div>
+    <slot />
+</aside>

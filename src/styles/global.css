@@ -1,9 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @theme {
-    --font-sans: "Figtree Variable", "sans-serif";
-    --font-mono: "JetBrains Mono Variable", monospace;
+    --font-sans: "Figtree Variable", sans-serif;
+    --font-mono: "Cascadia Code Variable", monospace;
 }
 
 .Profile {
@@ -114,4 +115,95 @@
 
 .player-cover:not([src="*"]) {
     visibility: hidden;
+}
+
+.blog-content {
+    @apply leading-relaxed md:text-lg md:leading-[1.8];
+
+    p {
+        @apply mb-6 text-pretty;
+    }
+
+    p a,
+    li a {
+        @apply font-medium text-blue-400 hover:underline hover:decoration-1 hover:underline-offset-4;
+    }
+
+    h2 {
+        @apply mt-16 mb-6 text-3xl font-semibold tracking-tight;
+    }
+
+    h3 {
+        @apply mt-12 mb-4 text-2xl font-semibold tracking-tight;
+    }
+
+    h4 {
+        @apply mt-8 mb-4 text-lg font-semibold tracking-tight;
+    }
+
+    h2:has(a),
+    h3:has(a),
+    h4:has(a) {
+        @apply hover:underline hover:decoration-1 hover:underline-offset-8;
+    }
+
+    ul {
+        @apply mb-6 list-outside list-disc space-y-2 pl-4;
+    }
+
+    li {
+        @apply pl-4 text-pretty;
+    }
+
+    ul li::marker {
+        @apply text-neutral-400;
+    }
+
+    code:not(.astro-code *) {
+        @apply rounded-md border border-neutral-800 bg-neutral-950 px-1 py-1 text-sm;
+    }
+
+    .astro-code {
+        @apply mb-6 rounded-md border border-neutral-900 p-4 text-sm leading-relaxed;
+        background-color: #080808 !important;
+    }
+
+    hr {
+        @apply mb-6 border-0 border-t border-dashed border-neutral-900;
+    }
+}
+
+.aside .astro-code {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-color: transparent;
+}
+
+.aside[data-type="note"] {
+    @apply border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-950;
+    @apply [&>div:first-child]:text-blue-700 dark:[&>div:first-child]:text-blue-300;
+    @apply [&_svg]:text-blue-600 dark:[&_svg]:text-blue-400;
+}
+
+.aside[data-type="tip"] {
+    @apply border-green-500 bg-green-50 dark:border-green-400 dark:bg-green-950;
+    @apply [&>div:first-child]:text-green-700 dark:[&>div:first-child]:text-green-300;
+    @apply [&_svg]:text-green-600 dark:[&_svg]:text-green-400;
+}
+
+.aside[data-type="important"] {
+    @apply border-purple-500 bg-purple-50 dark:border-purple-400 dark:bg-purple-950;
+    @apply [&>div:first-child]:text-purple-700 dark:[&>div:first-child]:text-purple-300;
+    @apply [&_svg]:text-purple-600 dark:[&_svg]:text-purple-400;
+}
+
+.aside[data-type="warning"] {
+    @apply border-yellow-500 bg-yellow-50 dark:border-yellow-400 dark:bg-yellow-950;
+    @apply [&>div:first-child]:text-yellow-700 dark:[&>div:first-child]:text-yellow-300;
+    @apply [&_svg]:text-yellow-600 dark:[&_svg]:text-yellow-400;
+}
+
+.aside[data-type="caution"] {
+    @apply border-red-500 bg-red-50 dark:border-red-400 dark:bg-red-950;
+    @apply [&>div:first-child]:text-red-700 dark:[&>div:first-child]:text-red-300;
+    @apply [&_svg]:text-red-600 dark:[&_svg]:text-red-400;
 }

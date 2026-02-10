@@ -1,0 +1,179 @@
+---
+import "@/styles/global.css"
+import "@fontsource-variable/figtree"
+import "@fontsource-variable/cascadia-code"
+import ArrowLeft from "@lucide/astro/icons/arrow-left"
+import ArrowUpRight from "@lucide/astro/icons/arrow-up-right"
+import Clock from "@lucide/astro/icons/clock-fading"
+import type {CollectionEntry} from "astro:content"
+import {getCollection, render} from "astro:content"
+import Markdown from "simple-icons-astro/Markdown"
+import X from "simple-icons-astro/X"
+import * as datefns from "date-fns"
+import {gitDate} from "@/utils/git-date"
+
+interface Props {
+    blog: CollectionEntry<"blogs">
+}
+
+export async function getStaticPaths() {
+    const blogs = await getCollection("blogs")
+    return blogs.map((blog) => ({
+        params: {slug: blog.id},
+        props: {blog},
+    }))
+}
+
+const {blog} = Astro.props
+const {Content} = await render(blog)
+const date = await gitDate(blog.filePath)
+
+const wordCount = blog.body.split(/\s+/).length
+const readTimeMin = Math.ceil(wordCount / 200)
+
+const morePosts = (
+    await Promise.all(
+        (await getCollection("blogs")).map(async (b) => {
+            const d = await gitDate(b.filePath)
+            return {...b, date: d}
+        }),
+    )
+)
+    .toSorted((a, b) => b.date.getTime() - a.date.getTime())
+    .filter((b) => b.id !== blog.id)
+    .slice(0, 3)
+---
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{blog.data.title}</title>
+        <meta property="og:title" content={blog.data.title} />
+        <meta property="og:description" content={blog.data.description} />
+        <meta property="og:image" content={`/assets/og/blog/${blog.id}.webp`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta
+            property="og:image:alt"
+            content="Description of the image for accessibility"
+        />
+        <meta property="og:type" content="article" />
+        <meta property="article:modified_time" content={date.toISOString()} />
+        <base href={`/blog/${blog.id}/`} />
+    </head>
+    <body class="bg-black px-4 py-[10vw] text-neutral-100">
+        <div class="mx-auto max-w-5xl border border-neutral-900">
+            <div
+                class="flex flex-col items-center border-b border-dashed border-neutral-900 p-[4vw]"
+            >
+                <a
+                    href="/blog"
+                    class="transition-colors hover:text-white flex items-center gap-1 font-medium text-neutral-400 text-sm my-6"
+                >
+                    <ArrowLeft class="size-3" />Back
+                </a>
+                <h1
+                    class="text-center text-[max(min(4vw,3rem),1.5rem)] leading-tight font-semibold tracking-tight text-white mb-2"
+                >
+                    {blog.data.title}
+                </h1>
+                <h2 class="leading-relaxed text-center text-sm text-neutral-400">
+                    {blog.data.description}
+                </h2>
+                <a
+                    href="https://twitter.com/@aspizu_"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex gap-2 font-medium items-center mt-4 mb-6"
+                >
+                    <img
+                        class="rounded-full aspect-square"
+                        src="/assets/avatar.webp"
+                        alt="Priyanshu Dangare"
+                        width={20}
+                        height={20}
+                    />
+                    aspizu
+                </a>
+                <div
+                    class="flex flex-wrap w-full max-w-3xl gap-4 text-sm text-neutral-400 font-sm mb-6"
+                >
+                    <span class="flex gap-2 items-center">
+                        <Clock class="size-3" />
+                        {readTimeMin} min read
+                    </span>
+                    <button
+                        class="flex gap-2 items-center hover:text-white transition-colors cursor-pointer"
+                        data-markdown={blog.body}
+                        onclick="
+                        if (this.dataset.copied === 'true') return;
+                        this.dataset.copied = 'true';
+                        navigator.clipboard.writeText(this.dataset.markdown);
+                        const before = this.innerHTML;
+                        this.innerHTML='✓  Copy as Markdown';
+                        setTimeout(() => {
+                            this.innerHTML = before;
+                            this.dataset.copied = 'false';
+                        }, 2000);"
+                    >
+                        <Markdown class="size-3" />Copy as Markdown
+                    </button>
+                    <div class="grow"></div>
+                    <span>Last updated {datefns.format(date, "MMMM d, yyyy")}</span>
+                </div>
+            </div>
+            <div class="blog-content mx-auto max-w-3xl p-[4vw]">
+                <Content />
+            </div>
+
+            {
+                blog.data.tweet && (
+                    <div class="border-t border-dashed border-neutral-900 p-[4vw]">
+                        <div class="flex justify-center">
+                            <a
+                                href={blog.data.tweet}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="group inline-flex items-center gap-2 bg-black border border-neutral-800 hover:text-black hover:border-white px-5 py-2.5 rounded-full font-medium text-sm hover:bg-neutral-200 transition-colors"
+                            >
+                                Reply on
+                                <X class="size-4" />
+                            </a>
+                        </div>
+                    </div>
+                )
+            }
+
+            <div class="border-t border-dashed border-neutral-900">
+                <h2 class="px-6 py-4 text-sm font-semibold tracking-tight text-white">
+                    More posts
+                </h2>
+                <div
+                    class="grid md:grid-cols-2 lg:grid-cols-3 bg-neutral-900 gap-px border-t border-neutral-900"
+                >
+                    {
+                        morePosts.map((post) => (
+                            <a href={`/blog/${post.id}`} class="block">
+                                <div class="group relative bg-black px-6 py-4 flex flex-col hover:bg-neutral-900 transition-colors">
+                                    <ArrowUpRight class="absolute right-4 top-4 size-4 text-neutral-600 group-hover:text-white" />
+                                    <span class="text-xs mb-2 text-neutral-400 font-medium group-hover:text-white transition-colors shrink-0">
+                                        {datefns.format(post.date, "LLL d")}
+                                    </span>
+                                    <h3 class="font-semibold tracking-tight text-white truncate">
+                                        {post.data.title}
+                                    </h3>
+                                    <p class="mb-2 text-sm text-neutral-400 group-hover:text-white transition-colors truncate">
+                                        {post.data.description}
+                                    </p>
+                                    <div class="grow" />
+                                </div>
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,47 +1,20 @@
 ---
-import "@fontsource-variable/figtree"
-import "@/styles/global.css"
+interface Props {
+    title: string
+}
+
+const {title} = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>aspizu</title>
-        <!-- <script is:inline src="/particles.min.js"></script> -->
-        <script
-            is:inline
-            src="https://louisabraham.github.io/nekojs/neko.js"
-            data-autostart></script>
-        <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
-        ></script>
-        <script src="https://unpkg.com/hyperscript.org@0.9.14"></script>
-        <!-- <script
-            is:inline
-            type="text/javascript"
-            src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/libopenmpt.js"
-        ></script>
-        <script
-            is:inline
-            type="text/javascript"
-            src="//cdn.jsdelivr.net/gh/deskjet/chiptune2.js@master/chiptune2.js"
-        ></script> -->
+        <title>{title}</title>
+        <link rel="stylesheet" href="/assets/global.css" />
     </head>
-    <body
-        class="scheme-dark bg-black text-white grid grid-cols-[1fr_min(24rem,100%-1rem)_1fr]"
-    >
-        <!-- <div id="particles" class="absolute inset-0 -z-1"></div> -->
-
+    <body>
         <slot />
     </body>
 </html>
-
-<script>
-    import {GhostCursor} from "@/scripts/ghost-cursor.ts"
-    import "@/scripts/main.ts"
-
-    const cursor = new GhostCursor()
-    // @ts-ignore
-    // particlesJS.load("particles", "particles.json", function () {})
-</script>

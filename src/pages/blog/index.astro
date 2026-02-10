@@ -1,0 +1,94 @@
+---
+import "@/styles/global.css"
+import {gitDate} from "@/utils/git-date"
+import "@fontsource-variable/cascadia-code"
+import "@fontsource-variable/figtree"
+import ArrowLeft from "@lucide/astro/icons/arrow-left"
+import Rss from "@lucide/astro/icons/rss"
+import {getCollection} from "astro:content"
+import * as datefns from "date-fns"
+
+const blogs = await Promise.all(
+    (await getCollection("blogs")).map(async (b) => {
+        const date = await gitDate(b.filePath)
+        return {id: b.id, ...b.data, date}
+    }),
+)
+---
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>aspizu's blog</title>
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="aspizu's blog"
+            href="/rss.xml"
+        />
+        <base href="/blog/" />
+    </head>
+    <body class="bg-black px-4 py-[10vw] text-neutral-100">
+        <div class="mx-auto max-w-5xl border border-neutral-900">
+            <div
+                class="flex items-center gap-4 border-b border-dashed border-neutral-900 px-6 py-4"
+            >
+                <a
+                    href="/"
+                    class="transition-colors hover:text-white flex items-center gap-1 font-medium text-neutral-400 text-sm"
+                >
+                    <ArrowLeft class="size-3" />
+                </a>
+                <h1 class="text-sm font-semibold tracking-tight text-white shrink-0">
+                    aspizu's blog
+                </h1>
+                <span class="text-sm text-neutral-500">&mdash;</span>
+                <span class="text-xs sm:text-sm text-neutral-400 truncate">
+                    technology, music, and whatever else
+                </span>
+                <div class="grow"></div>
+                <a
+                    href="rss.xml"
+                    target="_blank"
+                    title="RSS Feed"
+                    class="flex items-center justify-center size-7 rounded-full border border-neutral-800 text-neutral-400 transition-colors hover:border-neutral-700 hover:text-white"
+                >
+                    <Rss class="size-3" />
+                </a>
+            </div>
+            <div
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 bg-neutral-900 gap-px"
+            >
+                {
+                    blogs.map((blog) => (
+                        <a href={`/blog/${blog.id}`} class="block">
+                            <div class="group bg-black px-8 flex flex-col hover:bg-neutral-900 transition-colors h-96 justify-center">
+                                <span class="place-self-end mb-4 text-sm text-neutral-400 font-medium group-hover:text-white transition-colors">
+                                    {datefns.format(blog.date, "LLL d")}
+                                </span>
+                                <h2 class="text-3xl font-semibold tracking-tight text-white leading-tight">
+                                    {blog.title}
+                                </h2>
+                                <p class="mt-3 text-neutral-400 text-pretty group-hover:text-white transition-colors">
+                                    {blog.description}
+                                </p>
+                                <span class="mt-8 flex gap-2 text-neutral-400 group-hover:text-white font-medium items-center transition-colors">
+                                    <img
+                                        class="rounded-full aspect-square"
+                                        src="/assets/avatar.webp"
+                                        alt="Priyanshu Dangare"
+                                        width={20}
+                                        height={20}
+                                    />
+                                    aspizu
+                                </span>
+                            </div>
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+    </body>
+</html>

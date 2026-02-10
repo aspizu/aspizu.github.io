@@ -1,4 +1,4 @@
-import {execSync} from "child_process"
+import {$} from "bun"
 
 let cachedToken: string | null = null
 
@@ -6,7 +6,7 @@ let cachedToken: string | null = null
  * Get GitHub token from environment or gh command.
  * Token is cached after first retrieval to avoid repeated shell executions.
  */
-export function getGitHubToken(): string | null {
+export async function getGitHubToken(): Promise<string | null> {
     if (cachedToken !== null) {
         return cachedToken
     }
@@ -17,7 +17,7 @@ export function getGitHubToken(): string | null {
     // If not found, try gh command
     if (!cachedToken) {
         try {
-            cachedToken = execSync("gh auth token", {encoding: "utf-8"}).trim()
+            cachedToken = (await $`gh auth token`.text()).trim()
         } catch (error) {
             console.warn("Could not get GitHub token from gh command")
             cachedToken = null
