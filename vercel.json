@@ -38,6 +38,11 @@
             "permanent": true
         },
         {
+            "source": "/goboscript.ide",
+            "destination": "/goboscript/ide",
+            "permanent": true
+        },
+        {
             "source": "/tshu",
             "destination": "https://github.com/aspizu/tshu",
             "permanent": true
