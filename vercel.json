@@ -33,6 +33,16 @@
             "permanent": true
         },
         {
+            "source": "/goboscript.sh",
+            "destination": "https://raw.githubusercontent.com/aspizu/goboscript/refs/heads/main/tools/install.sh",
+            "permanent": true
+        },
+        {
+            "source": "/goboscript.ps1",
+            "destination": "https://raw.githubusercontent.com/aspizu/goboscript/refs/heads/main/tools/install.ps1",
+            "permanent": true
+        },
+        {
             "source": "/goboscript/docs",
             "destination": "/goboscript/docs/install",
             "permanent": true
