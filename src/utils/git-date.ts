@@ -3,6 +3,12 @@ import * as datefns from "date-fns"
 
 const cache: Record<string, Date> = {}
 
+function fixISO(date: string): string {
+    if (!date.includes(" ")) return date
+    const [datePart, time, tz] = date.split(" ")
+    return `${datePart}T${time}${tz}`
+}
+
 export async function gitDate(path: string): Promise<Date> {
     if (path in cache) {
         return cache[path]
@@ -10,7 +16,7 @@ export async function gitDate(path: string): Promise<Date> {
     const output =
         (await $`git log -1 --date=iso --format=%cd -- ${path}`.text()).trim() ||
         (await $`date -Iseconds -r ${path}`.text()).trim()
-    const date = datefns.parseISO(output)
+    const date = datefns.parseISO(fixISO(output))
     cache[path] = date
     return date
 }
