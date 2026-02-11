@@ -8,7 +8,7 @@ export async function gitDate(path: string): Promise<Date> {
         return cache[path]
     }
     const output =
-        (await $`git log -1 --format=%cd -- ${path}`.text()).trim() ||
+        (await $`git log -1 --date=iso --format=%cd -- ${path}`.text()).trim() ||
         (await $`date -Iseconds -r ${path}`.text()).trim()
     const date = datefns.parseISO(output)
     cache[path] = date

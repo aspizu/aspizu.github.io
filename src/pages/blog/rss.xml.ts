@@ -14,7 +14,7 @@ export async function GET(context: APIContext) {
                 title: blog.data.title,
                 description: blog.data.description,
                 pubDate: await gitDate(blog.filePath),
-                link: `/blog/${blog.id}`,
+                link: `/blog/${blog.id}/`,
             })),
         ),
     })
