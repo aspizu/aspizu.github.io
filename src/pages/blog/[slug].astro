@@ -28,7 +28,7 @@ const {blog} = Astro.props
 const {Content} = await render(blog)
 const date = await gitDate(blog.filePath)
 
-const wordCount = blog.body.split(/\s+/).length
+const wordCount = blog.body?.split(/\s+/).length ?? 0
 const readTimeMin = Math.ceil(wordCount / 200)
 
 const morePosts = (
