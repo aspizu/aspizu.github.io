@@ -207,3 +207,7 @@
     @apply [&>div:first-child]:text-red-700 dark:[&>div:first-child]:text-red-300;
     @apply [&_svg]:text-red-600 dark:[&_svg]:text-red-400;
 }
+
+.pixelated {
+    image-rendering: pixelated;
+}
