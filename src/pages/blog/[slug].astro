@@ -53,6 +53,11 @@ const morePosts = (
         <meta property="og:title" content={blog.data.title} />
         <meta property="og:description" content={blog.data.description} />
         <meta property="og:image" content={`/assets/og/blog/${blog.id}.webp`} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={`/assets/og/blog/${blog.id}.webp`} />
+        <meta name="twitter:image:alt" content={blog.data.title} />
+        <meta name="twitter:image:width" content="1200" />
+        <meta name="twitter:image:height" content="630" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta
