@@ -3,9 +3,10 @@ import "@fontsource-variable/figtree"
 import "@fontsource-variable/cascadia-code"
 import "@/styles/global.css"
 import Profile from "@/components/Profile.astro"
-import Terminal from "@/components/Terminal.astro"
-import ProjectSection from "@/components/ProjectSection.astro"
 import projects from "@/content/projects.json"
+import Project from "@/components/Project.astro"
+import FileText from "@lucide/astro/icons/file-text"
+import ArrowUpRight from "@lucide/astro/icons/arrow-up-right"
 ---
 
 <!doctype html>
@@ -15,28 +16,47 @@ import projects from "@/content/projects.json"
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>aspizu</title>
     </head>
-    <body class="relative bg-black scheme-dark">
-        <div class="flex flex-col bg-black text-white py-16 px-2">
-            <div class="mx-auto grid grid-cols-1 xl:grid-cols-3 items-start gap-12 z-1">
+    <body class="bg-black text-white scheme-dark">
+        <nav class="my-2 flex justify-center">
+            <a
+                href="/blog"
+                class="flex items-center gap-1 text-xs text-neutral-300 hover:text-white transition-colors border border-neutral-900 px-2 py-1 rounded-full"
+            >
+                blog
+                <ArrowUpRight class="size-3.5" />
+            </a>
+        </nav>
+        <div class="flex justify-center">
+            <div class="relative">
+                <Profile />
                 <div
-                    class="relative flex flex-col max-w-96 gap-12 animate-in slide-in-from-bottom duration-500 fade-in"
+                    class="absolute inset-y-0 border-r left-3 border-dashed border-white/25"
                 >
-                    <Profile />
-                    <Terminal />
                 </div>
-
-                <ProjectSection title="OPEN SOURCE" projects={projects.foss} />
-
-                <ProjectSection title="SIDE PROJECTS" projects={projects.side} />
+                <div
+                    class="absolute inset-y-0 border-l right-3 border-dashed border-white/25"
+                >
+                </div>
+                <div
+                    class="absolute inset-x-0 border-b top-3 border-dashed border-white/25"
+                >
+                </div>
+                <div
+                    class="absolute inset-x-0 border-t bottom-3 border-dashed border-white/25"
+                >
+                </div>
             </div>
         </div>
-        <div class="footer"></div>
+        <div class="px-4 pb-8 mt-16" id="projects">
+            <div class="max-w-96 mx-auto flex flex-col gap-8">
+                {projects.map((project) => <Project {...project} />)}
+            </div>
+        </div>
     </body>
 </html>
 
 <script>
     import {GhostCursor} from "@/scripts/ghost-cursor.ts"
     import "@/scripts/hacker-text.ts"
-    import "@/scripts/scroll-background.ts"
     new GhostCursor()
 </script>
