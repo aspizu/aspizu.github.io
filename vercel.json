@@ -24,6 +24,10 @@
         {
             "source": "/instax/:match*",
             "destination": "https://instax-sepia.vercel.app/:match*"
+        },
+        {
+            "source": "/vtec/:match*",
+            "destination": "https://vtec-search.vercel.app/:match*"
         }
     ],
     "redirects": [
