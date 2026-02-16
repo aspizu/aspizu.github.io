@@ -11,6 +11,7 @@ import Markdown from "simple-icons-astro/Markdown"
 import X from "simple-icons-astro/X"
 import * as datefns from "date-fns"
 import {gitDate} from "@/utils/git-date"
+import Analytics from "@vercel/analytics/astro"
 
 interface Props {
     blog: CollectionEntry<"blogs">
@@ -180,5 +181,6 @@ const morePosts = (
                 </div>
             </div>
         </div>
+        <Analytics />
     </body>
 </html>

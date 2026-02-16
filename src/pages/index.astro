@@ -8,6 +8,7 @@ import projects from "@/content/projects.json"
 import Project from "@/components/Project.astro"
 import FileText from "@lucide/astro/icons/file-text"
 import ArrowUpRight from "@lucide/astro/icons/arrow-up-right"
+import Analytics from "@vercel/analytics/astro"
 ---
 
 <!doctype html>
@@ -68,6 +69,7 @@ import ArrowUpRight from "@lucide/astro/icons/arrow-up-right"
                 {projects.map((project) => <Project {...project} />)}
             </div>
         </div>
+        <Analytics />
     </body>
 </html>
 

@@ -7,6 +7,7 @@ import ArrowLeft from "@lucide/astro/icons/arrow-left"
 import Rss from "@lucide/astro/icons/rss"
 import {getCollection} from "astro:content"
 import * as datefns from "date-fns"
+import Analytics from "@vercel/analytics/astro"
 
 const blogs = await Promise.all(
     (await getCollection("blogs")).map(async (b) => {
@@ -90,5 +91,6 @@ const blogs = await Promise.all(
                 }
             </div>
         </div>
+        <Analytics />
     </body>
 </html>
