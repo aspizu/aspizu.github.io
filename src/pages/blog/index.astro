@@ -9,12 +9,12 @@ import {getCollection} from "astro:content"
 import * as datefns from "date-fns"
 import Analytics from "@vercel/analytics/astro"
 
-const blogs = await Promise.all(
+const blogs = (await Promise.all(
     (await getCollection("blogs")).map(async (b) => {
         const date = await gitDate(b.filePath)
         return {id: b.id, ...b.data, date}
     }),
-)
+)).sort((a, b) => b.date.getTime() - a.date.getTime())
 ---
 
 <!doctype html>
