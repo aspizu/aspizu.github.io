@@ -6,7 +6,6 @@ import buttons from "@/content/buttons.json"
 import Profile from "@/components/Profile.astro"
 import projects from "@/content/projects.json"
 import Project from "@/components/Project.astro"
-import FileText from "@lucide/astro/icons/file-text"
 import ArrowUpRight from "@lucide/astro/icons/arrow-up-right"
 import Analytics from "@vercel/analytics/astro"
 ---
@@ -19,12 +18,12 @@ import Analytics from "@vercel/analytics/astro"
         <title>aspizu</title>
     </head>
     <body class="bg-black text-white scheme-dark">
-        <nav class="my-2 flex justify-center">
+        <nav class="my-4 flex justify-center">
             <a
                 href="/blog"
-                class="flex items-center gap-1 text-xs text-neutral-300 hover:text-white transition-colors border border-neutral-900 px-2 py-1 rounded-full"
+                class="flex bg-white text-neutral-700 hover:text-black shadow-lg shadow-white/25 hover:shadow-white/50 items-center gap-1 text-xs transition-all px-2 py-1 rounded-full hover:scale-[1.02]"
             >
-                blog
+                read my blog
                 <ArrowUpRight class="size-3.5" />
             </a>
         </nav>
