@@ -2,3 +2,4 @@ node_modules/
 .astro/
 .cache/
 dist/
+AGENTS.md

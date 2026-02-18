@@ -80,8 +80,10 @@ const morePosts = (
                 >
                     <ArrowLeft class="size-3" />Back
                 </a>
+                <article class="h-entry">
+                    <a class="u-url" href={Astro.url.href}></a>
                 <h1
-                    class="text-center text-[max(min(4vw,3rem),1.5rem)] leading-tight font-semibold tracking-tight text-white mb-2"
+                    class="p-name text-center text-[max(min(4vw,3rem),1.5rem)] leading-tight font-semibold tracking-tight text-white mb-2"
                 >
                     {blog.data.title}
                 </h1>
@@ -92,7 +94,7 @@ const morePosts = (
                     href="https://twitter.com/@aspizu_"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="flex gap-2 font-medium items-center mt-4 mb-6"
+                    class="p-author h-card flex gap-2 font-medium items-center mt-4 mb-6"
                 >
                     <img
                         class="rounded-full aspect-square"
@@ -127,11 +129,16 @@ const morePosts = (
                         <Markdown class="size-3" />Copy as Markdown
                     </button>
                     <div class="grow"></div>
-                    <span>Last updated {datefns.format(date, "MMMM d, yyyy")}</span>
+                    <time class="dt-published" datetime={date.toISOString()}>
+                        <span>Last updated {datefns.format(date, "MMMM d, yyyy")}</span>
+                    </time>
                 </div>
+                </article>
             </div>
             <div class="blog-content mx-auto max-w-3xl p-[4vw]">
-                <Content />
+                <div class="e-content">
+                    <Content />
+                </div>
             </div>
 
             {

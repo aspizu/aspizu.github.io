@@ -5,16 +5,18 @@ import "@fontsource-variable/cascadia-code"
 import "@fontsource-variable/figtree"
 import ArrowLeft from "@lucide/astro/icons/arrow-left"
 import Rss from "@lucide/astro/icons/rss"
+import Analytics from "@vercel/analytics/astro"
 import {getCollection} from "astro:content"
 import * as datefns from "date-fns"
-import Analytics from "@vercel/analytics/astro"
 
-const blogs = (await Promise.all(
-    (await getCollection("blogs")).map(async (b) => {
-        const date = await gitDate(b.filePath)
-        return {id: b.id, ...b.data, date}
-    }),
-)).sort((a, b) => b.date.getTime() - a.date.getTime())
+const blogs = (
+    await Promise.all(
+        (await getCollection("blogs")).map(async (b) => {
+            const date = await gitDate(b.filePath)
+            return {id: b.id, ...b.data, date}
+        }),
+    )
+).sort((a, b) => b.date.getTime() - a.date.getTime())
 ---
 
 <!doctype html>
@@ -31,10 +33,11 @@ const blogs = (await Promise.all(
         />
         <base href="/blog/" />
     </head>
-    <body class="bg-black px-4 py-[10vw] text-neutral-100">
+    <body class="bg-black px-2 sm:px-4 py-[10vw] text-neutral-100">
+        <a class="p-author h-card hidden" href="/" aria-hidden="true">aspizu</a>
         <div class="mx-auto max-w-5xl border border-neutral-900">
             <div
-                class="flex items-center gap-4 border-b border-dashed border-neutral-900 px-6 py-4"
+                class="flex items-center gap-2 sm:gap-4 border-b border-dashed border-neutral-900 px-4 py-2 sm:px-6 sm:py-4"
             >
                 <a
                     href="/"
@@ -42,53 +45,68 @@ const blogs = (await Promise.all(
                 >
                     <ArrowLeft class="size-3" />
                 </a>
-                <h1 class="text-sm font-semibold tracking-tight text-white shrink-0">
-                    aspizu's blog
-                </h1>
-                <span class="text-sm text-neutral-500">&mdash;</span>
-                <span class="text-xs sm:text-sm text-neutral-400 truncate">
-                    technology, music, and whatever else
-                </span>
+                <div class="flex min-w-0 flex-col sm:flex-row sm:gap-2">
+                    <h1
+                        class="p-name text-sm font-semibold tracking-tight text-white shrink-0"
+                    >
+                        aspizu's blog
+                    </h1>
+                    <span class="text-sm text-neutral-500 hidden sm:block">&mdash;</span
+                    >
+                    <span class="h-description text-xs sm:text-sm truncate"
+                        >technology, music, and whatever else</span
+                    >
+                </div>
                 <div class="grow"></div>
                 <a
                     href="rss.xml"
                     target="_blank"
                     title="RSS Feed"
-                    class="flex items-center justify-center size-7 rounded-full border border-neutral-800 text-neutral-400 transition-colors hover:border-neutral-700 hover:text-white"
+                    class="shrink-0 flex items-center justify-center size-7 rounded-full border border-neutral-800 text-neutral-400 transition-colors hover:border-neutral-700 hover:text-white"
                 >
                     <Rss class="size-3" />
                 </a>
             </div>
-            <div
-                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 bg-neutral-900 gap-px"
-            >
-                {
-                    blogs.map((blog) => (
-                        <a href={`/blog/${blog.id}`} class="block">
-                            <div class="group bg-black px-8 flex flex-col hover:bg-neutral-900 transition-colors h-96 justify-center">
-                                <span class="place-self-end mb-4 text-sm text-neutral-400 font-medium group-hover:text-white transition-colors">
-                                    {datefns.format(blog.date, "LLL d")}
-                                </span>
-                                <h2 class="text-3xl font-semibold tracking-tight text-white leading-tight">
-                                    {blog.title}
-                                </h2>
-                                <p class="mt-3 text-neutral-400 text-pretty group-hover:text-white transition-colors">
-                                    {blog.description}
-                                </p>
-                                <span class="mt-8 flex gap-2 text-neutral-400 group-hover:text-white font-medium items-center transition-colors">
-                                    <img
-                                        class="rounded-full aspect-square"
-                                        src="/assets/avatar.webp"
-                                        alt="Priyanshu Dangare"
-                                        width={20}
-                                        height={20}
-                                    />
-                                    aspizu
-                                </span>
-                            </div>
-                        </a>
-                    ))
-                }
+            <div class="h-feed">
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 bg-neutral-900 gap-px"
+                >
+                    {
+                        blogs.map((blog) => (
+                            <article class="h-entry">
+                                <a class="u-url" href={`/blog/${blog.id}`} />
+                                <a href={`/blog/${blog.id}`} class="block">
+                                    <div class="group bg-black px-8 flex flex-col hover:bg-neutral-900 transition-colors h-96 justify-center">
+                                        <time
+                                            class="dt-published"
+                                            datetime={blog.date.toISOString()}
+                                        >
+                                            <span class="place-self-end mb-4 text-sm text-neutral-400 font-medium group-hover:text-white transition-colors">
+                                                {datefns.format(blog.date, "LLL d")}
+                                            </span>
+                                        </time>
+                                        <h2 class="p-name text-3xl font-semibold tracking-tight text-white leading-tight">
+                                            {blog.title}
+                                        </h2>
+                                        <p class="p-summary mt-3 text-neutral-400 text-pretty group-hover:text-white transition-colors">
+                                            {blog.description}
+                                        </p>
+                                        <span class="mt-8 flex gap-2 text-neutral-400 group-hover:text-white font-medium items-center transition-colors">
+                                            <img
+                                                class="rounded-full aspect-square"
+                                                src="/assets/avatar.webp"
+                                                alt="Priyanshu Dangare"
+                                                width={20}
+                                                height={20}
+                                            />
+                                            aspizu
+                                        </span>
+                                    </div>
+                                </a>
+                            </article>
+                        ))
+                    }
+                </div>
             </div>
         </div>
         <Analytics />

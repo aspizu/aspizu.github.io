@@ -8,6 +8,7 @@ export async function GET(context: APIContext) {
     return rss({
         title: "aspizu's blog",
         description: "technology, music, and whatever else",
+        trailingSlash: false,
         site: context.site! + "/blog",
         items: await Promise.all(
             blogs.map(async (blog) => ({
