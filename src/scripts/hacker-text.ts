@@ -1,40 +1,30 @@
-const hackertexts: {element: HTMLElement; originalText: string}[] = []
-for (const text_ of document.querySelectorAll(".hackertext")) {
-    const text = text_ as HTMLElement
-    const originalText = text.textContent || ""
-    hackertexts.push({element: text, originalText})
-}
-
-let interval: ReturnType<typeof setInterval> | null = null
-
-let i = 0
+const elements = [...document.querySelectorAll<HTMLElement>(".hackertext")]
+const originalTexts = elements.map((el) => el.textContent || "")
 const chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?"
-function render() {
-    for (const {element, originalText} of hackertexts) {
-        const length = Math.min(i, originalText.length)
-        element.textContent = originalText.slice(0, length)
-        for (let i = 0; i < originalText.length - length; i++) {
-            const part = chars.charAt(Math.floor(Math.random() * chars.length))
-            const node = document.createElement("span")
-            node.textContent = part
-            const opacity = Math.round(
-                100 * (1 - i / Math.max(1, originalText.length - length - 1)),
-            )
-            node.style.opacity = `${opacity}%`
-            element.appendChild(node)
-            element.appendChild(document.createElement("wbr"))
-        }
-    }
-    i += 2
-    if (
-        i >
-        hackertexts
-            .map((x) => x.originalText.length)
-            .reduce((a, b) => Math.max(a, b), 0)
-    ) {
-        clearInterval(interval!)
-    }
-}
+const maxLength = Math.max(...originalTexts.map((t) => t.length))
+let revealed = 0
 
-interval = setInterval(render, 66)
+const interval = setInterval(() => {
+    elements.forEach((el, idx) => {
+        const revealedText = originalTexts[idx].slice(0, revealed)
+        const glitchCount = originalTexts[idx].length - revealed
+        if (glitchCount <= 0) return
+
+        const fragment = document.createDocumentFragment()
+        fragment.textContent = revealedText
+
+        for (let i = 0; i < glitchCount; i++) {
+            const span = document.createElement("span")
+            span.textContent = chars[Math.floor(Math.random() * chars.length)]
+            span.style.opacity = `${Math.round(100 * (1 - i / (glitchCount - 1)))}%`
+            fragment.appendChild(span)
+            fragment.appendChild(document.createElement("wbr"))
+        }
+
+        el.replaceChildren(fragment)
+    })
+
+    revealed += 2
+    if (revealed > maxLength) clearInterval(interval)
+}, 66)
