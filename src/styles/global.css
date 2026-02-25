@@ -147,15 +147,25 @@
         @apply hover:underline hover:decoration-1 hover:underline-offset-8;
     }
 
+    ul,
+    ol {
+        @apply mb-6 list-outside space-y-2 pl-4;
+    }
+
     ul {
-        @apply mb-6 list-outside list-disc space-y-2 pl-4;
+        @apply list-disc;
+    }
+
+    ol {
+        @apply list-decimal;
     }
 
     li {
         @apply pl-4 text-pretty;
     }
 
-    ul li::marker {
+    ul li::marker,
+    ol li::marker {
         @apply text-neutral-400;
     }
 
