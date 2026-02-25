@@ -55,24 +55,30 @@ const morePosts = (
         <meta property="og:description" content={blog.data.description} />
         <meta property="og:url" content={`https://aspiz.uk/blog/${blog.id}`} />
         <meta property="og:site_name" content="aspiz.uk" />
-        <meta property="og:image" content={`https://aspiz.uk/assets/og/blog/${blog.id}.jpeg`} />
+        <meta
+            property="og:image"
+            content={`https://aspiz.uk/assets/og/blog/${blog.id}.jpeg`}
+        />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@aspizu_" />
         <meta name="twitter:title" content={blog.data.title} />
         <meta name="twitter:description" content={blog.data.description} />
         <meta name="twitter:creator" content="@aspizu_" />
-        <meta name="twitter:image" content={`https://aspiz.uk/assets/og/blog/${blog.id}.jpeg`} />
+        <meta
+            name="twitter:image"
+            content={`https://aspiz.uk/assets/og/blog/${blog.id}.jpeg`}
+        />
         <meta name="twitter:image:type" content="image/jpeg" />
         <meta name="twitter:image:alt" content={blog.data.title} />
         <meta name="twitter:image:width" content="1200" />
         <meta name="twitter:image:height" content="630" />
-        <meta name="twitter:image:secure_url" content={`https://aspiz.uk/assets/og/blog/${blog.id}.jpeg`} />
+        <meta
+            name="twitter:image:secure_url"
+            content={`https://aspiz.uk/assets/og/blog/${blog.id}.jpeg`}
+        />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta
-            property="og:image:alt"
-            content={blog.data.title}
-        />
+        <meta property="og:image:alt" content={blog.data.title} />
         <meta property="og:type" content="object" />
         <meta property="article:modified_time" content={date.toISOString()} />
         <base href={`/blog/${blog.id}/`} />
@@ -180,20 +186,21 @@ const morePosts = (
                 >
                     {
                         morePosts.map((post) => (
-                            <a href={`/blog/${post.id}`} class="block">
-                                <div class="group relative bg-black px-6 py-4 flex flex-col hover:bg-neutral-900 transition-colors">
-                                    <ArrowUpRight class="absolute right-4 top-4 size-4 text-neutral-600 group-hover:text-white" />
-                                    <span class="text-xs mb-2 text-neutral-400 font-medium group-hover:text-white transition-colors shrink-0">
-                                        {datefns.format(post.date, "LLL d")}
-                                    </span>
-                                    <h3 class="font-semibold tracking-tight text-white truncate">
-                                        {post.data.title}
-                                    </h3>
-                                    <p class="mb-2 text-sm text-neutral-400 group-hover:text-white transition-colors truncate">
-                                        {post.data.description}
-                                    </p>
-                                    <div class="grow" />
-                                </div>
+                            <a
+                                href={`/blog/${post.id}`}
+                                class="group relative bg-black px-6 py-4 flex flex-col hover:bg-neutral-900 transition-colors overflow-hidden"
+                            >
+                                <ArrowUpRight class="absolute right-4 top-4 size-4 text-neutral-600 group-hover:text-white" />
+                                <span class="text-xs mb-2 text-neutral-400 font-medium group-hover:text-white transition-colors shrink-0">
+                                    {datefns.format(post.date, "LLL d")}
+                                </span>
+                                <h3 class="font-semibold tracking-tight text-white truncate">
+                                    {post.data.title}
+                                </h3>
+                                <p class="mb-2 text-sm text-neutral-400 group-hover:text-white transition-colors truncate ">
+                                    {post.data.description}
+                                </p>
+                                <div class="grow" />
                             </a>
                         ))
                     }
