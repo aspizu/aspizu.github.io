@@ -55,21 +55,23 @@ const morePosts = (
         <meta property="og:description" content={blog.data.description} />
         <meta property="og:url" content={`https://aspiz.uk/blog/${blog.id}`} />
         <meta property="og:site_name" content="aspiz.uk" />
-        <meta property="og:image" content={`/assets/og/blog/${blog.id}.jpeg`} />
+        <meta property="og:image" content={`https://aspiz.uk/assets/og/blog/${blog.id}.jpeg`} />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@aspizu_" />
         <meta name="twitter:title" content={blog.data.title} />
         <meta name="twitter:description" content={blog.data.description} />
-        <meta name="twitter:image" content={`/assets/og/blog/${blog.id}.jpeg`} />
+        <meta name="twitter:creator" content="@aspizu_" />
+        <meta name="twitter:image" content={`https://aspiz.uk/assets/og/blog/${blog.id}.jpeg`} />
+        <meta name="twitter:image:type" content="image/jpeg" />
         <meta name="twitter:image:alt" content={blog.data.title} />
         <meta name="twitter:image:width" content="1200" />
         <meta name="twitter:image:height" content="630" />
-        <meta name="twitter:site" content="@aspizu_" />
-        <meta property="og:site_name" content="aspizu" />
+        <meta name="twitter:image:secure_url" content={`https://aspiz.uk/assets/og/blog/${blog.id}.jpeg`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta
             property="og:image:alt"
-            content="Description of the image for accessibility"
+            content={blog.data.title}
         />
         <meta property="og:type" content="object" />
         <meta property="article:modified_time" content={date.toISOString()} />
