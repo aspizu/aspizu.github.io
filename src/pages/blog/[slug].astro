@@ -53,8 +53,12 @@ const morePosts = (
         <title>{blog.data.title}</title>
         <meta property="og:title" content={blog.data.title} />
         <meta property="og:description" content={blog.data.description} />
+        <meta property="og:url" content={`https://aspiz.uk/blog/${blog.id}`} />
+        <meta property="og:site_name" content="aspiz.uk" />
         <meta property="og:image" content={`/assets/og/blog/${blog.id}.webp`} />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={blog.data.title} />
+        <meta name="twitter:description" content={blog.data.description} />
         <meta name="twitter:image" content={`/assets/og/blog/${blog.id}.webp`} />
         <meta name="twitter:image:alt" content={blog.data.title} />
         <meta name="twitter:image:width" content="1200" />
