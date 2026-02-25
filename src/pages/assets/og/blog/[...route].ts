@@ -19,7 +19,7 @@ export const {getStaticPaths, GET} = await OGImageRoute({
         title: page.title,
         description: page.description,
         quality: 100,
-        format: "WEBP",
+        format: "JPEG",
         padding: 128,
         bgImage: {
             path: "src/assets/og-background.png",
