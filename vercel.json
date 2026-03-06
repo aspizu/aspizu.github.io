@@ -48,7 +48,7 @@
         },
         {
             "source": "/goboscript/docs",
-            "destination": "/goboscript/docs/install",
+            "destination": "/goboscript/docs/install/",
             "permanent": true
         },
         {
@@ -67,5 +67,6 @@
             "permanent": true
         }
     ],
-    "trailingSlash": false
+    "trailingSlash": false,
+    "cleanUrls": true
 }
