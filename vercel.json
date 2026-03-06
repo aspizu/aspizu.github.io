@@ -48,7 +48,7 @@
         },
         {
             "source": "/goboscript/docs",
-            "destination": "/goboscript/docs/install/",
+            "destination": "/goboscript/docs/install.html",
             "permanent": true
         },
         {
