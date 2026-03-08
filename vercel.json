@@ -28,6 +28,10 @@
         {
             "source": "/vtec/:match*",
             "destination": "https://vtec-search.vercel.app/:match*"
+        },
+        {
+            "source": "/DCIM/:match*",
+            "destination": "https://aspizu-dcim.vercel.app/:match*"
         }
     ],
     "redirects": [
