@@ -32,6 +32,10 @@
         {
             "source": "/DCIM/:match*",
             "destination": "https://aspizu-dcim.vercel.app/:match*"
+        },
+        {
+            "source": "/resume/:match*",
+            "destination": "https://aspizu-resume.vercel.app/:match*"
         }
     ],
     "redirects": [
