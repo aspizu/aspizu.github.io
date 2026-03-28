@@ -19,6 +19,11 @@
         "docs": "/tshu/docs"
     },
     {
+        "name": "cgh",
+        "description": "A better CLI for working with AWS CodeCommit repositories.",
+        "repo": "https://github.com/aspizu/cgh"
+    },
+    {
         "name": "Skriptl",
         "description": "skribbl.io clone but u draw by live-coding p5.js sketches.",
         "repo": "https://github.com/aspizu/skriptl"
