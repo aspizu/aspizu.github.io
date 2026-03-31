@@ -38,7 +38,7 @@
             "destination": "https://aspizu-resume.vercel.app/:match*"
         },
         {
-            "source": "/moka/:match*",
+            "source": "/moka/spec/:match*",
             "destination": "https://moka-two-khaki.vercel.app/:match*"
         }
     ],
