@@ -36,6 +36,10 @@
         {
             "source": "/resume/:match*",
             "destination": "https://aspizu-resume.vercel.app/:match*"
+        },
+        {
+            "source": "/moka/:match*",
+            "destination": "https://moka-two-khaki.vercel.app/:match*"
         }
     ],
     "redirects": [
