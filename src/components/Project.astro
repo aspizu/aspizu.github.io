@@ -1,7 +1,8 @@
 ---
 import {getGitHubToken} from "@/utils/github-token"
-import ExternalLink from "@lucide/astro/icons/external-link"
-import GitHub from "@lucide/astro/icons/github"
+import ProjectButton from "@/components/ProjectButton.astro"
+import Github from "@lucide/astro/icons/github"
+import Link from "@lucide/astro/icons/link"
 import Star from "@lucide/astro/icons/star"
 
 interface Props {
@@ -11,97 +12,114 @@ interface Props {
     docs?: string
     deployment?: string
     image?: string
+    span?: boolean
+    dark?: boolean
 }
-const badgeClass =
-    "inline-flex items-center gap-1 px-1.5 py-0.5 text-xs text-neutral-400 hover:text-neutral-200 transition-colors duration-200 hover:underline decoration-1 underline-offset-3"
 
-const {name, description, deployment, repo, docs, image} = Astro.props
+const {
+    name,
+    description,
+    deployment,
+    repo,
+    docs,
+    image,
+    span,
+    dark = false,
+} = Astro.props
 
-// Get GitHub token (cached after first call)
 const githubToken = await getGitHubToken()
 
-// Fetch GitHub stars at build time if repo is provided
-let stars: number = 0
-if (repo && repo.includes("github.com")) {
+let stars = 0
+if (repo?.includes("github.com")) {
     try {
-        const match = repo.match(/github\.com\/([^\/]+)\/([^\/]+)/)
+        const match = repo.match(/github\.com\/([^/]+)\/([^/]+)/)
         if (match) {
             const [, owner, repoName] = match
-            const headers: HeadersInit = {
-                Accept: "application/vnd.github.v3+json",
-            }
-            if (githubToken) {
-                headers["Authorization"] = `Bearer ${githubToken}`
-            }
-            const response = await fetch(
+            const headers: HeadersInit = {Accept: "application/vnd.github.v3+json"}
+            if (githubToken) headers["Authorization"] = `Bearer ${githubToken}`
+            const res = await fetch(
                 `https://api.github.com/repos/${owner}/${repoName}`,
                 {headers},
             )
-            if (response.ok) {
-                const data = await response.json()
-                stars = data.stargazers_count
-            }
+            if (res.ok) stars = (await res.json()).stargazers_count
         }
-    } catch (error) {
-        console.error(`Failed to fetch stars for ${name}:`, error)
-    }
+    } catch {}
 }
 
-function flexCount(count: number): string {
-    return `${Math.round(count / 100)}00`
-}
+const flexCount = (n: number) => `${Math.floor(n / 100)}00`
 ---
 
-<div class="flex flex-col group">
-    <h2 class="text-xl font-medium tracking-tight">{name}</h2>
-    <p
-        class="mt-1 text-sm text-neutral-300 group-hover:text-white leading-relaxed transition-colors"
-    >
-        {description}
-    </p>
-    <slot />
-    <div class="flex items-center gap-2 flex-wrap mt-2">
-        {
-            deployment && (
-                <a
-                    class={badgeClass}
-                    target="_blank"
-                    rel="noreferrer"
-                    href={deployment}
-                >
-                    <ExternalLink class="size-2.5" />
-                    Demo
-                </a>
-            )
-        }
-        {
-            docs && (
-                <a class={badgeClass} target="_blank" rel="noreferrer" href={docs}>
-                    <ExternalLink class="size-2.5" />
-                    Docs
-                </a>
-            )
-        }
-        {
-            repo && (
-                <a
-                    class="inline-flex items-center gap-1 text-xs text-neutral-400 hover:text-neutral-200 transition-colors duration-200 hover:underline decoration-1 underline-offset-3"
-                    rel="noreferrer"
-                    target="_blank"
-                    href={repo}
-                >
-                    {stars > 99 ?
-                        <>
-                            <Star class="size-2.5" />
+<div
+    class:list={[
+        "Project flex flex-col p-1 rounded-3xl",
+        dark ? "bg-neutral-800" : "bg-neutral-50",
+        span && "col-span-2",
+    ]}
+>
+    {
+        image && (
+            <div class="relative rounded-[21px] overflow-hidden shadow">
+                <img src={image} alt={name} class="w-full object-cover aspect-video" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                {(deployment ?? docs ?? repo) && (
+                    <a
+                        href={deployment ?? docs ?? repo}
+                        target="_blank"
+                        rel="noreferrer"
+                        class="absolute top-1.5 right-1.5 inline-flex items-center justify-center size-8 rounded-full bg-white backdrop-blur-sm text-black/75 hover:text-black transition-colors duration-150"
+                    >
+                        <Link class="size-3.5" />
+                    </a>
+                )}
+                <div class="absolute bottom-0 left-0 right-0 p-4 flex items-end justify-between">
+                    <h2 class="text-4xl font-medium tracking-tight text-white">
+                        {name}
+                    </h2>
+                    {stars >= 100 && (
+                        <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-white/90 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-full">
+                            <Star class="size-3.5 fill-amber-400 text-amber-400" />
                             {flexCount(stars)}+
-                        </>
-                    :   <>
-                            <GitHub class="size-2.5" />
-                            Source
-                        </>
-                    }
-                </a>
-            )
-        }
+                        </span>
+                    )}
+                </div>
+            </div>
+        )
+    }
+    <div class="flex flex-col gap-2 flex-1 p-4">
+        <div class="flex items-start justify-between gap-3">
+            {
+                !image && (
+                    <h2
+                        class:list={[
+                            "text-2xl font-medium tracking-tight",
+                            dark ? "text-white" : "text-neutral-900",
+                        ]}
+                    >
+                        {name}
+                    </h2>
+                )
+            }
+            {
+                stars >= 100 && !image && (
+                    <span class="inline-flex items-center gap-1 text-sm font-semibold text-amber-400/80 shrink-0 mt-0.5">
+                        <Star class="size-3.5 fill-amber-400/80" />
+                        {flexCount(stars)}+
+                    </span>
+                )
+            }
+        </div>
+        <p
+            class:list={[
+                "text-sm leading-relaxed flex-1",
+                dark ? "text-neutral-400" : "text-neutral-500",
+            ]}
+        >
+            {description}
+        </p>
+        <div class="flex items-center gap-2 pt-1 flex-wrap justify-end -mb-3 -mx-3">
+            {deployment && <ProjectButton href={deployment} label="Live"><Link class="size-3.5" /></ProjectButton>}
+            {docs && <ProjectButton href={docs} label="Docs"><Link class="size-3.5" /></ProjectButton>}
+            {repo && <ProjectButton href={repo} label="Repo"><Github class="size-3.5" /></ProjectButton>}
+        </div>
     </div>
 </div>

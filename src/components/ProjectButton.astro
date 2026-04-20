@@ -1,0 +1,21 @@
+---
+import Tooltip from "@/components/Tooltip.astro"
+
+interface Props {
+    href: string
+    label: string
+}
+
+const {href, label} = Astro.props
+---
+
+<Tooltip text={label}>
+    <a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        class="inline-flex items-center gap-1.5 p-2 rounded-xl text-xs font-medium text-neutral-400 transition-colors duration-150 hover:text-neutral-200 hover:bg-white/10"
+    >
+        <slot />
+    </a>
+</Tooltip>

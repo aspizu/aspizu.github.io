@@ -4,19 +4,25 @@
         "description": "Programming language with web-based IDE that compiles to children's block-based programming language Scratch.",
         "repo": "https://github.com/aspizu/goboscript",
         "deployment": "/goboscript/ide",
-        "docs": "/goboscript/docs"
+        "docs": "/goboscript/docs",
+        "image": "https://github.com/aspizu/goboscript/raw/main/docs/assets/og-image-dark.webp",
+        "span": true,
+        "dark": true
     },
     {
         "name": "Nixite",
         "description": "Generates bash scripts to unattendedly install selected Linux software. Automatically configures system, suppresses confirmation prompts and uses the best available installation method.",
+        "image": "https://raw.githubusercontent.com/aspizu/nixite/refs/heads/main/public/og-image.png",
         "repo": "https://github.com/aspizu/nixite",
-        "deployment": "/nixite"
+        "deployment": "/nixite",
+        "span": true
     },
     {
         "name": "tshu",
         "description": "Python library for safe, cross-platform shell execution. Uses t-strings and a Rust-backed bash implementation.",
         "repo": "https://github.com/aspizu/tshu",
-        "docs": "/tshu/docs"
+        "docs": "/tshu/docs",
+        "dark": false
     },
     {
         "name": "cgh",
@@ -26,7 +32,9 @@
     {
         "name": "Skriptl",
         "description": "skribbl.io clone but u draw by live-coding p5.js sketches.",
-        "repo": "https://github.com/aspizu/skriptl"
+        "repo": "https://github.com/aspizu/skriptl",
+        "span": true,
+        "dark": false
     },
     {
         "name": "PIXELATEDKISSES",
@@ -37,7 +45,8 @@
     {
         "name": "bunnie",
         "description": "bunnie lets u use Bun as the templating language in ur Rust applications.",
-        "repo": "https://github.com/aspizu/bunnie"
+        "repo": "https://github.com/aspizu/bunnie",
+        "dark": false
     },
     {
         "name": "musync",
@@ -48,7 +57,8 @@
     {
         "name": "neocities-sync",
         "description": "Deploys projects to Neocities using diffed updates. Suitable for Vite, Astro, and Next.js builds.",
-        "repo": "https://github.com/aspizu/neocities-sync"
+        "repo": "https://github.com/aspizu/neocities-sync",
+        "dark": false
     },
     {
         "name": "msglint",
@@ -59,6 +69,7 @@
         "name": "instax",
         "description": "Generates printable PDFs for DIY instant camera photographs.",
         "repo": "https://github.com/aspizu/instax",
-        "deployment": "/instax"
+        "deployment": "/instax",
+        "dark": false
     }
 ]
