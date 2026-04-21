@@ -14,54 +14,54 @@ import Telegram from "simple-icons-astro/Telegram"
 import X from "simple-icons-astro/X"
 import Youtube from "simple-icons-astro/Youtube"
 
-const iconMap = {
-    Bluesky,
-    Codeberg,
-    Discord,
-    Github,
-    Pinterest,
-    Reddit,
-    Scratch,
-    Spotify,
-    Steam,
-    Telegram,
-    X,
-    Youtube,
+const iconMap: Record<string, Function> = {
+  Bluesky,
+  Codeberg,
+  Discord,
+  Github,
+  Pinterest,
+  Reddit,
+  Scratch,
+  Spotify,
+  Steam,
+  Telegram,
+  X,
+  Youtube,
 }
 
 const socialsWithIcons = socials.map((social) => ({
-    ...social,
-    Icon: iconMap[social.name],
+  ...social,
+  Icon: iconMap[social.name],
 }))
 ---
 
 <div class="w-full mt-4 gap-1.5 grid grid-cols-6" id="socials-container">
-    {
-        socialsWithIcons.map(({Icon, color, href, tooltip}) => (
-            <Social color={color} href={href} tooltip={tooltip}>
-                <Icon class="size-[70%]" />
-            </Social>
-        ))
-    }
+  {
+    socialsWithIcons.map(({Icon, color, href, tooltip}) => (
+      <Social color={color} href={href} tooltip={tooltip}>
+        <Icon class="size-[70%]" />
+      </Social>
+    ))
+  }
 </div>
 
 <script>
-    for (const title of document
-        .getElementById("socials-container")
-        .querySelectorAll("svg title")) {
-        title.remove()
-    }
-    for (const social_ of document.querySelectorAll(".Social")) {
-        const social = social_ as HTMLElement
-        setTimeout(
-            () => {
-                social.classList.remove("opacity-0")
-                social.classList.add("zoom-in-bounce")
-                social.addEventListener("animationend", () => {
-                    social.classList.remove("zoom-in-bounce")
-                })
-            },
-            256 + Math.random() * 768,
-        )
-    }
+  for (const title of document
+    .getElementById("socials-container")!
+    .querySelectorAll("svg title")) {
+    title.remove()
+  }
+  for (const social_ of document.querySelectorAll(".Social")) {
+    const social = social_ as HTMLElement
+    setTimeout(
+      () => {
+        social.classList.remove("opacity-0")
+        social.classList.add("zoom-in-bounce")
+        social.addEventListener("animationend", () => {
+          social.classList.remove("zoom-in-bounce")
+        })
+      },
+      256 + Math.random() * 768,
+    )
+  }
 </script>

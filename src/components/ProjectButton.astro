@@ -1,0 +1,28 @@
+---
+import Tooltip from "@/components/Tooltip.astro"
+
+interface Props {
+  href: string
+  label: string
+  dark?: boolean | string
+}
+
+const {href, label, dark = false} = Astro.props
+const isDark = !dark
+---
+
+<Tooltip text={label}>
+  <a
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+    class:list={[
+      "inline-flex items-center justify-center size-8 rounded-full text-xs font-medium transition-colors duration-150",
+      isDark ?
+        "text-neutral-400 hover:text-neutral-200 bg-white/10 backdrop-blur-sm hover:bg-white/20"
+      : "text-neutral-500 hover:text-neutral-800 bg-black/5 backdrop-blur-sm hover:bg-black/10",
+    ]}
+  >
+    <slot />
+  </a>
+</Tooltip>

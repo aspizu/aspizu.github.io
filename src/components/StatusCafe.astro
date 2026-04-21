@@ -1,52 +1,51 @@
 <div class="hidden absolute z-1 top-35 left-8" id="status-cafe">
-    <div
-        class="absolute -bottom-0.75 left-4 w-2 h-2 rotate-45 bg-neutral-900 border-l border-b border-neutral-900 shadow-sm z-2"
-        aria-hidden="true"
-    >
-    </div>
-    <div
-        class="absolute -bottom-1 left-3.5 w-3 h-3 rotate-45 bg-neutral-800 border-l border-b border-neutral-800 shadow-sm z-0"
-        aria-hidden="true"
-    >
-    </div>
+  <div
+    class="absolute -bottom-0.75 left-4 w-2 h-2 rotate-45 bg-neutral-900 border-l border-b border-neutral-900 shadow-sm z-2"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="absolute -bottom-1 left-3.5 w-3 h-3 rotate-45 bg-neutral-800 border-l border-b border-neutral-800 shadow-sm z-0"
+    aria-hidden="true"
+  >
+  </div>
 
-    <div
-        id="status-bubble"
-        class="bg-neutral-900 backdrop-blur-sm border border-neutral-800 shadow-md rounded-xl px-1.5 py-1 max-w-64 z-1"
-        role="status"
-        aria-live="polite"
-    >
-        <p id="status-content" class="text-sm leading-5 text-neutral-100 truncate m-0">
-        </p>
-    </div>
+  <div
+    id="status-bubble"
+    class="bg-neutral-900 backdrop-blur-sm border border-neutral-800 shadow-md rounded-xl px-1.5 py-1 max-w-64 z-1"
+    role="status"
+    aria-live="polite"
+  >
+    <p id="status-content" class="text-sm leading-5 text-neutral-100 truncate m-0"></p>
+  </div>
 </div>
 
 <script>
-    const statusCafe = document.getElementById("status-cafe")
+  const statusCafe = document.getElementById("status-cafe")!
 
-    async function updateStatus() {
-        const target = document.getElementById("status-content")
-        try {
-            const res = await fetch("https://status.cafe/users/aspizu/status.json", {
-                cache: "no-cache",
-            })
-            if (!res.ok) throw new Error("network response not ok")
-            const result = await res.json()
-            target.textContent =
-                `${result.content ?? ""} ${result.face ?? ""}`.trim() || "No status"
-            statusCafe.style.display = "inline-block"
-            statusCafe.classList.add(
-                "animate-in",
-                "fade-in",
-                "zoom-in",
-                "slide-in-from-bottom",
-                "duration-500",
-            )
-        } catch (err) {
-            console.error("status fetch failed", err)
-            target.textContent = "Status unavailable"
-        }
+  async function updateStatus() {
+    const target = document.getElementById("status-content")!
+    try {
+      const res = await fetch("https://status.cafe/users/aspizu/status.json", {
+        cache: "no-cache",
+      })
+      if (!res.ok) throw new Error("network response not ok")
+      const result = await res.json()
+      target.textContent =
+        `${result.content ?? ""} ${result.face ?? ""}`.trim() || "No status"
+      statusCafe.style.display = "inline-block"
+      statusCafe.classList.add(
+        "animate-in",
+        "fade-in",
+        "zoom-in",
+        "slide-in-from-bottom",
+        "duration-500",
+      )
+    } catch (err) {
+      console.error("status fetch failed", err)
+      target.textContent = "Status unavailable"
     }
+  }
 
-    updateStatus()
+  updateStatus()
 </script>

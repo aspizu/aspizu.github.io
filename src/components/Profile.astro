@@ -8,78 +8,71 @@ import StatusCafe from "@/components/StatusCafe.astro"
 ---
 
 <div
-    class="Profile relative flex flex-col bg-linear-to-b p-1 rounded-3xl max-w-96 h-card"
+  class="Profile relative flex flex-col bg-linear-to-b p-1 rounded-3xl max-w-96 h-card"
 >
+  <div
+    class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow"
+  >
+    <StatusCafe />
     <div
-        class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow"
+      class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/assets/banner.webp')] bg-cover bg-top opacity-50 border-b border-white/25"
     >
-        <StatusCafe />
-        <div
-            class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/assets/banner.webp')] bg-cover bg-top opacity-50 border-b border-white/25"
-        >
-        </div>
-        <div
-            class="absolute top-8 left-4 size-32 rounded-full transition-all shadow-lg shadow-white/25 animate-in fade-in zoom-in duration-500"
-        >
-            <img
-                id="avatar"
-                src="/assets/avatar.webp"
-                width={128}
-                height={128}
-                alt="avatar u-logo"
-                class="rounded-full"
-            />
-        </div>
-        <div class="flex flex-col p-4 pt-8">
-            <h1 class="text-2xl font-medium">
-                <img
-                    src="/assets/minecraft_title.webp"
-                    alt="aspizu"
-                    class="h-6 inline-block p-name"
-                    height={24}
-                />
-                <span class="sr-only p-name">aspizu</span>
-                <span class="text-neutral-400 font-light p-sex p-gender-identity"
-                    >he/him</span
-                >
-                <img
-                    src="/assets/india.webp"
-                    class="inline size-6"
-                    width={24}
-                    height={24}
-                />
-                <span class="sr-only u-country-name u-region">India</span>
-            </h1>
-            <p class="my-2 leading-relaxed p-note">
-                I make things, mostly software, sometimes music, often mediocre. SDE
-                Intern @ Novixpert
-            </p>
-
-            <LastFM />
-            <Socials />
-        </div>
     </div>
-    <a
-        href="mailto:hello@aspiz.uk"
-        class="u-email absolute top-4 right-4 z-10 inline-flex items-center justify-center gap-1 px-2 py-1 bg-white/85 hover:bg-white text-black font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg text-sm"
+    <div
+      class="absolute top-8 left-4 size-32 rounded-full transition-all shadow-lg shadow-white/25 animate-in fade-in zoom-in duration-500"
     >
-        <Mail class="size-3.5" />
-        hello@aspiz.uk
-    </a>
+      <img
+        id="avatar"
+        src="/assets/avatar.webp"
+        width={128}
+        height={128}
+        alt="avatar u-logo"
+        class="rounded-full"
+      />
+    </div>
+    <div class="flex flex-col p-4 pt-8">
+      <h1 class="text-2xl font-medium">
+        <img
+          src="/assets/minecraft_title.webp"
+          alt="aspizu"
+          class="h-6 inline-block p-name"
+          height={24}
+        />
+        <span class="sr-only p-name">aspizu</span>
+        <span class="text-neutral-400 font-light p-sex p-gender-identity">he/him</span>
+        <img src="/assets/india.webp" class="inline size-6" width={24} height={24} />
+        <span class="sr-only u-country-name u-region">India</span>
+      </h1>
+      <p class="my-2 leading-relaxed p-note">
+        I make things, mostly software, sometimes music, often mediocre. SDE Intern @
+        Novixpert
+      </p>
+
+      <LastFM />
+      <Socials />
+    </div>
+  </div>
+  <a
+    href="mailto:hello@aspiz.uk"
+    class="u-email absolute top-4 right-4 z-10 inline-flex items-center justify-center gap-1 px-2 py-1 bg-white/85 hover:bg-white text-black font-medium rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg text-sm"
+  >
+    <Mail class="size-3.5" />
+    hello@aspiz.uk
+  </a>
 </div>
 
 <script>
-    const avatar = document.getElementById("avatar")
-    let sr = 14.5
-    let r = 0
-    let interval = null
-    function update() {
-        sr *= 0.99
-        r += sr
-        avatar.style.rotate = `${r}deg`
-        if (sr < 0.01) {
-            clearInterval(interval)
-        }
+  const avatar = document.getElementById("avatar")
+  let sr = 14.5
+  let r = 0
+  let interval = null
+  function update() {
+    sr *= 0.99
+    r += sr
+    avatar.style.rotate = `${r}deg`
+    if (sr < 0.01) {
+      clearInterval(interval)
     }
-    interval = setInterval(update, 25)
+  }
+  interval = setInterval(update, 25)
 </script>

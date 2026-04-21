@@ -1,74 +1,74 @@
 {
-    "$schema": "https://openapi.vercel.sh/vercel.json",
-    "rewrites": [
-        {
-            "source": "/nixite/:match*",
-            "destination": "https://nixite.vercel.app/:match*"
-        },
-        {
-            "source": "/goboscript/docs/:match*",
-            "destination": "https://goboscript-docs.vercel.app/:match*"
-        },
-        {
-            "source": "/goboscript/ide/:match*",
-            "destination": "https://aspizu.github.io/goboscript-ide/:match*"
-        },
-        {
-            "source": "/tshu/docs/:match*",
-            "destination": "https://tshu.vercel.app/:match*"
-        },
-        {
-            "source": "/PIXELATEDKISSES/:match*",
-            "destination": "https://pixelatedkisses.vercel.app/:match*"
-        },
-        {
-            "source": "/instax/:match*",
-            "destination": "https://instax-sepia.vercel.app/:match*"
-        },
-        {
-            "source": "/vtec/:match*",
-            "destination": "https://vtec-search.vercel.app/:match*"
-        },
-        {
-            "source": "/DCIM/:match*",
-            "destination": "https://aspizu-dcim.vercel.app/:match*"
-        },
-        {
-            "source": "/resume/:match*",
-            "destination": "https://aspizu-resume.vercel.app/:match*"
-        },
-        {
-            "source": "/moka/spec/:match*",
-            "destination": "https://moka-two-khaki.vercel.app/:match*"
-        }
-    ],
-    "redirects": [
-        {
-            "source": "/goboscript",
-            "destination": "https://github.com/aspizu/goboscript",
-            "permanent": true
-        },
-        {
-            "source": "/goboscript/docs",
-            "destination": "/goboscript/docs/install.html",
-            "permanent": true
-        },
-        {
-            "source": "/goboscript.ide",
-            "destination": "/goboscript/ide",
-            "permanent": true
-        },
-        {
-            "source": "/tshu",
-            "destination": "https://github.com/aspizu/tshu",
-            "permanent": true
-        },
-        {
-            "source": "/tshu/docs",
-            "destination": "/tshu/docs/reference/command",
-            "permanent": true
-        }
-    ],
-    "trailingSlash": false,
-    "cleanUrls": false
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/nixite/:match*",
+      "destination": "https://nixite.vercel.app/:match*"
+    },
+    {
+      "source": "/goboscript/docs/:match*",
+      "destination": "https://goboscript-docs.vercel.app/:match*"
+    },
+    {
+      "source": "/goboscript/ide/:match*",
+      "destination": "https://aspizu.github.io/goboscript-ide/:match*"
+    },
+    {
+      "source": "/tshu/docs/:match*",
+      "destination": "https://tshu.vercel.app/:match*"
+    },
+    {
+      "source": "/PIXELATEDKISSES/:match*",
+      "destination": "https://pixelatedkisses.vercel.app/:match*"
+    },
+    {
+      "source": "/instax/:match*",
+      "destination": "https://instax-sepia.vercel.app/:match*"
+    },
+    {
+      "source": "/vtec/:match*",
+      "destination": "https://vtec-search.vercel.app/:match*"
+    },
+    {
+      "source": "/DCIM/:match*",
+      "destination": "https://aspizu-dcim.vercel.app/:match*"
+    },
+    {
+      "source": "/resume/:match*",
+      "destination": "https://aspizu-resume.vercel.app/:match*"
+    },
+    {
+      "source": "/moka/spec/:match*",
+      "destination": "https://moka-two-khaki.vercel.app/:match*"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/goboscript",
+      "destination": "https://github.com/aspizu/goboscript",
+      "permanent": true
+    },
+    {
+      "source": "/goboscript/docs",
+      "destination": "/goboscript/docs/install.html",
+      "permanent": true
+    },
+    {
+      "source": "/goboscript.ide",
+      "destination": "/goboscript/ide",
+      "permanent": true
+    },
+    {
+      "source": "/tshu",
+      "destination": "https://github.com/aspizu/tshu",
+      "permanent": true
+    },
+    {
+      "source": "/tshu/docs",
+      "destination": "/tshu/docs/reference/command",
+      "permanent": true
+    }
+  ],
+  "trailingSlash": false,
+  "cleanUrls": false
 }
