@@ -4,6 +4,7 @@ import "@fontsource-variable/cascadia-code"
 import "@/styles/global.css"
 // import buttons from "@/content/buttons.json"
 import Profile from "@/components/Profile.astro"
+import QuickLinks from "@/components/QuickLinks.astro"
 import projects from "@/content/projects.json"
 import Project from "@/components/Project.astro"
 import Analytics from "@vercel/analytics/astro"
@@ -41,17 +42,11 @@ import Analytics from "@vercel/analytics/astro"
   </head>
   <body class="bg-black text-white scheme-dark">
     <div class="page-transition"></div>
-    <!-- <nav class="my-4 flex justify-center">
-            <a
-                href="/blog"
-                class="flex bg-white text-neutral-700 hover:text-black shadow-lg shadow-white/25 hover:shadow-white/50 items-center gap-1 text-xs transition-all px-2 py-1 rounded-full hover:scale-[1.02]"
-            >
-                read my blog
-                <ArrowUpRight class="size-3.5" />
-            </a>
-        </nav> -->
+    <div class="flex justify-center py-6">
+      <QuickLinks />
+    </div>
     <div
-      class="flex flex-col md:flex-row gap-4 md:items-start items-center justify-center px-6 py-10 md:max-w-5xl max-w-sm mx-auto @container"
+      class="flex flex-col md:flex-row gap-4 md:items-start items-center justify-center px-6 md:max-w-5xl max-w-sm mx-auto @container"
     >
       <div class="md:sticky md:top-10 shrink-0 md:mx-0 mx-auto">
         <Profile />

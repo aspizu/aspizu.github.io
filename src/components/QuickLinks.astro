@@ -1,0 +1,31 @@
+---
+import Mail from "@lucide/astro/icons/mail"
+import ExternalLink from "@lucide/astro/icons/external-link"
+import FileText from "@lucide/astro/icons/file-text"
+---
+
+<div class="flex gap-6 text-sm text-white/60">
+    <a
+        href="mailto:hello@aspiz.uk"
+        class="inline-flex items-center gap-1 hover:text-white hover:underline underline-offset-4 decoration-1 transition-colors"
+    >
+        <Mail class="size-3.5" />
+        hello@aspiz.uk
+    </a>
+    <a
+        href="https://aspiz.uk/resume"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1 hover:text-white hover:underline underline-offset-4 decoration-1 transition-colors"
+    >
+        aspiz.uk/resume
+        <ExternalLink class="size-3.5" />
+    </a>
+    <a
+        href="https://aspiz.uk/blog"
+        class="inline-flex items-center gap-1 hover:text-white hover:underline underline-offset-4 decoration-1 transition-colors"
+    >
+        aspiz.uk/blog
+        <FileText class="size-3.5" />
+    </a>
+</div>
