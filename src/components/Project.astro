@@ -7,40 +7,43 @@ import Link from "@lucide/astro/icons/link"
 import Star from "@lucide/astro/icons/star"
 
 interface Props {
-  name: string
-  description: string
-  repo?: string
-  docs?: string
-  deployment?: string
-  image?: string
-  size?: "large-image" | "large" | "small"
-  dark?: boolean
+    name: string
+    description: string
+    repo?: string
+    docs?: string
+    deployment?: string
+    image?: string
+    size?: "large-image" | "large" | "small"
+    dark?: boolean
 }
 
 const {
-  name,
-  description,
-  deployment,
-  repo,
-  docs,
-  image,
-  size = "small",
-  dark = false,
+    name,
+    description,
+    deployment,
+    repo,
+    docs,
+    image,
+    size = "small",
+    dark = false,
 } = Astro.props
 
 let stars = 0
 const match =
-  repo?.includes("github.com") && repo.match(/github\.com\/([^/]+)\/([^/]+)/)
+    repo?.includes("github.com") && repo.match(/github\.com\/([^/]+)\/([^/]+)/)
 if (match) {
-  const headers: HeadersInit = {Accept: "application/vnd.github.v3+json"}
-  const token = await getGitHubToken()
-  if (token) headers["Authorization"] = `Bearer ${token}`
-  try {
-    const res = await fetch(`https://api.github.com/repos/${match[1]}/${match[2]}`, {
-      headers,
-    })
-    if (res.ok) stars = (await res.json()).stargazers_count
-  } catch {}
+    const headers: HeadersInit = {Accept: "application/vnd.github.v3+json"}
+    const token = await getGitHubToken()
+    if (token) headers["Authorization"] = `Bearer ${token}`
+    try {
+        const res = await fetch(
+            `https://api.github.com/repos/${match[1]}/${match[2]}`,
+            {
+                headers,
+            },
+        )
+        if (res.ok) stars = (await res.json()).stargazers_count
+    } catch {}
 }
 
 const link = deployment ?? docs ?? repo
@@ -48,89 +51,94 @@ const starsLabel = `${Math.floor(stars / 100)}00+`
 ---
 
 <div
-  class:list={[
-    "Project @container relative flex flex-col p-1 rounded-3xl",
-    dark ? "from-neutral-50 to-blue-100 bg-gradient-to-br" : "bg-neutral-900",
-    image ? "row-span-3" : "row-span-2",
-    size === "large-image" && "col-span-2 md:col-span-4 md:row-span-3",
-    size === "large" && "col-span-2 md:col-span-4 md:row-span-2",
-    size === "small" && "col-span-2 md:col-span-2 md:row-span-2",
-  ]}
+    class:list={[
+        "Project @container relative flex flex-col p-1 rounded-3xl",
+        dark ? "from-neutral-50 to-blue-100 bg-gradient-to-br" : "bg-neutral-900",
+        image ? "row-span-3" : "row-span-2",
+        size === "large-image" && "col-span-2 md:col-span-4 md:row-span-3",
+        size === "large" && "col-span-2 md:col-span-4 md:row-span-2",
+        size === "small" && "col-span-2 md:col-span-2 md:row-span-2",
+    ]}
 >
-  {
-    image && (
-      <div class="relative rounded-[21px] overflow-hidden shadow">
-        <img src={image} alt={name} class="w-full object-cover aspect-video" />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-        {link && (
-          <a
-            href={link}
-            target="_blank"
-            rel="noreferrer"
-            class="absolute top-1.5 right-1.5 inline-flex items-center justify-center size-8 rounded-full bg-white backdrop-blur-sm text-black/75 hover:text-black transition-colors duration-150"
-          >
-            <Link class="size-3.5" />
-          </a>
-        )}
-        <div class="absolute bottom-0 left-0 right-0 p-4 flex items-end justify-between">
-          <h2 class="text-xl @sm:text-2xl @md:text-3xl @lg:text-4xl font-medium tracking-tight text-white">
-            {name}
-          </h2>
-          {stars >= 100 && (
-            <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-white/90 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded-full">
-              <Star class="size-3.5 fill-amber-400 text-amber-400" />
-              {starsLabel}
-            </span>
-          )}
-        </div>
-      </div>
-    )
-  }
-  <div class="flex flex-col gap-2 flex-1 p-4 min-h-0">
     {
-      !image && (
-        <div class="flex items-start justify-between gap-3">
-          <h2 class:list={["text-xl font-medium tracking-tight text-white"]}>{name}</h2>
-          {stars >= 100 && (
-            <span class="inline-flex items-center gap-1 text-sm font-semibold text-amber-400/80 shrink-0 mt-0.5">
-              <Star class="size-3.5 fill-amber-400/80" />
-              {starsLabel}
-            </span>
-          )}
-        </div>
-      )
+        image && (
+            <div class="relative rounded-[21px] overflow-hidden shadow">
+                <img src={image} alt={name} class="w-full object-cover aspect-video" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                {link && (
+                    <a
+                        href={link}
+                        target="_blank"
+                        rel="noreferrer"
+                        class="absolute top-1.5 right-1.5 inline-flex items-center justify-center size-8 rounded-full bg-white backdrop-blur-sm text-black/75 hover:text-black transition-colors duration-150"
+                    >
+                        <Link class="size-3.5" />
+                    </a>
+                )}
+                <div class="absolute bottom-0 left-0 right-0 p-4 flex items-end gap-4">
+                    <h2 class="text-xl @sm:text-2xl @md:text-3xl @lg:text-4xl font-medium tracking-tight text-white">
+                        {name}
+                    </h2>
+                    {stars >= 100 && (
+                        <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-white/90 ">
+                            <img src="/assets/star.png" width={16} height={16} />
+                            {starsLabel}
+                        </span>
+                    )}
+                </div>
+            </div>
+        )
     }
-    <div class="flex-1 overflow-y-auto min-h-0">
-      <p
-        class:list={["leading-relaxed", dark ? "text-neutral-700" : "text-neutral-500"]}
-      >
-        {description}
-      </p>
+    <div class="flex flex-col gap-2 flex-1 p-4 min-h-0">
+        {
+            !image && (
+                <div class="flex items-start justify-between gap-3">
+                    <h2 class:list={["text-xl font-medium tracking-tight text-white"]}>
+                        {name}
+                    </h2>
+                    {stars >= 100 && (
+                        <span class="inline-flex items-center gap-1 text-sm font-semibold text-amber-400/80 shrink-0 mt-0.5">
+                            <Star class="size-3.5 fill-amber-400/80" />
+                            {starsLabel}
+                        </span>
+                    )}
+                </div>
+            )
+        }
+        <div class="flex-1 overflow-y-auto min-h-0">
+            <p
+                class:list={[
+                    "leading-relaxed",
+                    dark ? "text-neutral-700" : "text-neutral-500",
+                ]}
+            >
+                {description}
+            </p>
+        </div>
+        <div
+            class="absolute bottom-2 right-2 flex items-center gap-2 flex-wrap justify-end"
+        >
+            {
+                deployment && (
+                    <ProjectButton href={deployment} label="Live" dark={dark}>
+                        <Link class="size-3.5" />
+                    </ProjectButton>
+                )
+            }
+            {
+                docs && (
+                    <ProjectButton href={docs} label="Docs" dark={dark}>
+                        <BookOpen class="size-3.5" />
+                    </ProjectButton>
+                )
+            }
+            {
+                repo && (
+                    <ProjectButton href={repo} label="Repo" dark={dark}>
+                        <Github class="size-3.5" />
+                    </ProjectButton>
+                )
+            }
+        </div>
     </div>
-    <div
-      class="absolute bottom-2 right-2 flex items-center gap-2 flex-wrap justify-end"
-    >
-      {
-        deployment && (
-          <ProjectButton href={deployment} label="Live" dark={dark}>
-            <Link class="size-3.5" />
-          </ProjectButton>
-        )
-      }
-      {
-        docs && (
-          <ProjectButton href={docs} label="Docs" dark={dark}>
-            <BookOpen class="size-3.5" />
-          </ProjectButton>
-        )
-      }
-      {
-        repo && (
-          <ProjectButton href={repo} label="Repo" dark={dark}>
-            <Github class="size-3.5" />
-          </ProjectButton>
-        )
-      }
-    </div>
-  </div>
 </div>
