@@ -5,6 +5,7 @@ import BookOpen from "@lucide/astro/icons/book-open"
 import Github from "@lucide/astro/icons/github"
 import Link from "@lucide/astro/icons/link"
 import Star from "@lucide/astro/icons/star"
+import ArrowUpRight from "@lucide/astro/icons/arrow-up-right"
 
 interface Props {
     name: string
@@ -70,9 +71,10 @@ const starsLabel = `${Math.floor(stars / 100)}00+`
                         href={link}
                         target="_blank"
                         rel="noreferrer"
-                        class="absolute top-1.5 right-1.5 inline-flex items-center justify-center size-8 rounded-full bg-white backdrop-blur-sm text-black/75 hover:text-black transition-colors duration-150"
+                        class="absolute top-1.5 right-1.5 inline-flex items-center justify-center px-2 py-1 gap-1 rounded-full bg-white backdrop-blur-sm text-black/75 hover:text-black transition-colors duration-150"
                     >
-                        <Link class="size-3.5" />
+                        open
+                        <ArrowUpRight class="size-3.5" />
                     </a>
                 )}
                 <div class="absolute bottom-0 left-0 right-0 p-4 flex items-end gap-4">
