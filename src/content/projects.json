@@ -72,6 +72,13 @@
         "size": "small"
     },
     {
+        "name": "ConvexTextGenerator",
+        "description": "Convex text generator, like the Instagram trend.",
+        "repo": "https://github.com/aspizu/convextextgenerator",
+        "deployment": "/convextextgenerator",
+        "size": "small"
+    },
+    {
         "name": "instax",
         "description": "Generates printable PDFs for DIY instant camera photographs.",
         "repo": "https://github.com/aspizu/instax",

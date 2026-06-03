@@ -40,6 +40,10 @@
         {
             "source": "/moka/spec/:match*",
             "destination": "https://moka-two-khaki.vercel.app/:match*"
+        },
+        {
+            "source": "/convextextgenerator/:match*",
+            "destination": "https://convextext.vercel.app/convextextgenerator/:match*"
         }
     ],
     "redirects": [
