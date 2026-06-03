@@ -1,4 +1,4 @@
-import {$} from "bun"
+import {$} from "zx"
 import * as datefns from "date-fns"
 
 const cache: Record<string, Date> = {}

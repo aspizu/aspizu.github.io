@@ -15,6 +15,7 @@
         "@vercel/analytics": "^1.6.1",
         "astro": "^5.17.1",
         "astro-og-canvas": "^0.10.1",
+        "canvaskit-wasm": "^0.41.1",
         "date-fns": "^4.1.0",
         "particles.js": "^2.0.0",
         "prettier": "^3.8.1",
