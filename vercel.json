@@ -43,7 +43,7 @@
         },
         {
             "source": "/convextextgenerator/:match*",
-            "destination": "https://convextext.vercel.app/convextextgenerator/:match*"
+            "destination": "https://convextext.vercel.app/:match*"
         }
     ],
     "redirects": [
