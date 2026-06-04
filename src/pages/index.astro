@@ -4,6 +4,7 @@ import "@fontsource-variable/cascadia-code"
 import "@/styles/global.css"
 // import buttons from "@/content/buttons.json"
 import Profile from "@/components/Profile.astro"
+import Webring from "@/components/Webring.astro"
 import QuickLinks from "@/components/QuickLinks.astro"
 import projects from "@/content/projects.json"
 import Project from "@/components/Project.astro"
@@ -50,6 +51,7 @@ import Analytics from "@vercel/analytics/astro"
     >
       <div class="md:sticky md:top-10 shrink-0 md:mx-0 mx-auto">
         <Profile />
+        <Webring />
       </div>
       <div
         class="projects-grid grid grid-cols-2 md:grid-cols-4 gap-4 w-full md:flex-1 md:min-w-0"

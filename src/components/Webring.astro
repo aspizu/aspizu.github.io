@@ -1,0 +1,80 @@
+---
+import ChevronLeft from "@lucide/astro/icons/chevron-left"
+import ChevronRight from "@lucide/astro/icons/chevron-right"
+import Shuffle from "@lucide/astro/icons/shuffle"
+import ExternalLink from "@lucide/astro/icons/external-link"
+---
+
+<div class="flex flex-col items-center gap-2 max-w-96 mt-4">
+  <div id="webring-nav" class="flex items-center gap-2">
+    <a
+      id="webring-prev"
+      href="#"
+      class="inline-flex items-center justify-center size-9 rounded-xl text-neutral-400 hover:text-white bg-white/5 hover:bg-white/15 backdrop-blur-sm transition-colors duration-150"
+      aria-label="Previous site"
+    >
+      <ChevronLeft class="size-4" />
+    </a>
+    <a
+      id="webring-random"
+      href="#"
+      class="inline-flex items-center justify-center size-9 rounded-xl text-neutral-400 hover:text-white bg-white/5 hover:bg-white/15 backdrop-blur-sm transition-colors duration-150"
+      aria-label="Random site"
+    >
+      <Shuffle class="size-4" />
+    </a>
+    <a
+      id="webring-next"
+      href="#"
+      class="inline-flex items-center justify-center size-9 rounded-xl text-neutral-400 hover:text-white bg-white/5 hover:bg-white/15 backdrop-blur-sm transition-colors duration-150"
+      aria-label="Next site"
+    >
+      <ChevronRight class="size-4" />
+    </a>
+  </div>
+
+  <a
+    href="https://ring.seggs.lol"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="group inline-flex items-center gap-1 text-xs font-medium text-neutral-500 hover:text-neutral-300 transition-colors tracking-wider"
+  >
+    threadlocked webring
+    <ExternalLink class="size-3 group-hover:translate-x-px group-hover:-translate-y-px transition-transform" />
+  </a>
+</div>
+
+<script>
+  const API = "https://ring.seggs.lol/webring"
+  const MY_URL = "https://aspiz.uk"
+
+  interface Member {
+    name: string
+    url: string
+    gh: string
+  }
+
+  async function initWebring() {
+    const prev = document.getElementById("webring-prev") as HTMLAnchorElement
+    const next = document.getElementById("webring-next") as HTMLAnchorElement
+    const random = document.getElementById("webring-random") as HTMLAnchorElement
+
+    try {
+      const res = await fetch(API, {cache: "no-cache"})
+      if (!res.ok) throw new Error("fetch failed")
+      const members: Member[] = await res.json()
+      const idx = members.findIndex((m) => m.url === MY_URL)
+
+      if (idx === -1) return
+
+      const prevIdx = (idx - 1 + members.length) % members.length
+      const nextIdx = (idx + 1) % members.length
+
+      prev.href = members[prevIdx].url
+      next.href = members[nextIdx].url
+      random.href = members[Math.floor(Math.random() * members.length)].url
+    } catch {}
+  }
+
+  initWebring()
+</script>
