@@ -54,6 +54,15 @@ import ExternalLink from "@lucide/astro/icons/external-link"
     gh: string
   }
 
+  function isSafeUrl(url: string): url is string {
+    try {
+      const parsed = new URL(url)
+      return parsed.protocol === "http:" || parsed.protocol === "https:"
+    } catch {
+      return false
+    }
+  }
+
   async function initWebring() {
     const prev = document.getElementById("webring-prev") as HTMLAnchorElement
     const next = document.getElementById("webring-next") as HTMLAnchorElement
@@ -69,10 +78,23 @@ import ExternalLink from "@lucide/astro/icons/external-link"
 
       const prevIdx = (idx - 1 + members.length) % members.length
       const nextIdx = (idx + 1) % members.length
+      const randomIdx = Math.floor(Math.random() * members.length)
 
-      prev.href = members[prevIdx].url
-      next.href = members[nextIdx].url
-      random.href = members[Math.floor(Math.random() * members.length)].url
+      if (isSafeUrl(members[prevIdx].url)) {
+        prev.href = members[prevIdx].url
+        prev.target = "_blank"
+        prev.rel = "noopener noreferrer"
+      }
+      if (isSafeUrl(members[nextIdx].url)) {
+        next.href = members[nextIdx].url
+        next.target = "_blank"
+        next.rel = "noopener noreferrer"
+      }
+      if (isSafeUrl(members[randomIdx].url)) {
+        random.href = members[randomIdx].url
+        random.target = "_blank"
+        random.rel = "noopener noreferrer"
+      }
     } catch {}
   }
 
