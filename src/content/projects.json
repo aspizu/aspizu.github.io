@@ -85,5 +85,13 @@
         "deployment": "/instax",
         "dark": false,
         "size": "small"
+    },
+    {
+        "name": "dcim",
+        "description": "Self-hostable photo sharing app running on Cloudflare Workers. Upload photos, add captions, organize into albums, and share with simple links.",
+        "repo": "https://github.com/aspizu/dcim",
+        "deployment": "https://dcim.aspiz.uk",
+        "image": "https://github.com/aspizu/dcim/raw/main/docs/assets/screenshot0.webp",
+        "size": "large"
     }
 ]
