@@ -3,7 +3,8 @@
         "dev": "astro dev",
         "build": "astro build",
         "preview": "astro build && astro preview",
-        "fmt": " prettier -uwu ."
+        "fmt": " prettier -uwu .",
+        "update-dates": "node scripts/update-dates.mjs"
     },
     "dependencies": {
         "@astrojs/mdx": "^4.3.13",

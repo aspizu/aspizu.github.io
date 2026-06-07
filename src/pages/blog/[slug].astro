@@ -10,7 +10,7 @@ import {getCollection, render} from "astro:content"
 import Markdown from "simple-icons-astro/Markdown"
 import X from "simple-icons-astro/X"
 import * as datefns from "date-fns"
-import {gitDate} from "@/utils/git-date"
+import dates from "@/content/dates.json"
 import Analytics from "@vercel/analytics/astro"
 
 interface Props {
@@ -27,19 +27,13 @@ export async function getStaticPaths() {
 
 const {blog} = Astro.props
 const {Content} = await render(blog)
-const date = await gitDate(blog.filePath)
+const date = new Date(dates[blog.id])
 
 const wordCount = blog.body?.split(/\s+/).length ?? 0
 const readTimeMin = Math.ceil(wordCount / 200)
 
-const morePosts = (
-  await Promise.all(
-    (await getCollection("blogs")).map(async (b) => {
-      const d = await gitDate(b.filePath)
-      return {...b, date: d}
-    }),
-  )
-)
+const morePosts = (await getCollection("blogs"))
+  .map((b) => ({...b, date: new Date(dates[b.id])}))
   .toSorted((a, b) => b.date.getTime() - a.date.getTime())
   .filter((b) => b.id !== blog.id)
   .slice(0, 3)

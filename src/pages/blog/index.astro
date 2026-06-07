@@ -1,22 +1,17 @@
 ---
 import "@/styles/global.css"
-import {gitDate} from "@/utils/git-date"
 import "@fontsource-variable/cascadia-code"
 import "@fontsource-variable/figtree"
 import ArrowLeft from "@lucide/astro/icons/arrow-left"
 import Rss from "@lucide/astro/icons/rss"
+import dates from "@/content/dates.json"
 import Analytics from "@vercel/analytics/astro"
 import {getCollection} from "astro:content"
 import * as datefns from "date-fns"
 
-const blogs = (
-  await Promise.all(
-    (await getCollection("blogs")).map(async (b) => {
-      const date = await gitDate(b.filePath)
-      return {id: b.id, ...b.data, date}
-    }),
-  )
-).sort((a, b) => b.date.getTime() - a.date.getTime())
+const blogs = (await getCollection("blogs"))
+  .map((b) => ({id: b.id, ...b.data, date: new Date(dates[b.id])}))
+  .sort((a, b) => b.date.getTime() - a.date.getTime())
 ---
 
 <!doctype html>

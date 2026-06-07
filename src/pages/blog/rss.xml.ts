@@ -1,4 +1,4 @@
-import {gitDate} from "@/utils/git-date"
+import dates from "@/content/dates.json"
 import rss from "@astrojs/rss"
 import type {APIContext} from "astro"
 import {getCollection} from "astro:content"
@@ -10,13 +10,11 @@ export async function GET(context: APIContext) {
         description: "technology, music, and whatever else",
         trailingSlash: false,
         site: context.site! + "/blog",
-        items: await Promise.all(
-            blogs.map(async (blog) => ({
-                title: blog.data.title,
-                description: blog.data.description,
-                pubDate: await gitDate(blog.filePath),
-                link: `/blog/${blog.id}/`,
-            })),
-        ),
+        items: blogs.map((blog) => ({
+            title: blog.data.title,
+            description: blog.data.description,
+                pubDate: new Date(dates[blog.id]),
+            link: `/blog/${blog.id}/`,
+        })),
     })
 }
