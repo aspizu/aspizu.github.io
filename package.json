@@ -3,7 +3,7 @@
         "dev": "astro dev",
         "build": "astro build",
         "preview": "astro build && astro preview",
-        "fmt": " prettier -uwu .",
+        "fmt": " oxfmt -uwu .",
         "update-dates": "node scripts/update-dates.mjs"
     },
     "dependencies": {

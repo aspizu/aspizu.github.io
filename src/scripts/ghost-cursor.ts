@@ -109,8 +109,12 @@ export class GhostCursor {
 
     private bind(): void {
         this.element.addEventListener("mousemove", this.onMouseMove)
-        this.element.addEventListener("touchmove", this.onTouchMove, {passive: true})
-        this.element.addEventListener("touchstart", this.onTouchMove, {passive: true})
+        this.element.addEventListener("touchmove", this.onTouchMove, {
+            passive: true,
+        })
+        this.element.addEventListener("touchstart", this.onTouchMove, {
+            passive: true,
+        })
         window.addEventListener("resize", this.onResize)
     }
 

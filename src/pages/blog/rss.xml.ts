@@ -13,7 +13,7 @@ export async function GET(context: APIContext) {
         items: blogs.map((blog) => ({
             title: blog.data.title,
             description: blog.data.description,
-                pubDate: new Date(dates[blog.id]),
+            pubDate: new Date(dates[blog.id]),
             link: `/blog/${blog.id}/`,
         })),
     })
