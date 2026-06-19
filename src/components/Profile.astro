@@ -1,9 +1,9 @@
 ---
-import "@fontsource-variable/figtree"
-import {Fragment} from "astro/jsx-runtime"
-import LastFM from "@/components/LastFM.astro"
-import Socials from "@/components/Socials.astro"
-import StatusCafe from "@/components/StatusCafe.astro"
+import "@fontsource-variable/figtree";
+import { Fragment } from "astro/jsx-runtime";
+import LastFM from "@/components/LastFM.astro";
+import Socials from "@/components/Socials.astro";
+import StatusCafe from "@/components/StatusCafe.astro";
 ---
 
 <div
@@ -38,15 +38,21 @@ import StatusCafe from "@/components/StatusCafe.astro"
           height={24}
         />
         <span class="sr-only p-name">aspizu</span>
-        <span class="text-neutral-400 font-light p-sex p-gender-identity">he/him</span>
-        <img src="/assets/india.webp" class="inline size-6" width={24} height={24} />
+        <span class="text-neutral-400 font-light p-sex p-gender-identity"
+          >he/him</span
+        >
+        <img
+          src="/assets/india.webp"
+          class="inline size-6"
+          width={24}
+          height={24}
+        />
         <span class="sr-only u-country-name u-region">India</span>
       </h1>
       <p class="my-2 leading-relaxed p-note">
-        I make things, mostly software, sometimes music, often mediocre. <a
+        I make software, use at your own risk. <a
           href="https://ente.com"
-          class="text-blue-400 hover:underline underline-offset-4"
-          >@ente</a
+          class="text-blue-400 hover:underline underline-offset-4">@ente</a
         >
       </p>
 
@@ -57,17 +63,17 @@ import StatusCafe from "@/components/StatusCafe.astro"
 </div>
 
 <script>
-  const avatar = document.getElementById("avatar")
-  let sr = 14.5
-  let r = 0
-  let interval = null
+  const avatar = document.getElementById("avatar");
+  let sr = 14.5;
+  let r = 0;
+  let interval = null;
   function update() {
-    sr *= 0.99
-    r += sr
-    avatar.style.rotate = `${r}deg`
+    sr *= 0.99;
+    r += sr;
+    avatar.style.rotate = `${r}deg`;
     if (sr < 0.01) {
-      clearInterval(interval)
+      clearInterval(interval);
     }
   }
-  interval = setInterval(update, 25)
+  interval = setInterval(update, 25);
 </script>
