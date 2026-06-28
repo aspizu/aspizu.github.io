@@ -4,7 +4,8 @@
         "build": "astro build",
         "preview": "astro build && astro preview",
         "fmt": " oxfmt -uwu .",
-        "update-dates": "node scripts/update-dates.mjs"
+        "update-dates": "node scripts/update-dates.mjs",
+        "update-stars": "node scripts/update-stars.mjs"
     },
     "dependencies": {
         "@astrojs/mdx": "^4.3.13",

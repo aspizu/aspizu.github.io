@@ -1,6 +1,5 @@
 ---
 import ProjectButton from "@/components/ProjectButton.astro"
-import {getGitHubToken} from "@/utils/github-token"
 import BookOpen from "@lucide/astro/icons/book-open"
 import Github from "@lucide/astro/icons/github"
 import Link from "@lucide/astro/icons/link"
@@ -16,6 +15,7 @@ interface Props {
     image?: string
     size?: "large-image" | "large" | "small"
     dark?: boolean
+    stars?: number
 }
 
 const {
@@ -27,25 +27,8 @@ const {
     image,
     size = "small",
     dark = false,
+    stars = 0,
 } = Astro.props
-
-let stars = 0
-const match =
-    repo?.includes("github.com") && repo.match(/github\.com\/([^/]+)\/([^/]+)/)
-if (match) {
-    const headers: HeadersInit = {Accept: "application/vnd.github.v3+json"}
-    const token = await getGitHubToken()
-    if (token) headers["Authorization"] = `Bearer ${token}`
-    try {
-        const res = await fetch(
-            `https://api.github.com/repos/${match[1]}/${match[2]}`,
-            {
-                headers,
-            },
-        )
-        if (res.ok) stars = (await res.json()).stargazers_count
-    } catch {}
-}
 
 const link = deployment ?? docs ?? repo
 const starsLabel = `${(Math.floor(stars / 100) * 100).toLocaleString("en-US")}+`
