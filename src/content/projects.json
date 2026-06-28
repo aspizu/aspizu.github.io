@@ -10,19 +10,19 @@
         "size": "large-image"
     },
     {
-        "name": "dcim",
-        "description": "Self-hostable photo sharing app that runs on Cloudflare infra.",
-        "repo": "https://github.com/aspizu/dcim",
-        "deployment": "https://dcim.aspiz.uk",
-        "image": "https://github.com/aspizu/dcim/raw/main/docs/assets/screenshot0.webp",
-        "size": "large-image"
-    },
-    {
         "name": "Nixite",
         "description": "Generates bash scripts to unattendedly install selected Linux software. Automatically configures system, suppresses confirmation prompts and uses the best available installation method.",
         "image": "https://raw.githubusercontent.com/aspizu/nixite/refs/heads/main/public/og-image.png",
         "repo": "https://github.com/aspizu/nixite",
         "deployment": "/nixite",
+        "size": "large-image"
+    },
+    {
+        "name": "dcim",
+        "description": "Self-hostable photo sharing app that runs on Cloudflare infra.",
+        "repo": "https://github.com/aspizu/dcim",
+        "deployment": "https://dcim.aspiz.uk",
+        "image": "https://github.com/aspizu/dcim/raw/main/docs/assets/screenshot0.webp",
         "size": "large-image"
     },
     {
