@@ -58,7 +58,9 @@ for (const project of projects) {
         project.stars = await getStarCount(repo, token)
         console.log(`✓ ${project.name}: ${project.stars}`)
     } catch (error) {
-        console.warn(`! ${project.name}: keeping ${project.stars ?? 0} (${error.message})`)
+        console.warn(
+            `! ${project.name}: keeping ${project.stars ?? 0} (${error.message})`,
+        )
     }
 }
 
