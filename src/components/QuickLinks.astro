@@ -1,31 +1,39 @@
 ---
-import BriefcaseBusiness from "@lucide/astro/icons/briefcase-business"
-import FileText from "@lucide/astro/icons/file-text"
-import Mail from "@lucide/astro/icons/mail"
+import BookOpenText from "@lucide/astro/icons/book-open-text";
+import BriefcaseBusiness from "@lucide/astro/icons/briefcase-business";
+import FileText from "@lucide/astro/icons/file-text";
+import Mail from "@lucide/astro/icons/mail";
 ---
 
 <div class="flex gap-6 text-sm text-white/60">
-    <a
-        href="mailto:hello@aspiz.uk"
-        class="inline-flex items-center gap-1 hover:text-white hover:underline underline-offset-4 decoration-1 transition-colors"
-    >
-        <Mail class="size-3.5" />
-        hello@aspiz.uk
-    </a>
-    <a
-        href="/resume"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-1 hover:text-white hover:underline underline-offset-4 decoration-1 transition-colors"
-    >
-        resume
-        <BriefcaseBusiness class="size-3.5" />
-    </a>
-    <a
-        href="/blog"
-        class="inline-flex items-center gap-1 hover:text-white hover:underline underline-offset-4 decoration-1 transition-colors"
-    >
-        blog
-        <FileText class="size-3.5" />
-    </a>
+  <a
+    href="mailto:hello@aspiz.uk"
+    class="inline-flex items-center gap-1 hover:text-white hover:underline underline-offset-4 decoration-1 transition-colors"
+  >
+    <Mail class="size-3.5" />
+    hello@aspiz.uk
+  </a>
+  <a
+    href="/resume"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex items-center gap-1 hover:text-white hover:underline underline-offset-4 decoration-1 transition-colors"
+  >
+    resume
+    <BriefcaseBusiness class="size-3.5" />
+  </a>
+  <a
+    href="/blog"
+    class="inline-flex items-center gap-1 hover:text-white hover:underline underline-offset-4 decoration-1 transition-colors"
+  >
+    blog
+    <FileText class="size-3.5" />
+  </a>
+  <a
+    href="wiki.aspiz.uk"
+    class="inline-flex items-center gap-1 hover:text-white hover:underline underline-offset-4 decoration-1 transition-colors"
+  >
+    wiki
+    <BookOpenText class="size-3.5" />
+  </a>
 </div>
