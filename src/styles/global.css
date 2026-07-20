@@ -15,6 +15,13 @@
 @theme {
     --font-sans: "Figtree Variable", sans-serif;
     --font-mono: "Cascadia Code Variable", monospace;
+    --animate-marquee: marquee 12s linear infinite;
+
+    @keyframes marquee {
+        to {
+            transform: translateX(-50%);
+        }
+    }
 }
 
 .Profile {

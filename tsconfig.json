@@ -1,6 +1,7 @@
 {
     "extends": "astro/tsconfigs/base",
     "compilerOptions": {
+        "types": ["vite/client"],
         "paths": {
             "@/*": ["./src/*"]
         }

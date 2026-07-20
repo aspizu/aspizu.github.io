@@ -1,0 +1,91 @@
+---
+import music from "@/content/music";
+import "@/styles/global.css";
+// @ts-expect-error DO NOT REMOVE THIS COMMENT
+import "@fontsource-variable/figtree";
+
+function getYouTubeVideoId(url: string) {
+  const videoUrl = new URL(url);
+  const videoId =
+    videoUrl.hostname === "youtu.be"
+      ? videoUrl.pathname.slice(1)
+      : videoUrl.searchParams.get("v");
+
+  if (!videoId) throw new Error(`Invalid YouTube URL: ${url}`);
+
+  return videoId;
+}
+
+const thumbnailNames = [
+  "maxresdefault",
+  "sddefault",
+  "hqdefault",
+  "mqdefault",
+  "default",
+];
+
+const getArtistSortName = (artist: string) => artist.replace(/^the\s+/i, "");
+
+async function getYouTubeThumbnailUrl(videoId: string) {
+  for (const name of thumbnailNames) {
+    const url = `https://img.youtube.com/vi/${videoId}/${name}.jpg`;
+    const response = await fetch(url, { method: "HEAD" });
+
+    if (response.ok) return url;
+  }
+
+  throw new Error(`No thumbnail found for YouTube video: ${videoId}`);
+}
+
+const sortedMusic = await Promise.all(
+  [...music]
+    .sort((a, b) =>
+      getArtistSortName(a.artist).localeCompare(getArtistSortName(b.artist)),
+    )
+    .map(async (item) => ({
+      ...item,
+      thumbnail: await getYouTubeThumbnailUrl(getYouTubeVideoId(item.youtube)),
+    })),
+);
+---
+
+<main
+  class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-0 font-sans [&:has(.video:hover)_.video:not(:hover)]:opacity-65"
+>
+  {
+    sortedMusic.map(({ artist, track, youtube, thumbnail, dark }) => (
+      <article class="video group @container aspect-square overflow-hidden transition-opacity duration-200 motion-reduce:transition-none">
+        <a
+          class:list={[
+            "relative block size-full",
+            dark ? "text-black" : "text-white",
+          ]}
+          href={youtube}
+        >
+          <img
+            class="block size-full object-cover transition-[filter] duration-300 group-hover:brightness-[1.08] group-hover:saturate-[1.1] group-focus-within:brightness-[1.08] group-focus-within:saturate-[1.1] motion-reduce:transition-none"
+            src={thumbnail}
+            alt=""
+            loading="lazy"
+          />
+          <span
+            class="absolute inset-x-0 top-0 overflow-hidden p-4 text-left text-xl leading-none whitespace-nowrap"
+            aria-label={`${artist} - ${track}`}
+          >
+            <span class="flex w-max animate-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+              <span class="min-w-[calc(100cqw-2rem)] shrink-0 pr-8">
+                <strong>{artist}</strong> - {track}
+              </span>
+              <span
+                class="min-w-[calc(100cqw-2rem)] shrink-0 pr-8"
+                aria-hidden="true"
+              >
+                <strong>{artist}</strong> - {track}
+              </span>
+            </span>
+          </span>
+        </a>
+      </article>
+    ))
+  }
+</main>

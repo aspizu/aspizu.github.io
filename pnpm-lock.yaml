@@ -77,6 +77,9 @@ importers:
       oxlint:
         specifier: ^1.66.0
         version: 1.66.0
+      vite:
+        specifier: ^6.4.2
+        version: 6.4.2(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)
 
 packages:
   "@astrojs/compiler@2.13.1":
