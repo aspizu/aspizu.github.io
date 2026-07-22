@@ -51,12 +51,16 @@ const sortedMusic = await Promise.all(
 );
 ---
 
+<div class="page-transition"></div>
 <main
   class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-0 font-sans [&:has(.video:hover)_.video:not(:hover)]:opacity-65"
 >
   {
-    sortedMusic.map(({ artist, track, thumbnail, watch, dark }) => (
-      <article class="video group @container aspect-square overflow-hidden transition-opacity duration-200 motion-reduce:transition-none">
+    sortedMusic.map(({ artist, track, thumbnail, watch, dark }, index) => (
+      <article
+        class="music-card video group @container aspect-square overflow-hidden transition-opacity duration-200 motion-reduce:transition-none"
+        style={`--card-index: ${index}`}
+      >
         <a
           class:list={[
             "relative block size-full",
@@ -91,3 +95,23 @@ const sortedMusic = await Promise.all(
     ))
   }
 </main>
+
+<style>
+  @keyframes music-card-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.985);
+    }
+  }
+
+  .music-card {
+    animation: music-card-in 400ms ease-out both;
+    animation-delay: calc(var(--card-index) * 18ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .music-card {
+      animation: none;
+    }
+  }
+</style>
