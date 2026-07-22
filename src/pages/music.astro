@@ -1,5 +1,5 @@
 ---
-import music from "@/content/music";
+import music from "@/content/music.json";
 import "@/styles/global.css";
 // @ts-expect-error DO NOT REMOVE THIS COMMENT
 import "@fontsource-variable/figtree";
@@ -44,7 +44,9 @@ const sortedMusic = await Promise.all(
     )
     .map(async (item) => ({
       ...item,
-      thumbnail: await getYouTubeThumbnailUrl(getYouTubeVideoId(item.youtube)),
+      thumbnail: await getYouTubeThumbnailUrl(
+        getYouTubeVideoId(item.thumbnail),
+      ),
     })),
 );
 ---
@@ -53,14 +55,14 @@ const sortedMusic = await Promise.all(
   class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-0 font-sans [&:has(.video:hover)_.video:not(:hover)]:opacity-65"
 >
   {
-    sortedMusic.map(({ artist, track, youtube, thumbnail, dark }) => (
+    sortedMusic.map(({ artist, track, thumbnail, watch, dark }) => (
       <article class="video group @container aspect-square overflow-hidden transition-opacity duration-200 motion-reduce:transition-none">
         <a
           class:list={[
             "relative block size-full",
             dark ? "text-black" : "text-white",
           ]}
-          href={youtube}
+          href={watch}
         >
           <img
             class="block size-full object-cover transition-[filter] duration-300 group-hover:brightness-[1.08] group-hover:saturate-[1.1] group-focus-within:brightness-[1.08] group-focus-within:saturate-[1.1] motion-reduce:transition-none"
