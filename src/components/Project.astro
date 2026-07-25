@@ -36,8 +36,8 @@ const starsLabel = `${(Math.floor(stars / 100) * 100).toLocaleString("en-US")}+`
 
 <div
     class:list={[
-        "Project @container relative flex flex-col p-1 rounded-3xl",
-        dark ? "from-neutral-50 to-blue-100 bg-gradient-to-br" : "bg-neutral-900",
+        "Project @container relative flex flex-col rounded-3xl p-1",
+        dark ? "bg-gradient-to-br from-neutral-50 to-blue-100" : "bg-neutral-900",
         image ? "row-span-3" : "row-span-2",
         size === "large-image" && "col-span-2 md:col-span-4 md:row-span-3",
         size === "large" && "col-span-2 md:col-span-4 md:row-span-2",
@@ -46,51 +46,55 @@ const starsLabel = `${(Math.floor(stars / 100) * 100).toLocaleString("en-US")}+`
 >
     {
         image && (
-            <div class="relative rounded-[21px] overflow-hidden shadow">
-                <img src={image} alt={name} class="w-full object-cover aspect-video" />
+            <div class="relative overflow-hidden rounded-[21px] shadow">
+                <img src={image} alt={name} class="aspect-video w-full object-cover" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 {link && (
                     <a
                         href={link}
                         target="_blank"
                         rel="noreferrer"
-                        class="absolute top-1.5 right-1.5 inline-flex items-center justify-center px-2 py-1 gap-1 rounded-full bg-white backdrop-blur-sm text-black/75 hover:text-black transition-colors duration-150"
+                        class="absolute top-1.5 right-1.5 inline-flex items-center justify-center gap-1 rounded-full bg-white px-2 py-1 text-black/75 backdrop-blur-sm transition-colors duration-150 hover:text-black"
                     >
                         open
                         <ArrowUpRight class="size-3.5" />
                     </a>
                 )}
-                <div class="absolute bottom-0 left-0 right-0 flex flex-col items-start gap-0 p-4">
+                <div class="absolute right-0 bottom-0 left-0 flex flex-col items-start gap-0 p-4">
                     {stars >= 100 && (
-                        <span class="inline-flex -mb-0.5 items-center gap-1 text-base font-medium leading-none text-white/75 @md:text-lg">
+                        <span class="-mb-0.5 inline-flex items-center gap-1 text-base leading-none font-medium text-white/75 @md:text-lg">
                             <img src="/assets/star.png" width={24} height={24} />
                             {starsLabel}
                         </span>
                     )}
-                    <h2 class="text-xl @sm:text-2xl @md:text-3xl @lg:text-4xl font-medium leading-none tracking-tight text-white">
+                    <h2 class="text-xl leading-none font-medium tracking-tight text-white @sm:text-2xl @md:text-3xl @lg:text-4xl">
                         {name}
                     </h2>
                 </div>
             </div>
         )
     }
-    <div class="flex flex-col gap-2 flex-1 p-4 min-h-0">
+    <div class="flex min-h-0 flex-1 flex-col gap-2 p-4">
         {
             !image && (
                 <div class="flex flex-col items-start gap-0">
                     {stars >= 100 && (
-                        <span class="inline-flex -mb-0.5 items-center gap-1 text-base font-medium leading-none text-amber-500/75 shrink-0">
+                        <span class="-mb-0.5 inline-flex shrink-0 items-center gap-1 text-base leading-none font-medium text-amber-500/75">
                             <Star class="size-5 fill-amber-500/75" />
                             {starsLabel}
                         </span>
                     )}
-                    <h2 class:list={["text-xl font-medium leading-none tracking-tight text-white"]}>
+                    <h2
+                        class:list={[
+                            "text-xl leading-none font-medium tracking-tight text-white",
+                        ]}
+                    >
                         {name}
                     </h2>
                 </div>
             )
         }
-        <div class="flex-1 overflow-y-auto min-h-0">
+        <div class="min-h-0 flex-1 overflow-y-auto">
             <p
                 class:list={[
                     "leading-relaxed",
@@ -101,7 +105,7 @@ const starsLabel = `${(Math.floor(stars / 100) * 100).toLocaleString("en-US")}+`
             </p>
         </div>
         <div
-            class="absolute bottom-2 right-2 flex items-center gap-2 flex-wrap justify-end"
+            class="absolute right-2 bottom-2 flex flex-wrap items-center justify-end gap-2"
         >
             {
                 deployment && (

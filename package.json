@@ -3,7 +3,9 @@
         "dev": "astro dev",
         "build": "astro build",
         "preview": "astro build && astro preview",
-        "fmt": " oxfmt -uwu .",
+        "typecheck": "tsgo --noEmit",
+        "fmt": "oxfmt --write --ignore-path .gitignore . && prettier --write .",
+        "lint": "oxlint .",
         "update-dates": "node scripts/update-dates.mjs",
         "update-stars": "node scripts/update-stars.mjs"
     },
@@ -31,8 +33,10 @@
         "@tailwindcss/typography": "^0.5.19",
         "@types/bun": "^1.3.8",
         "@types/node": "^25.2.2",
+        "@typescript/native-preview": "7.0.0-dev.20260707.2",
         "oxfmt": "^0.51.0",
         "oxlint": "^1.66.0",
+        "prettier-plugin-astro": "^0.14.1",
         "vite": "^6.4.2"
     }
 }

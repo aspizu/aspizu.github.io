@@ -146,13 +146,17 @@ export class GhostCursor {
         this.canvas.height = el.clientHeight
     }
 
-    private onTouchMove = (e: TouchEvent): void => {
-        for (const t of Array.from(e.touches)) {
+    private onTouchMove = (event: Event): void => {
+        if (!(event instanceof TouchEvent)) return
+
+        for (const t of Array.from(event.touches)) {
             this.addParticle(t.clientX, t.clientY)
         }
     }
 
-    private onMouseMove = (e: MouseEvent): void => {
+    private onMouseMove = (event: Event): void => {
+        if (!(event instanceof MouseEvent)) return
+
         if (this.randomDelay) {
             if (this.lastAdd + this.interval > Date.now()) return
             this.lastAdd = Date.now()
@@ -161,11 +165,11 @@ export class GhostCursor {
 
         if (this.hasWrapper) {
             const r = this.element.getBoundingClientRect()
-            this.cursor.x = e.clientX - r.left
-            this.cursor.y = e.clientY - r.top
+            this.cursor.x = event.clientX - r.left
+            this.cursor.y = event.clientY - r.top
         } else {
-            this.cursor.x = e.clientX
-            this.cursor.y = e.clientY
+            this.cursor.x = event.clientX
+            this.cursor.y = event.clientY
         }
 
         this.addParticle(this.cursor.x, this.cursor.y)

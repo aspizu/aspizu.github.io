@@ -1,0 +1,8 @@
+{
+    "semi": false,
+    "tabWidth": 4,
+    "bracketSpacing": false,
+    "printWidth": 88,
+    "endOfLine": "lf",
+    "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"]
+}

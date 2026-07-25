@@ -1,117 +1,85 @@
 ---
-import music from "@/content/music.json";
-import "@/styles/global.css";
-// @ts-expect-error DO NOT REMOVE THIS COMMENT
-import "@fontsource-variable/figtree";
+import music from "@/content/music.json"
+import "@/styles/global.css"
+import { getYouTubeThumbnailUrl } from "@/utils/youtube-thumbnail"
+import "@fontsource-variable/figtree"
 
-function getYouTubeVideoId(url: string) {
-  const videoUrl = new URL(url);
-  const videoId =
-    videoUrl.hostname === "youtu.be"
-      ? videoUrl.pathname.slice(1)
-      : videoUrl.searchParams.get("v");
-
-  if (!videoId) throw new Error(`Invalid YouTube URL: ${url}`);
-
-  return videoId;
-}
-
-const thumbnailNames = [
-  "maxresdefault",
-  "sddefault",
-  "hqdefault",
-  "mqdefault",
-  "default",
-];
-
-const getArtistSortName = (artist: string) => artist.replace(/^the\s+/i, "");
-
-async function getYouTubeThumbnailUrl(videoId: string) {
-  for (const name of thumbnailNames) {
-    const url = `https://img.youtube.com/vi/${videoId}/${name}.jpg`;
-    const response = await fetch(url, { method: "HEAD" });
-
-    if (response.ok) return url;
-  }
-
-  throw new Error(`No thumbnail found for YouTube video: ${videoId}`);
-}
+const getArtistSortName = (artist: string) => artist.replace(/^the\s+/i, "")
+const getYouTubeVideoId = (url: string) => new URL(url).searchParams.get("v")!
 
 const sortedMusic = await Promise.all(
-  [...music]
-    .sort((a, b) =>
-      getArtistSortName(a.artist).localeCompare(getArtistSortName(b.artist)),
-    )
-    .map(async (item) => ({
-      ...item,
-      thumbnail: await getYouTubeThumbnailUrl(
-        getYouTubeVideoId(item.thumbnail),
-      ),
-    })),
-);
+    [...music]
+        .sort((a, b) =>
+            getArtistSortName(a.artist).localeCompare(getArtistSortName(b.artist)),
+        )
+        .map(async (item) => ({
+            ...item,
+            thumbnail: await getYouTubeThumbnailUrl(getYouTubeVideoId(item.thumbnail)),
+        })),
+)
 ---
 
 <div class="page-transition"></div>
 <main
-  class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-0 font-sans [&:has(.video:hover)_.video:not(:hover)]:opacity-65"
+    class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-0 font-sans [&:has(.video:hover)_.video:not(:hover)]:opacity-65"
 >
-  {
-    sortedMusic.map(({ artist, track, thumbnail, watch, dark }, index) => (
-      <article
-        class="music-card video group @container aspect-square overflow-hidden transition-opacity duration-200 motion-reduce:transition-none"
-        style={`--card-index: ${index}`}
-      >
-        <a
-          class:list={[
-            "relative block size-full",
-            dark ? "text-black" : "text-white",
-          ]}
-          href={watch}
-        >
-          <img
-            class="block size-full object-cover transition-[filter] duration-300 group-hover:brightness-[1.08] group-hover:saturate-[1.1] group-focus-within:brightness-[1.08] group-focus-within:saturate-[1.1] motion-reduce:transition-none"
-            src={thumbnail}
-            alt=""
-            loading="lazy"
-          />
-          <span
-            class="absolute inset-x-0 top-0 overflow-hidden p-4 text-left text-xl leading-none whitespace-nowrap"
-            aria-label={`${artist} - ${track}`}
-          >
-            <span class="flex w-max animate-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none">
-              <span class="min-w-[calc(100cqw-2rem)] shrink-0 pr-8">
-                <strong>{artist}</strong> - {track}
-              </span>
-              <span
-                class="min-w-[calc(100cqw-2rem)] shrink-0 pr-8"
-                aria-hidden="true"
-              >
-                <strong>{artist}</strong> - {track}
-              </span>
-            </span>
-          </span>
-        </a>
-      </article>
-    ))
-  }
+    {
+        sortedMusic.map(({artist, track, thumbnail, watch, dark}, index) => (
+            <article
+                class="music-card video group @container aspect-square overflow-hidden transition-opacity duration-200 motion-reduce:transition-none"
+                style={`--card-index: ${index}`}
+            >
+                <a
+                    class:list={[
+                        "relative block size-full",
+                        dark ? "text-black" : "text-white",
+                    ]}
+                    href={watch}
+                >
+                    <img
+                        class="block size-full object-cover transition-[filter] duration-300 group-focus-within:brightness-[1.08] group-focus-within:saturate-[1.1] group-hover:brightness-[1.08] group-hover:saturate-[1.1] motion-reduce:transition-none"
+                        src={thumbnail}
+                        alt=""
+                        loading="lazy"
+                    />
+                    <span
+                        class="absolute inset-x-0 top-0 overflow-hidden p-4 text-left text-xl leading-none whitespace-nowrap"
+                        aria-label={`${artist} - ${track}`}
+                    >
+                        <span class="animate-marquee group-hover:paused flex w-max motion-reduce:animate-none">
+                            <span class="min-w-[calc(100cqw-2rem)] shrink-0 pr-8">
+                                <strong>{artist}</strong> - {track}
+                            </span>
+                            <span
+                                class="min-w-[calc(100cqw-2rem)] shrink-0 pr-8"
+                                aria-hidden="true"
+                            >
+                                <strong>{artist}</strong> - {track}
+                            </span>
+                        </span>
+                    </span>
+                </a>
+            </article>
+        ))
+    }
 </main>
 
 <style>
-  @keyframes music-card-in {
-    from {
-      opacity: 0;
-      transform: translateY(6px) scale(0.985);
+    @keyframes music-card-in {
+        from {
+            opacity: 0;
+            transform: translateY(6px) scale(0.985);
+        }
     }
-  }
 
-  .music-card {
-    animation: music-card-in 400ms ease-out both;
-    animation-delay: calc(var(--card-index) * 18ms);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
     .music-card {
-      animation: none;
+        animation: music-card-in 400ms ease-out both;
+        animation-delay: calc(var(--card-index) * 18ms);
     }
-  }
+
+    @media (prefers-reduced-motion: reduce) {
+        .music-card {
+            animation: none;
+        }
+    }
 </style>

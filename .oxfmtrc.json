@@ -7,5 +7,5 @@
     "endOfLine": "lf",
     "sortTailwindcss": {},
     "sortPackageJson": false,
-    "ignorePatterns": []
+    "ignorePatterns": ["pnpm-lock.yaml"]
 }

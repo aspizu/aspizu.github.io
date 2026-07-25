@@ -19,8 +19,12 @@ export async function getGitHubToken(): Promise<string | null> {
         try {
             cachedToken = (await $`gh auth token`.text()).trim()
         } catch (error) {
+            const cause =
+                error instanceof Error
+                    ? (error.stack ?? error.message)
+                    : String(error)
             console.warn(
-                `Could not get GitHub token from gh command\nCaused by: ${error.stack}`,
+                `Could not get GitHub token from gh command\nCaused by: ${cause}`,
             )
             cachedToken = null
         }

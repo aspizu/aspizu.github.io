@@ -1,79 +1,79 @@
 ---
-import "@fontsource-variable/figtree";
-import { Fragment } from "astro/jsx-runtime";
-import LastFM from "@/components/LastFM.astro";
-import Socials from "@/components/Socials.astro";
-import StatusCafe from "@/components/StatusCafe.astro";
+import "@fontsource-variable/figtree"
+import {Fragment} from "astro/jsx-runtime"
+import LastFM from "@/components/LastFM.astro"
+import Socials from "@/components/Socials.astro"
+import StatusCafe from "@/components/StatusCafe.astro"
 ---
 
 <div
-  class="Profile relative flex flex-col bg-linear-to-b p-1 rounded-3xl max-w-96 h-card"
+    class="Profile h-card relative flex max-w-96 flex-col rounded-3xl bg-linear-to-b p-1"
 >
-  <div
-    class="flex relative flex-col gap-4 bg-linear-to-b from-black to-black/25 rounded-[21px] shadow"
-  >
-    <StatusCafe />
     <div
-      class="relative rounded-[21px] rounded-b-none h-32 w-full bg-[url('/assets/banner.webp')] bg-cover bg-top opacity-50 border-b border-white/25"
+        class="relative flex flex-col gap-4 rounded-[21px] bg-linear-to-b from-black to-black/25 shadow"
     >
-    </div>
-    <div
-      class="absolute top-8 left-4 size-32 rounded-full transition-all shadow-lg shadow-white/25 animate-in fade-in zoom-in duration-500"
-    >
-      <img
-        id="avatar"
-        src="/assets/avatar.webp"
-        width={128}
-        height={128}
-        alt="avatar u-logo"
-        class="rounded-full"
-      />
-    </div>
-    <div class="flex flex-col p-4 pt-8">
-      <h1 class="text-2xl font-medium">
-        <img
-          src="/assets/minecraft_title.webp"
-          alt="aspizu"
-          class="h-6 inline-block p-name"
-          height={24}
-        />
-        <span class="sr-only p-name">aspizu</span>
-        <span class="text-neutral-400 font-light p-sex p-gender-identity"
-          >he/him</span
+        <StatusCafe />
+        <div
+            class="relative h-32 w-full rounded-[21px] rounded-b-none border-b border-white/25 bg-[url('/assets/banner.webp')] bg-cover bg-top opacity-50"
         >
-        <img
-          src="/assets/india.webp"
-          class="inline size-6"
-          width={24}
-          height={24}
-        />
-        <span class="sr-only u-country-name u-region">India</span>
-      </h1>
-      <p class="my-2 leading-relaxed p-note">
-        I make software, use at your own risk. <a
-          href="https://ente.com"
-          class="text-blue-400 hover:underline underline-offset-4">@ente</a
+        </div>
+        <div
+            class="animate-in fade-in zoom-in absolute top-8 left-4 size-32 rounded-full shadow-lg shadow-white/25 transition-all duration-500"
         >
-      </p>
+            <img
+                id="avatar"
+                src="/assets/avatar.webp"
+                width={128}
+                height={128}
+                alt="avatar u-logo"
+                class="rounded-full"
+            />
+        </div>
+        <div class="flex flex-col p-4 pt-8">
+            <h1 class="text-2xl font-medium">
+                <img
+                    src="/assets/minecraft_title.webp"
+                    alt="aspizu"
+                    class="p-name inline-block h-6"
+                    height={24}
+                />
+                <span class="p-name sr-only">aspizu</span>
+                <span class="p-sex p-gender-identity font-light text-neutral-400"
+                    >he/him</span
+                >
+                <img
+                    src="/assets/india.webp"
+                    class="inline size-6"
+                    width={24}
+                    height={24}
+                />
+                <span class="u-country-name u-region sr-only">India</span>
+            </h1>
+            <p class="p-note my-2 leading-relaxed">
+                I make software, use at your own risk. <a
+                    href="https://ente.com"
+                    class="text-blue-400 underline-offset-4 hover:underline">@ente</a
+                >
+            </p>
 
-      <LastFM />
-      <Socials />
+            <LastFM />
+            <Socials />
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
-  const avatar = document.getElementById("avatar");
-  let sr = 14.5;
-  let r = 0;
-  let interval = null;
-  function update() {
-    sr *= 0.99;
-    r += sr;
-    avatar.style.rotate = `${r}deg`;
-    if (sr < 0.01) {
-      clearInterval(interval);
+    const avatar = document.getElementById("avatar")
+    let sr = 14.5
+    let r = 0
+    let interval = null
+    function update() {
+        sr *= 0.99
+        r += sr
+        avatar.style.rotate = `${r}deg`
+        if (sr < 0.01) {
+            clearInterval(interval)
+        }
     }
-  }
-  interval = setInterval(update, 25);
+    interval = setInterval(update, 25)
 </script>
