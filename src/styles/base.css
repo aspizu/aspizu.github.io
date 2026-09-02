@@ -1,0 +1,139 @@
+@layer base {
+  :root {
+    color-scheme: light;
+    @apply m-0 bg-c64-white p-0 text-c64-black accent-c64-blue;
+  }
+
+  body {
+    font-size: 24px;
+    line-height: 16px;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    @apply m-0 font-pizmono;
+  }
+
+  *,
+  ::before,
+  ::after {
+    font-size: inherit;
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  input,
+  pre,
+  code {
+    font: inherit;
+  }
+
+  strong,
+  b {
+    @apply font-normal text-c64-red;
+  }
+
+  small {
+    @apply font-normal text-c64-dark-grey;
+  }
+
+  code {
+    @apply font-normal text-c64-purple;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply underline underline-offset-4;
+  }
+
+  h1 {
+    border-bottom: 4px double currentColor;
+    @apply w-fit pb-1 no-underline;
+  }
+
+  a {
+    @apply text-c64-blue no-underline;
+  }
+
+  a:visited {
+    @apply text-c64-purple;
+  }
+
+  a:hover {
+    @apply text-c64-red underline;
+  }
+
+  a:active {
+    @apply text-c64-orange;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-c64-light-blue;
+  }
+
+  mark {
+    @apply bg-transparent font-normal text-c64-orange;
+  }
+
+  ::selection {
+    @apply bg-c64-yellow text-c64-black;
+  }
+
+  hr {
+    @apply my-8 border-0 border-t-2 border-c64-grey;
+  }
+
+  img {
+    vertical-align: baseline;
+    @apply inline h-auto max-w-full;
+  }
+
+  blockquote {
+    @apply mx-0 border-l-4 border-c64-purple pl-4 text-c64-dark-grey;
+  }
+
+  pre:has(> code) {
+    @apply overflow-x-auto;
+  }
+
+  pre > code {
+    line-height: 20px;
+  }
+
+  :not(pre) > code {
+    @apply bg-transparent p-0;
+  }
+
+  kbd {
+    @apply bg-c64-black px-1.5 text-c64-white;
+  }
+
+  table {
+    @apply border-collapse;
+  }
+
+  th,
+  td,
+  input {
+    @apply border-2 border-c64-grey;
+  }
+
+  th,
+  td {
+    @apply p-2;
+  }
+
+  th {
+    @apply bg-c64-cyan text-c64-black;
+  }
+
+  input {
+    @apply bg-c64-white text-c64-black;
+  }
+
+  :disabled {
+    @apply bg-c64-light-grey text-c64-grey;
+  }
+}

@@ -1,5 +1,5 @@
-node_modules/
-.astro/
-.cache/
-dist/
-AGENTS.md
+/.astro/
+/node_modules/
+/.pnpm-store/
+/dist/
+/.wrangler/

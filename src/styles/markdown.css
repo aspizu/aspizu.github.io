@@ -1,0 +1,107 @@
+@layer base {
+  .markdown > :first-child {
+    margin-block-start: 0;
+  }
+
+  .markdown > :last-child {
+    margin-block-end: 0;
+  }
+
+  .markdown p {
+    @apply mb-4;
+  }
+
+  .markdown h1 {
+    @apply mt-12 mb-6;
+  }
+
+  .markdown h2,
+  .markdown h3 {
+    @apply mt-8 mb-4;
+  }
+
+  .markdown h4,
+  .markdown h5,
+  .markdown h6 {
+    @apply mt-6 mb-2;
+  }
+
+  .markdown blockquote,
+  .markdown pre:has(> code),
+  .markdown table,
+  .markdown details {
+    @apply my-6;
+  }
+
+  .markdown p:has(> img:only-child),
+  .markdown figure {
+    @apply my-8;
+  }
+
+  .markdown p > img:only-child {
+    @apply block;
+  }
+
+  .markdown ul,
+  .markdown ol,
+  .markdown dl {
+    @apply my-4;
+  }
+
+  .markdown ul,
+  .markdown ol {
+    padding-inline-start: 40px;
+  }
+
+  .markdown ul {
+    list-style-type: square;
+  }
+
+  .markdown ol {
+    list-style-type: decimal;
+  }
+
+  .markdown li > ul,
+  .markdown li > ol {
+    @apply my-2;
+  }
+
+  .markdown li + li {
+    @apply mt-2;
+  }
+
+  .markdown dd {
+    margin-inline-start: 40px;
+  }
+
+  .markdown dd + dt {
+    @apply mt-4;
+  }
+
+  .markdown blockquote > :last-child,
+  .markdown li > :last-child,
+  .markdown details > :last-child {
+    @apply mb-0;
+  }
+
+  .markdown details[open] > summary {
+    @apply mb-4;
+  }
+
+  .markdown summary {
+    @apply cursor-pointer list-none;
+  }
+
+  .markdown summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .markdown summary::before {
+    content: "[+] ";
+    @apply text-c64-purple;
+  }
+
+  .markdown details[open] > summary::before {
+    content: "[-] ";
+  }
+}

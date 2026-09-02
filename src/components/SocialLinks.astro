@@ -1,0 +1,76 @@
+---
+import blueskyIcon from "#assets/social-icons/bluesky_icon.png"
+import codebergIcon from "#assets/social-icons/codeberg_icon.png"
+import discordIcon from "#assets/social-icons/discord_icon.png"
+import githubIcon from "#assets/social-icons/github_icon.png"
+import pinterestIcon from "#assets/social-icons/pinterest_icon.png"
+import redditIcon from "#assets/social-icons/reddit_icon.png"
+import scratchIcon from "#assets/social-icons/scratch_icon.png"
+import spotifyIcon from "#assets/social-icons/spotify_icon.png"
+import steamIcon from "#assets/social-icons/steam_icon.png"
+import telegramIcon from "#assets/social-icons/telegram_icon.png"
+import twitterIcon from "#assets/social-icons/twitter_icon.png"
+import youtubeIcon from "#assets/social-icons/youtube_icon.png"
+import {Image} from "astro:assets"
+
+const socialLinks = [
+  {href: "https://github.com/aspizu", icon: githubIcon, label: "GitHub"},
+  {
+    href: "https://scratch.mit.edu/users/aspizu",
+    icon: scratchIcon,
+    label: "Scratch",
+  },
+  {href: "https://reddit.com/u/aspizu", icon: redditIcon, label: "Reddit"},
+  {
+    href: "https://steamcommunity.com/id/aspizu/",
+    icon: steamIcon,
+    label: "Steam",
+  },
+  {
+    href: "https://bsky.app/profile/did:plc:ntwh75drpbi3irhf272raokr",
+    icon: blueskyIcon,
+    label: "Bluesky",
+  },
+  {
+    href: "https://in.pinterest.com/a5pizu/",
+    icon: pinterestIcon,
+    label: "Pinterest",
+  },
+  {
+    href: "https://open.spotify.com/user/31to572so4aje5seeeqhuqftajva?si=d3f656c7532845a7",
+    icon: spotifyIcon,
+    label: "Spotify",
+  },
+  {
+    href: "https://youtube.com/@a5pizu",
+    icon: youtubeIcon,
+    label: "YouTube",
+  },
+  {href: "https://x.com/aspizu_", icon: twitterIcon, label: "X"},
+  {
+    href: "https://codeberg.org/aspizu",
+    icon: codebergIcon,
+    label: "Codeberg",
+  },
+  {href: "https://t.me/aspizu", icon: telegramIcon, label: "Telegram"},
+  {
+    href: "https://discord.gg/mKQqsJ6UtK",
+    icon: discordIcon,
+    label: "Discord",
+  },
+]
+---
+
+<div class="grid w-fit grid-cols-6 gap-2 [&_a:active]:translate-y-0.5">
+  {
+    socialLinks.map(({href, icon, label}) => (
+      <a class="block size-8" href={href} aria-label={label}>
+        <Image
+          class="block size-8 [image-rendering:pixelated]"
+          src={icon}
+          alt=""
+        />
+      </a>
+    ))
+  }
+</div>

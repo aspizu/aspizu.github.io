@@ -1,0 +1,20 @@
+pre-commit:
+  jobs:
+    - name: oxfmt
+      glob: "*.{cjs,css,cts,html,js,jsx,json,md,mjs,mts,scss,ts,tsx}"
+      run: pnpm exec oxfmt {staged_files}
+      stage_fixed: true
+
+    - name: prettier
+      glob: "*.{astro,jsonc,mdx,yaml,yml}"
+      run: pnpm exec prettier --write {staged_files}
+      stage_fixed: true
+
+    - name: oxlint
+      glob: "*.{astro,cjs,cts,js,jsx,mjs,mts,ts,tsx}"
+      run: pnpm exec oxlint {staged_files}
+
+pre-push:
+  jobs:
+    - name: typecheck
+      run: pnpm run typecheck

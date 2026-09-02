@@ -1,0 +1,102 @@
+---
+import type {TreeNode} from "#components/ArticleTree.astro"
+
+interface Props {
+  currentPath: string
+  folderHref: string
+  nodes: TreeNode[]
+}
+
+const maxVisibleFiles = 10
+const {currentPath, folderHref, nodes} = Astro.props
+const normalizedCurrentPath = currentPath.replace(/\/$/, "") || "/"
+const directories = nodes
+  .filter((node) => node.kind === "directory")
+  .toSorted((left, right) => left.name.localeCompare(right.name))
+const files = nodes
+  .filter((node) => node.kind === "file")
+  .toSorted(
+    (left, right) =>
+      right.updatedAt.localeCompare(left.updatedAt) ||
+      left.name.localeCompare(right.name),
+  )
+const visibleNodes = [...directories, ...files.slice(0, maxVisibleFiles)]
+const hiddenFileCount = files.length - maxVisibleFiles
+---
+
+<ul
+  class="mt-1 ml-[1ch] flex list-none flex-col gap-1 border-l-2 border-c64-light-grey pl-[2ch]"
+>
+  {
+    visibleNodes.map((node) => {
+      const isCurrentPage =
+        normalizedCurrentPath === (node.href.replace(/\/$/, "") || "/")
+
+      return (
+        <li class="relative">
+          <span
+            class="absolute left-[-2ch] translate-y-0.5 text-c64-light-grey"
+            aria-hidden="true"
+          >
+            ─
+          </span>
+          {node.kind === "directory" ? (
+            <details
+              class="[&[open]>summary>.file-tree-closed]:hidden"
+              open={isCurrentPage || currentPath.startsWith(node.href)}
+            >
+              <summary class="cursor-pointer list-none wrap-anywhere text-c64-purple [&::-webkit-details-marker]:hidden">
+                <span class="file-tree-closed" aria-hidden="true">
+                  [+]{" "}
+                </span>
+                <span class="file-tree-open hidden" aria-hidden="true">
+                  [-]{" "}
+                </span>
+                <a
+                  class="text-c64-purple no-underline hover:text-c64-red hover:underline"
+                  href={node.href}
+                  aria-current={isCurrentPage ? "page" : undefined}
+                >
+                  {node.name}/
+                </a>
+              </summary>
+              <Astro.self
+                nodes={node.children}
+                currentPath={currentPath}
+                folderHref={node.href}
+              />
+            </details>
+          ) : (
+            <a
+              class="block wrap-anywhere text-c64-blue no-underline hover:text-c64-red hover:underline"
+              href={node.href}
+              title={node.title}
+              aria-current={isCurrentPage ? "page" : undefined}
+            >
+              {node.name}
+            </a>
+          )}
+        </li>
+      )
+    })
+  }
+  {
+    hiddenFileCount > 0 && (
+      <li class="relative">
+        <span
+          class="absolute left-[-2ch] translate-y-0.5 text-c64-light-grey"
+          aria-hidden="true"
+        >
+          ─
+        </span>
+        <a
+          class="block wrap-anywhere text-c64-blue no-underline hover:text-c64-red hover:underline"
+          href={folderHref}
+          title={`View ${hiddenFileCount} more entries`}
+        >
+          more..
+        </a>
+      </li>
+    )
+  }
+</ul>

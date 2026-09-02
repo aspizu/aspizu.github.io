@@ -1,9 +1,13 @@
 {
-    "extends": "astro/tsconfigs/base",
-    "compilerOptions": {
-        "types": ["vite/client"],
-        "paths": {
-            "@/*": ["./src/*"]
-        }
+  "extends": "astro/tsconfigs/base",
+  "compilerOptions": {
+    "types": ["astro/client", "vite/client"],
+    "paths": {
+      "#assets/*": ["./src/assets/*"],
+      "#components/*": ["./src/components/*"],
+      "#content/*": ["./src/content/*"],
+      "#pages/*": ["./src/pages/*"],
+      "#styles/*": ["./src/styles/*"]
     }
+  }
 }

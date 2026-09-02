@@ -1,0 +1,29 @@
+---
+import QRCode from "qrcode"
+
+interface Props {
+  title: string
+}
+
+const {title} = Astro.props
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href
+const qrCode = await QRCode.toString(pageUrl, {
+  type: "svg",
+  errorCorrectionLevel: "M",
+  margin: 0,
+  color: {
+    dark: "#777777",
+    light: "#ffffff",
+  },
+})
+---
+
+<footer class="mt-8 mb-16 py-4">
+  <div
+    class="[&_svg]:block [&_svg]:size-24"
+    role="img"
+    aria-label={`QR code for ${title}`}
+  >
+    <Fragment set:html={qrCode} />
+  </div>
+</footer>

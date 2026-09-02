@@ -1,0 +1,27 @@
+{
+  "editor.rulers": [80],
+  "files.readonlyInclude": {
+    "pnpm-lock.yaml": true,
+    "worker-configuration.d.ts": true
+  },
+  "oxc.fmt.configPath": ".oxfmtrc.json",
+  "prettier.documentSelectors": [
+    "**/*.astro",
+    "**/*.jsonc",
+    "**/*.mdx",
+    "**/*.yaml",
+    "**/*.yml"
+  ],
+  "[astro][jsonc][mdx][yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.indentSize": 2
+  },
+  "[css][json][typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.indentSize": 2
+  }
+}

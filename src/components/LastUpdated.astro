@@ -1,0 +1,13 @@
+---
+import {format} from "date-fns"
+
+interface Props {
+  date: string
+}
+
+const {date} = Astro.props
+---
+
+<time class="ml-auto whitespace-nowrap text-c64-grey" datetime={date}>
+  {format(new Date(date), "dd MMMM yyyy")}
+</time>

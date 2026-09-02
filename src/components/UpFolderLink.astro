@@ -1,0 +1,21 @@
+---
+import {dirname} from "node:path"
+
+const parentHref =
+  Astro.url.pathname === "/"
+    ? undefined
+    : `${dirname(Astro.url.pathname.replace(/\/$/, ""))}/`.replace(
+        /\/{2}$/,
+        "/",
+      )
+---
+
+{
+  parentHref && (
+    <nav aria-label="Parent page">
+      <a class="no-underline hover:no-underline" href={parentHref}>
+        [Up Folder]
+      </a>
+    </nav>
+  )
+}

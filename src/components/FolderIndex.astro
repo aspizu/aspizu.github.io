@@ -1,0 +1,36 @@
+---
+import {format} from "date-fns"
+
+interface Props {
+  folder: {
+    name: string
+    pages: {
+      href: string
+      title: string
+      updatedAt: string
+    }[]
+  }
+}
+
+const {folder} = Astro.props
+---
+
+<h1>{folder.name}</h1>
+
+<ul class="m-0 list-none p-0">
+  {
+    folder.pages.map((page) => (
+      <li class="flex items-start justify-between gap-4">
+        <a class="min-w-0 wrap-anywhere" href={page.href}>
+          {page.title}
+        </a>
+        <time
+          class="shrink-0 text-right whitespace-nowrap text-c64-grey"
+          datetime={page.updatedAt}
+        >
+          {format(new Date(page.updatedAt), "dd MMMM yyyy")}
+        </time>
+      </li>
+    ))
+  }
+</ul>

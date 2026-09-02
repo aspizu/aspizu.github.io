@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "PiZmono";
+  src: url("/PiZmono.ttf");
+}
+
+@theme {
+  --font-pizmono: "PiZmono", monospace;
+
+  --color-c64-black: #000;
+  --color-c64-white: #fff;
+  --color-c64-red: #800;
+  --color-c64-cyan: #afe;
+  --color-c64-purple: #c4c;
+  --color-c64-blue: #00a;
+  --color-c64-yellow: #ee7;
+  --color-c64-orange: #d85;
+  --color-c64-dark-grey: #333;
+  --color-c64-grey: #777;
+  --color-c64-light-blue: #08f;
+  --color-c64-light-grey: #bbb;
+}

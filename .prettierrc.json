@@ -1,8 +1,18 @@
 {
-    "semi": false,
-    "tabWidth": 4,
-    "bracketSpacing": false,
-    "printWidth": 88,
-    "endOfLine": "lf",
-    "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"]
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "semi": false,
+  "tabWidth": 2,
+  "bracketSpacing": false,
+  "printWidth": 80,
+  "endOfLine": "lf",
+  "plugins": ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
+  "tailwindStylesheet": "./src/styles/main.css",
+  "overrides": [
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    }
+  ]
 }

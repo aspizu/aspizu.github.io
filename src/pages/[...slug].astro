@@ -1,0 +1,122 @@
+---
+import "#styles/main.css"
+import ArticleTree from "#components/ArticleTree.astro"
+import FolderIndex from "#components/FolderIndex.astro"
+import LastUpdated from "#components/LastUpdated.astro"
+import PageQrCode from "#components/PageQrCode.astro"
+import SiteLogo from "#components/SiteLogo.astro"
+import UpFolderLink from "#components/UpFolderLink.astro"
+import {getCollection, render} from "astro:content"
+
+export async function getStaticPaths() {
+  const pages = await getCollection("pages")
+  const pageSlugs = new Set(
+    pages.map((page) =>
+      page.id.replace(/(^|\/)index$/, "$1").replace(/\/$/, ""),
+    ),
+  )
+  const folderSlugs = new Set<string>()
+
+  for (const page of pages) {
+    const segments = page.id.split("/").slice(0, -1)
+
+    for (let depth = 1; depth <= segments.length; depth += 1) {
+      folderSlugs.add(segments.slice(0, depth).join("/"))
+    }
+  }
+
+  const pagePaths = pages.map((page) => {
+    const slug = page.id.replace(/(^|\/)index$/, "$1").replace(/\/$/, "")
+
+    return {
+      params: {slug: slug || undefined},
+      props: {kind: "page" as const, page},
+    }
+  })
+  const folderPaths = [...folderSlugs]
+    .filter((slug) => !pageSlugs.has(slug))
+    .map((slug) => {
+      const prefix = `${slug}/`
+      const folderPages = pages
+        .filter((page) => page.id.startsWith(prefix))
+        .map((page) => {
+          const pageSlug = page.id
+            .replace(/(^|\/)index$/, "$1")
+            .replace(/\/$/, "")
+
+          return {
+            href: pageSlug ? `/${pageSlug}/` : "/",
+            title: page.data.title,
+            updatedAt: page.data.updatedAt.toISOString(),
+          }
+        })
+        .toSorted(
+          (left, right) =>
+            right.updatedAt.localeCompare(left.updatedAt) ||
+            left.title.localeCompare(right.title),
+        )
+
+      return {
+        params: {slug},
+        props: {
+          folder: {
+            name: slug.split("/").at(-1) ?? slug,
+            pages: folderPages,
+          },
+          kind: "folder" as const,
+        },
+      }
+    })
+
+  return [...pagePaths, ...folderPaths]
+}
+
+const props = Astro.props
+const Content =
+  props.kind === "page" ? (await render(props.page)).Content : undefined
+const pageTitle =
+  props.kind === "folder" ? `${props.folder.name}/` : props.page.data.title
+const lastUpdatedAt =
+  props.kind === "page" && props.page.id !== "index"
+    ? props.page.data.updatedAt.toISOString()
+    : undefined
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <div
+      class="min-h-screen min-[56rem]:grid min-[56rem]:grid-cols-[clamp(14rem,22vw,20rem)_minmax(0,1fr)]"
+    >
+      <aside
+        class="border-b-2 border-c64-light-grey bg-c64-white px-4 py-4 min-[56rem]:sticky min-[56rem]:top-0 min-[56rem]:h-screen min-[56rem]:overflow-auto min-[56rem]:border-r-2 min-[56rem]:border-b-0"
+      >
+        <ArticleTree currentPath={Astro.url.pathname} />
+      </aside>
+      <div
+        class="mx-auto w-full max-w-[80ch] px-2 text-justify text-pretty wrap-anywhere"
+      >
+        <div class="mt-4 flex h-4 justify-between gap-4">
+          <UpFolderLink />
+          {lastUpdatedAt && <LastUpdated date={lastUpdatedAt} />}
+        </div>
+        <SiteLogo />
+        <main class="markdown">
+          {
+            props.kind === "folder" ? (
+              <FolderIndex folder={props.folder} />
+            ) : Content ? (
+              <Content />
+            ) : null
+          }
+        </main>
+        <PageQrCode title={pageTitle} />
+      </div>
+    </div>
+  </body>
+</html>

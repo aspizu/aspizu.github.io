@@ -1,3 +1,6 @@
-*
-!*/
-!**/*.astro
+.astro/
+.pnpm-store/
+dist/
+node_modules/
+pnpm-lock.yaml
+worker-configuration.d.ts

@@ -1,0 +1,79 @@
+---
+import TreeBranch from "#components/TreeBranch.astro"
+import {getCollection} from "astro:content"
+
+type TreeDirectory = {
+  children: TreeNode[]
+  href: string
+  kind: "directory"
+  name: string
+}
+
+type TreeFile = {
+  href: string
+  kind: "file"
+  name: string
+  title: string
+  updatedAt: string
+}
+
+export type TreeNode = TreeDirectory | TreeFile
+
+interface Props {
+  currentPath: string
+}
+
+const {currentPath} = Astro.props
+const pages = await getCollection("pages")
+const tree: TreeNode[] = []
+
+for (const page of pages) {
+  if (page.id === "index") continue
+
+  const segments = page.id.split("/")
+  const fileName = segments.pop() ?? page.id
+  let currentNodes = tree
+  const directorySegments: string[] = []
+
+  for (const segment of segments) {
+    directorySegments.push(segment)
+    let directory = currentNodes.find(
+      (node): node is TreeDirectory =>
+        node.kind === "directory" && node.name === segment,
+    )
+
+    if (!directory) {
+      directory = {
+        children: [],
+        href: `/${directorySegments.join("/")}/`,
+        kind: "directory",
+        name: segment,
+      }
+      currentNodes.push(directory)
+    }
+
+    currentNodes = directory.children
+  }
+
+  const slug = page.id.replace(/(^|\/)index$/, "$1").replace(/\/$/, "")
+
+  currentNodes.push({
+    href: slug ? `/${slug}/` : "/",
+    kind: "file",
+    name: fileName,
+    title: page.data.title,
+    updatedAt: page.data.updatedAt.toISOString(),
+  })
+}
+---
+
+<nav class="text-left" aria-label="Articles">
+  <a
+    class="text-c64-purple no-underline hover:text-c64-red hover:underline"
+    href="/"
+    aria-current={currentPath === "/" ? "page" : undefined}
+  >
+    aspiz.uk/
+  </a>
+  <TreeBranch nodes={tree} currentPath={currentPath} folderHref="/" />
+</nav>

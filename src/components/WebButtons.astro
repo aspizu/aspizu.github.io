@@ -1,0 +1,28 @@
+---
+import indieWebClubButton from "#assets/buttons/indie-web-club-bangalore.png"
+import threadLockedButton from "#assets/buttons/thread-locked.png"
+import {Image} from "astro:assets"
+---
+
+<div class="mt-4 flex flex-wrap gap-2">
+  <a
+    class="block w-fit no-underline hover:no-underline"
+    href="https://threadlocked.xyz/"
+  >
+    <Image
+      class="block [image-rendering:pixelated]"
+      src={threadLockedButton}
+      alt="Thread locked"
+    />
+  </a>
+  <a
+    class="block w-fit no-underline hover:no-underline"
+    href="https://blr.indiewebclub.org/"
+  >
+    <Image
+      class="block [image-rendering:pixelated]"
+      src={indieWebClubButton}
+      alt="Indie Web Club Bangalore"
+    />
+  </a>
+</div>
