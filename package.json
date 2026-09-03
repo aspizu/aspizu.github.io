@@ -3,7 +3,7 @@
     "build": "astro build",
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
     "typecheck": "tsc --noEmit",
-    "lint": "oxfmt --check . && oxlint . && prettier --check \"**/*.{astro,jsonc,mdx,yaml,yml}\" && tailwind-lint --config src/styles/main.css --auto",
+    "lint": "oxfmt --check . && oxlint . && prettier --check \"**/*.{astro,jsonc,mdx,yaml,yml}\" && tailwind-lint --config src/styles/main.css \"src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}\"",
     "format": "oxfmt . && prettier --write \"**/*.{astro,jsonc,mdx,yaml,yml}\"",
     "prepare": "lefthook install"
   },
