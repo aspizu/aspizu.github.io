@@ -3,12 +3,13 @@ import type {TreeNode} from "#components/ArticleTree.astro"
 
 interface Props {
   currentPath: string
+  depth?: number
   folderHref: string
   nodes: TreeNode[]
 }
 
 const maxVisibleFiles = 10
-const {currentPath, folderHref, nodes} = Astro.props
+const {currentPath, depth = 0, folderHref, nodes} = Astro.props
 const normalizedCurrentPath = currentPath.replace(/\/$/, "") || "/"
 const directories = nodes
   .filter((node) => node.kind === "directory")
@@ -42,14 +43,17 @@ const hiddenFileCount = files.length - maxVisibleFiles
           </span>
           {node.kind === "directory" ? (
             <details
-              class="[&[open]>summary>.file-tree-closed]:hidden"
-              open={isCurrentPage || currentPath.startsWith(node.href)}
+              open={
+                isCurrentPage ||
+                currentPath.startsWith(node.href) ||
+                depth === 0
+              }
             >
               <summary class="cursor-pointer list-none wrap-anywhere text-c64-purple [&::-webkit-details-marker]:hidden">
                 <span class="file-tree-closed" aria-hidden="true">
                   [+]{" "}
                 </span>
-                <span class="file-tree-open hidden" aria-hidden="true">
+                <span class="file-tree-open" aria-hidden="true">
                   [-]{" "}
                 </span>
                 <a
@@ -63,6 +67,7 @@ const hiddenFileCount = files.length - maxVisibleFiles
               <Astro.self
                 nodes={node.children}
                 currentPath={currentPath}
+                depth={depth + 1}
                 folderHref={node.href}
               />
             </details>
@@ -100,3 +105,14 @@ const hiddenFileCount = files.length - maxVisibleFiles
     )
   }
 </ul>
+
+<style>
+  .file-tree-open,
+  details[open] > summary > .file-tree-closed {
+    display: none;
+  }
+
+  details[open] > summary > .file-tree-open {
+    display: inline;
+  }
+</style>
