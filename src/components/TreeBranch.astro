@@ -39,11 +39,9 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
       return (
         <li class="relative">
           <span
-            class="absolute left-[calc(-2ch-2px)] translate-y-0.5 text-c64-dark-grey"
+            class="absolute top-[calc(0.5lh-1px)] left-[calc(-2ch-2px)] w-[calc(2ch+2px)] border-t-2 border-c64-dark-grey"
             aria-hidden="true"
-          >
-            ─
-          </span>
+          />
           {node.kind === "directory" ? (
             <details
               open={
@@ -99,11 +97,9 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
     hiddenFileCount > 0 && (
       <li class="relative">
         <span
-          class="absolute left-[calc(-2ch-2px)] translate-y-0.5 text-c64-dark-grey"
+          class="absolute top-[calc(0.5lh-1px)] left-[calc(-2ch-2px)] w-[calc(2ch+2px)] border-t-2 border-c64-dark-grey"
           aria-hidden="true"
-        >
-          ─
-        </span>
+        />
         <a
           class="block wrap-anywhere text-c64-light-blue no-underline hover:text-c64-yellow hover:underline"
           href={folderHref}
