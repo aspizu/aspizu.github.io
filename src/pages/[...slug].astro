@@ -93,6 +93,13 @@ const sourceCodeHref =
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" href="/assets/favicon.png" />
+    <link
+      rel="preload"
+      href="/PiZmono.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
     {pageDescription && <meta name="description" content={pageDescription} />}
     <title>{pageTitle}</title>
   </head>
