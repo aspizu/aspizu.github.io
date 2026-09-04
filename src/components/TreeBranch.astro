@@ -29,7 +29,7 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
 ---
 
 <ul
-  class="file-tree-branch relative mt-1 ml-[1ch] flex list-none flex-col gap-1 border-l-2 border-c64-light-grey pl-[calc(2ch+2px)] [--file-tree-background:var(--color-c64-white)] dark:border-c64-dark-grey dark:[--file-tree-background:var(--color-c64-blue)]"
+  class="file-tree-branch relative mt-1 ml-[1ch] flex list-none flex-col gap-1 border-l-2 border-c64-dark-grey pl-[calc(2ch+2px)] [--file-tree-background:var(--color-c64-blue)]"
 >
   {
     visibleNodes.map((node) => {
@@ -39,7 +39,7 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
       return (
         <li class="relative">
           <span
-            class="absolute left-[calc(-2ch-2px)] translate-y-0.5 text-c64-light-grey dark:text-c64-dark-grey"
+            class="absolute left-[calc(-2ch-2px)] translate-y-0.5 text-c64-dark-grey"
             aria-hidden="true"
           >
             ─
@@ -61,7 +61,7 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
                 </span>
                 <a
                   class:list={[
-                    "no-underline hover:text-c64-red hover:underline dark:hover:text-c64-yellow",
+                    "no-underline hover:text-c64-yellow hover:underline",
                     isCurrentPage ? "text-c64-orange" : "text-c64-purple",
                   ]}
                   href={node.href}
@@ -81,10 +81,8 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
           ) : (
             <a
               class:list={[
-                "block wrap-anywhere no-underline hover:text-c64-red hover:underline dark:hover:text-c64-yellow",
-                isCurrentPage
-                  ? "text-c64-orange"
-                  : "text-c64-blue dark:text-c64-light-blue",
+                "block wrap-anywhere no-underline hover:text-c64-yellow hover:underline",
+                isCurrentPage ? "text-c64-orange" : "text-c64-light-blue",
               ]}
               href={node.href}
               title={node.title || node.name}
@@ -101,13 +99,13 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
     hiddenFileCount > 0 && (
       <li class="relative">
         <span
-          class="absolute left-[calc(-2ch-2px)] translate-y-0.5 text-c64-light-grey dark:text-c64-dark-grey"
+          class="absolute left-[calc(-2ch-2px)] translate-y-0.5 text-c64-dark-grey"
           aria-hidden="true"
         >
           ─
         </span>
         <a
-          class="block wrap-anywhere text-c64-blue no-underline hover:text-c64-red hover:underline dark:text-c64-light-blue dark:hover:text-c64-yellow"
+          class="block wrap-anywhere text-c64-light-blue no-underline hover:text-c64-yellow hover:underline"
           href={folderHref}
           title={`View ${hiddenFileCount} more entries`}
         >

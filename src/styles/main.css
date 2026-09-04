@@ -1,11 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark {
-  @media (prefers-color-scheme: dark), (prefers-color-scheme: light) {
-    @slot;
-  }
-}
-
 @import "./theme.css";
 @import "./base.css";
 @import "./markdown.css";

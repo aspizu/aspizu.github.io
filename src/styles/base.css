@@ -26,11 +26,11 @@
 
   strong,
   b {
-    @apply font-normal text-c64-red dark:text-c64-orange;
+    @apply font-normal text-c64-orange;
   }
 
   small {
-    @apply font-normal text-c64-dark-grey dark:text-c64-light-grey;
+    @apply font-normal text-c64-light-grey;
   }
 
   code {
@@ -52,7 +52,7 @@
   }
 
   a {
-    @apply text-c64-blue no-underline dark:text-c64-light-blue;
+    @apply text-c64-light-blue no-underline;
   }
 
   a:visited {
@@ -60,7 +60,7 @@
   }
 
   a:hover {
-    @apply text-c64-red underline dark:text-c64-yellow;
+    @apply text-c64-yellow underline;
   }
 
   a:active {
@@ -89,7 +89,7 @@
   }
 
   blockquote {
-    @apply mx-0 border-l-4 border-c64-purple pl-4 text-c64-dark-grey dark:text-c64-light-grey;
+    @apply mx-0 border-l-4 border-c64-purple pl-4 text-c64-light-grey;
   }
 
   pre:has(> code) {
@@ -105,7 +105,7 @@
   }
 
   kbd {
-    @apply bg-c64-black px-1.5 text-c64-white dark:bg-c64-white dark:text-c64-black;
+    @apply bg-c64-white px-1.5 text-c64-black;
   }
 
   table {
@@ -114,7 +114,7 @@
 
   th,
   td {
-    @apply border-2 border-c64-grey dark:border-c64-black;
+    @apply border-2 border-c64-black;
   }
 
   input {
@@ -131,10 +131,10 @@
   }
 
   input {
-    @apply bg-c64-white text-c64-black dark:bg-c64-black dark:text-c64-white;
+    @apply bg-c64-black text-c64-white;
   }
 
   :disabled {
-    @apply bg-c64-light-grey text-c64-grey dark:bg-c64-dark-grey dark:text-c64-light-grey;
+    @apply bg-c64-dark-grey text-c64-light-grey;
   }
 }
