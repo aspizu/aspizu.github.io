@@ -37,6 +37,10 @@
     font: inherit;
   }
 
+  [hidden] {
+    display: none !important;
+  }
+
   strong,
   b {
     @apply font-normal text-c64-orange;
