@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@source not "../../*.{json,jsonc,md,ts,yaml,yml}";
+@source not "../../.*";
+@source not "../content.config.ts";
+@source not "../content/.vscode";
+@source not "../content/*.json";
+@source not "../pages/*.md.ts";
+@source not "../utils";
+@source not "../worker.ts";
+
 @import "./theme.css";
 @import "./base.css";
 @import "./markdown.css";
