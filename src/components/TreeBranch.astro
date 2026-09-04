@@ -39,7 +39,7 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
       return (
         <li class="relative">
           <span
-            class="absolute top-[calc(0.5lh-1px)] left-[calc(-2ch-2px)] w-[calc(2ch+2px)] border-t-2 border-c64-dark-grey"
+            class="absolute top-[calc(0.5lh-1px)] left-[calc(-2ch-2px)] w-[calc(1.5ch+2px)] border-t-2 border-c64-dark-grey"
             aria-hidden="true"
           />
           {node.kind === "directory" ? (
@@ -59,7 +59,7 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
                 </span>
                 <a
                   class:list={[
-                    "no-underline hover:text-c64-yellow hover:underline",
+                    "relative -top-px no-underline hover:text-c64-yellow hover:underline",
                     isCurrentPage ? "text-c64-orange" : "text-c64-purple",
                   ]}
                   href={node.href}
@@ -79,7 +79,7 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
           ) : (
             <a
               class:list={[
-                "block wrap-anywhere no-underline hover:text-c64-yellow hover:underline",
+                "relative -top-px block wrap-anywhere no-underline hover:text-c64-yellow hover:underline",
                 isCurrentPage ? "text-c64-orange" : "text-c64-light-blue",
               ]}
               href={node.href}
@@ -97,11 +97,11 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
     hiddenFileCount > 0 && (
       <li class="relative">
         <span
-          class="absolute top-[calc(0.5lh-1px)] left-[calc(-2ch-2px)] w-[calc(2ch+2px)] border-t-2 border-c64-dark-grey"
+          class="absolute top-[calc(0.5lh-1px)] left-[calc(-2ch-2px)] w-[calc(1.5ch+2px)] border-t-2 border-c64-dark-grey"
           aria-hidden="true"
         />
         <a
-          class="block wrap-anywhere text-c64-light-blue no-underline hover:text-c64-yellow hover:underline"
+          class="relative -top-px block wrap-anywhere text-c64-light-blue no-underline hover:text-c64-yellow hover:underline"
           href={folderHref}
           title={`View ${hiddenFileCount} more entries`}
         >
