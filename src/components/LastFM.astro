@@ -47,7 +47,7 @@ import Music from "pixelarticons/svg/music.svg"
   const artist = player?.querySelector<HTMLElement>("[data-lastfm-artist]")
 
   if (player && title && artist) {
-    const refreshLastFm = async () => {
+    const refreshLastFm = async (retries = 3): Promise<void> => {
       try {
         const response = await fetch(
           "https://lastfm-last-played.biancarosa.com.br/aspizu/latest-song",
@@ -80,20 +80,20 @@ import Music from "pixelarticons/svg/music.svg"
         artist.textContent = data.track.artist["#text"]
         player.hidden = false
       } catch (error) {
+        if (retries > 0) {
+          await refreshLastFm(retries - 1)
+          return
+        }
+
         player.hidden = true
         console.error(error)
       }
     }
 
-    const startLastFm = () => {
-      void refreshLastFm()
-      window.setInterval(() => void refreshLastFm(), 60_000)
-    }
-
     if (document.readyState === "complete") {
-      window.setTimeout(startLastFm, 0)
+      window.setTimeout(() => void refreshLastFm(), 0)
     } else {
-      window.addEventListener("load", startLastFm, {once: true})
+      window.addEventListener("load", () => void refreshLastFm(), {once: true})
     }
   }
 </script>
