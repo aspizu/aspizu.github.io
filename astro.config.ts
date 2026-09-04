@@ -10,9 +10,6 @@ import remarkWikiWords from "./src/utils/remark-wiki-words"
 export default defineConfig({
   site: "https://aspiz.uk",
   trailingSlash: "never",
-  build: {
-    inlineStylesheets: "always",
-  },
   markdown: {
     processor: unified({
       remarkPlugins: [remarkWikiWords],
