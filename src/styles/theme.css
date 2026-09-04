@@ -1,6 +1,6 @@
 @font-face {
   font-family: "PiZmono";
-  src: url("/PiZmono.ttf");
+  src: url("/PiZmono.woff2") format("woff2");
   font-display: swap;
 }
 
