@@ -21,12 +21,15 @@ const files = nodes
       right.updatedAt.localeCompare(left.updatedAt) ||
       left.name.localeCompare(right.name),
   )
-const visibleNodes = [...directories, ...files.slice(0, maxVisibleFiles)]
-const hiddenFileCount = files.length - maxVisibleFiles
+const visibleNodes = [
+  ...directories,
+  ...(depth === 0 ? files : files.slice(0, maxVisibleFiles)),
+]
+const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
 ---
 
 <ul
-  class="mt-1 ml-[1ch] flex list-none flex-col gap-1 border-l-2 border-c64-light-grey pl-[2ch]"
+  class="file-tree-branch relative mt-1 ml-[1ch] flex list-none flex-col gap-1 border-l-2 border-c64-light-grey pl-[calc(2ch+2px)] [--file-tree-background:var(--color-c64-white)] dark:border-c64-dark-grey dark:[--file-tree-background:var(--color-c64-blue)]"
 >
   {
     visibleNodes.map((node) => {
@@ -36,7 +39,7 @@ const hiddenFileCount = files.length - maxVisibleFiles
       return (
         <li class="relative">
           <span
-            class="absolute left-[-2ch] translate-y-0.5 text-c64-light-grey"
+            class="absolute left-[calc(-2ch-2px)] translate-y-0.5 text-c64-light-grey dark:text-c64-dark-grey"
             aria-hidden="true"
           >
             ─
@@ -45,23 +48,27 @@ const hiddenFileCount = files.length - maxVisibleFiles
             <details
               open={
                 isCurrentPage ||
-                currentPath.startsWith(node.href) ||
+                currentPath.startsWith(`${node.href}/`) ||
                 depth === 0
               }
             >
               <summary class="cursor-pointer list-none wrap-anywhere text-c64-purple [&::-webkit-details-marker]:hidden">
-                <span class="file-tree-closed" aria-hidden="true">
-                  [+]{" "}
+                <span class="file-tree-closed mr-[0.5ch]" aria-hidden="true">
+                  [+]
                 </span>
-                <span class="file-tree-open" aria-hidden="true">
-                  [-]{" "}
+                <span class="file-tree-open mr-[0.5ch]" aria-hidden="true">
+                  [-]
                 </span>
                 <a
-                  class="text-c64-purple no-underline hover:text-c64-red hover:underline"
+                  class:list={[
+                    "no-underline hover:text-c64-red hover:underline dark:hover:text-c64-yellow",
+                    isCurrentPage ? "text-c64-orange" : "text-c64-purple",
+                  ]}
                   href={node.href}
+                  title={node.title || node.name}
                   aria-current={isCurrentPage ? "page" : undefined}
                 >
-                  {node.name}/
+                  {node.title || node.name}/
                 </a>
               </summary>
               <Astro.self
@@ -73,12 +80,17 @@ const hiddenFileCount = files.length - maxVisibleFiles
             </details>
           ) : (
             <a
-              class="block wrap-anywhere text-c64-blue no-underline hover:text-c64-red hover:underline"
+              class:list={[
+                "block wrap-anywhere no-underline hover:text-c64-red hover:underline dark:hover:text-c64-yellow",
+                isCurrentPage
+                  ? "text-c64-orange"
+                  : "text-c64-blue dark:text-c64-light-blue",
+              ]}
               href={node.href}
-              title={node.title}
+              title={node.title || node.name}
               aria-current={isCurrentPage ? "page" : undefined}
             >
-              {node.name}
+              {node.title || node.name}
             </a>
           )}
         </li>
@@ -89,13 +101,13 @@ const hiddenFileCount = files.length - maxVisibleFiles
     hiddenFileCount > 0 && (
       <li class="relative">
         <span
-          class="absolute left-[-2ch] translate-y-0.5 text-c64-light-grey"
+          class="absolute left-[calc(-2ch-2px)] translate-y-0.5 text-c64-light-grey dark:text-c64-dark-grey"
           aria-hidden="true"
         >
           ─
         </span>
         <a
-          class="block wrap-anywhere text-c64-blue no-underline hover:text-c64-red hover:underline"
+          class="block wrap-anywhere text-c64-blue no-underline hover:text-c64-red hover:underline dark:text-c64-light-blue dark:hover:text-c64-yellow"
           href={folderHref}
           title={`View ${hiddenFileCount} more entries`}
         >
@@ -107,6 +119,16 @@ const hiddenFileCount = files.length - maxVisibleFiles
 </ul>
 
 <style>
+  .file-tree-branch::after {
+    position: absolute;
+    bottom: 0;
+    left: -2px;
+    width: 2px;
+    height: 0.5rem;
+    background: var(--file-tree-background);
+    content: "";
+  }
+
   .file-tree-open,
   details[open] > summary > .file-tree-closed {
     display: none;

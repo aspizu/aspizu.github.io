@@ -5,10 +5,14 @@ import mdx from "@astrojs/mdx"
 import tailwindcss from "@tailwindcss/vite"
 import {defineConfig} from "astro/config"
 
+import remarkWikiWords from "./src/utils/remark-wiki-words"
+
 export default defineConfig({
   site: "https://aspiz.uk",
+  trailingSlash: "never",
   markdown: {
     processor: unified({
+      remarkPlugins: [remarkWikiWords],
       smartypants: false,
     }),
     syntaxHighlight: false,

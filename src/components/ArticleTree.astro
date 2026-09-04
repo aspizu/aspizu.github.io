@@ -1,5 +1,7 @@
 ---
 import TreeBranch from "#components/TreeBranch.astro"
+import pageLinks from "#content/pages.json"
+import {getPageSlug} from "#utils/page-slug"
 import {getCollection} from "astro:content"
 
 type TreeDirectory = {
@@ -7,6 +9,7 @@ type TreeDirectory = {
   href: string
   kind: "directory"
   name: string
+  title: string
 }
 
 type TreeFile = {
@@ -23,15 +26,31 @@ interface Props {
   currentPath: string
 }
 
-const {currentPath} = Astro.props
+const currentPath = Astro.props.currentPath.replace(/\/$/, "") || "/"
 const pages = await getCollection("pages")
 const tree: TreeNode[] = []
+const sidebarPages = new Map<string, {title: string; updatedAt: string}>()
 
 for (const page of pages) {
-  if (page.id === "index") continue
+  const slug = getPageSlug(page)
+  if (!slug) continue
 
-  const segments = page.id.split("/")
-  const fileName = segments.pop() ?? page.id
+  sidebarPages.set(slug, {
+    title: slug.startsWith("weeknotes/") ? "" : page.data.title,
+    updatedAt: page.data.updatedAt.toISOString(),
+  })
+}
+
+for (const {href, title} of pageLinks) {
+  const slug = href.replace(/^\/+|\/+$/g, "")
+  if (!slug || sidebarPages.has(slug)) continue
+
+  sidebarPages.set(slug, {title, updatedAt: ""})
+}
+
+for (const [slug, page] of sidebarPages) {
+  const segments = slug.split("/")
+  const fileName = segments.pop() ?? slug
   let currentNodes = tree
   const directorySegments: string[] = []
 
@@ -42,12 +61,32 @@ for (const page of pages) {
         node.kind === "directory" && node.name === segment,
     )
 
+    const directoryPageIndex = currentNodes.findIndex(
+      (node) => node.kind === "file" && node.name === segment,
+    )
+
+    if (!directory && directoryPageIndex !== -1) {
+      const directoryPage = currentNodes[directoryPageIndex]
+
+      if (directoryPage?.kind === "file") {
+        directory = {
+          children: [],
+          href: directoryPage.href,
+          kind: "directory",
+          name: segment,
+          title: directoryPage.title,
+        }
+        currentNodes[directoryPageIndex] = directory
+      }
+    }
+
     if (!directory) {
       directory = {
         children: [],
-        href: `/${directorySegments.join("/")}/`,
+        href: `/${directorySegments.join("/")}`,
         kind: "directory",
         name: segment,
+        title: "",
       }
       currentNodes.push(directory)
     }
@@ -55,21 +94,32 @@ for (const page of pages) {
     currentNodes = directory.children
   }
 
-  const slug = page.id.replace(/(^|\/)index$/, "$1").replace(/\/$/, "")
+  const directory = currentNodes.find(
+    (node): node is TreeDirectory =>
+      node.kind === "directory" && node.name === fileName,
+  )
+
+  if (directory) {
+    directory.title = page.title
+    continue
+  }
 
   currentNodes.push({
-    href: slug ? `/${slug}/` : "/",
+    href: slug ? `/${slug}` : "/",
     kind: "file",
     name: fileName,
-    title: page.data.title,
-    updatedAt: page.data.updatedAt.toISOString(),
+    title: page.title,
+    updatedAt: page.updatedAt,
   })
 }
 ---
 
 <nav class="text-left" aria-label="Articles">
   <a
-    class="text-c64-purple no-underline hover:text-c64-red hover:underline"
+    class:list={[
+      "no-underline hover:text-c64-red hover:underline dark:hover:text-c64-yellow",
+      currentPath === "/" ? "text-c64-orange" : "text-c64-purple",
+    ]}
     href="/"
     aria-current={currentPath === "/" ? "page" : undefined}
   >

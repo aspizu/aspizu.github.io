@@ -1,6 +1,6 @@
 import {execFile} from "node:child_process"
 import {stat} from "node:fs/promises"
-import {resolve} from "node:path"
+import {basename, extname, relative, resolve} from "node:path"
 import {promisify} from "node:util"
 
 import {glob} from "astro/loaders"
@@ -11,6 +11,7 @@ const pageFiles = glob({
   base: "./src/content/pages",
   pattern: "**/*.{md,mdx}",
 })
+const pagesDirectory = resolve("./src/content/pages")
 
 const pages = defineCollection({
   loader: {
@@ -22,9 +23,41 @@ const pages = defineCollection({
           if (!filePath) throw new Error(`Missing file path for page "${id}"`)
 
           const absolutePath = resolve(filePath)
-          let updatedAt = data.date
+          const slug = relative(pagesDirectory, absolutePath)
+            .replaceAll("\\", "/")
+            .replace(/\.(?:md|mdx)$/, "")
+            .replace(/(^|\/)index$/, "$1")
+            .replace(/\/$/, "")
+          const pageDate = data.date
             ? z.coerce.date().parse(data.date)
             : undefined
+          const fileName = basename(absolutePath, extname(absolutePath))
+          let pageData = {
+            description: "",
+            title: fileName,
+            ...data,
+          }
+
+          if (slug.startsWith("weeknotes/")) {
+            if (!pageDate) {
+              throw new Error(`Missing date for weeknote "${id}"`)
+            }
+
+            const dateLabel = new Intl.DateTimeFormat("en-GB", {
+              day: "2-digit",
+              month: "long",
+              timeZone: "UTC",
+              year: "numeric",
+            }).format(pageDate)
+
+            pageData = {
+              ...data,
+              description: "",
+              title: `Weeknotes from ${dateLabel}`,
+            }
+          }
+
+          let updatedAt = pageDate
 
           if (!updatedAt) {
             try {
@@ -44,7 +77,7 @@ const pages = defineCollection({
           }
 
           return context.parseData({
-            data: {...data, updatedAt},
+            data: {...pageData, slug, updatedAt},
             filePath,
             id,
           })
@@ -54,8 +87,9 @@ const pages = defineCollection({
   },
   schema: z.object({
     date: z.coerce.date().optional(),
-    description: z.string().optional(),
-    title: z.string(),
+    description: z.string().default(""),
+    slug: z.string().optional(),
+    title: z.string().default(""),
     updatedAt: z.coerce.date(),
   }),
 })

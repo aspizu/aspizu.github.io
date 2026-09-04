@@ -313,5 +313,12 @@
     "track": "Weird On A Monday Night",
     "thumbnail": "https://www.youtube.com/watch?v=AUvD1F9w36s",
     "watch": "https://www.youtube.com/watch?v=sdlbORpRiM8"
+  },
+  {
+    "artist": "DJ Koze",
+    "track": "Buschtaxi",
+    "thumbnail": "https://www.youtube.com/watch?v=RyKa_qFfuqc",
+    "watch": "https://www.youtube.com/watch?v=RyKa_qFfuqc",
+    "dark": true
   }
 ]

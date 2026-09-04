@@ -1,0 +1,91 @@
+---
+import Music from "pixelarticons/svg/music.svg"
+---
+
+<div
+  class="pointer-events-none fixed inset-x-0 bottom-3 z-50 flex justify-center px-3"
+>
+  <a
+    class="lastfm-player pointer-events-auto flex max-w-full min-w-0 items-center gap-2 bg-c64-black px-2 py-1 text-c64-white dark:bg-c64-dark-grey"
+    data-lastfm-player
+    href="https://www.last.fm/user/aspizu"
+    hidden
+    rel="noreferrer"
+    target="_blank"
+  >
+    <Music class="size-4.5 shrink-0" aria-hidden="true" />
+    <span
+      class="relative -top-px min-w-0 flex-1 truncate text-left"
+      aria-live="polite"
+    >
+      <span>I was listening to </span>
+      <span data-lastfm-title>Loading</span>
+      <span aria-hidden="true"> by </span>
+      <span data-lastfm-artist>Last.fm</span>
+    </span>
+  </a>
+</div>
+
+<style>
+  .lastfm-player,
+  .lastfm-player:visited {
+    color: var(--color-c64-white);
+    text-decoration-line: none;
+  }
+
+  .lastfm-player:hover {
+    color: var(--color-c64-white);
+    text-decoration-line: none;
+  }
+</style>
+
+<script>
+  const player = document.querySelector<HTMLAnchorElement>(
+    "[data-lastfm-player]",
+  )
+  const title = player?.querySelector<HTMLElement>("[data-lastfm-title]")
+  const artist = player?.querySelector<HTMLElement>("[data-lastfm-artist]")
+
+  if (player && title && artist) {
+    const refreshLastFm = async () => {
+      try {
+        const response = await fetch(
+          "https://lastfm-last-played.biancarosa.com.br/aspizu/latest-song",
+        )
+
+        if (!response.ok) {
+          throw new Error(`Last.fm request failed with ${response.status}`)
+        }
+
+        const data: unknown = await response.json()
+
+        if (
+          typeof data !== "object" ||
+          data === null ||
+          !("track" in data) ||
+          typeof data.track !== "object" ||
+          data.track === null ||
+          !("name" in data.track) ||
+          typeof data.track.name !== "string" ||
+          !("artist" in data.track) ||
+          typeof data.track.artist !== "object" ||
+          data.track.artist === null ||
+          !("#text" in data.track.artist) ||
+          typeof data.track.artist["#text"] !== "string"
+        ) {
+          throw new Error("Last.fm returned an invalid track")
+        }
+
+        title.textContent = data.track.name
+        artist.textContent = data.track.artist["#text"]
+        player.hidden = false
+      } catch (error) {
+        player.hidden = true
+        console.error(error)
+      }
+    }
+
+    void refreshLastFm()
+    window.setInterval(() => void refreshLastFm(), 60_000)
+  }
+</script>

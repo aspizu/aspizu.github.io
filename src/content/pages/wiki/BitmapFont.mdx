@@ -1,15 +1,10 @@
----
-title: Bitmap Fonts
-description: Pixel Art Typography Goodness.
----
-
 Pixel art fonts (also known as bitmap fonts) are made-up of square pixels on a
 grid.
 
 ## PiZmono.ttf
 
 The font that this website uses. I designed it in an afternoon using [BitFontMaker2](https://www.pentacom.jp/pentacom/bitfontmaker2/).
-My friend [Kouzeru](https://github.com/Kouzeru) introduced me to it.
+[Kouzeru](https://github.com/Kouzeru) introduced me to it.
 
 The goal was to design a font that uses as least no. of pixel as possible, while
 allowing to display all of the english alphabet, numbers and symbols in the
@@ -17,17 +12,20 @@ ASCII character set.
 
 The design of the english alphabet is such that the letters fit in a grid.
 
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Typography_Line_Terms.svg/1280px-Typography_Line_Terms.svg.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail)
+<p>
+  <img
+    class="dark:invert"
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Typography_Line_Terms.svg/1280px-Typography_Line_Terms.svg.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+  />
+</p>
 
-Notice how the cap height, median and baseline are around the same distance apart.
-My font uses a grid that consists of 5 pixels for the x-height, and 4 pixels for
-the ascender height and descender height. A long time ago, when I was first introduced
-to bitmap fonts, I had designed a font which was used in my [Scratch operating system](https://scratch.mit.edu/projects/661868690/)
+Notice how the x-height is slightly less the sum of the ascender and descender
+height. My font uses a 2:1 aspect ratio with 5 pixel width. A long time ago,
+when I was first introduced to bitmap fonts, I had designed a font which was used
+in my [Scratch operating system](https://scratch.mit.edu/projects/661868690/)
 project, and that uses 5 pixels for each of these three distances for even more
 symmetry. I choose these dimensions because they make uppercase N, K and a few
 other letters look better.
-
-Especially, uppercase K is perfect because the aspect ratio is exactly 2:1
 
 The period, comma and semi-colons use 2x2 dots, but they cannot be centered on
 our 5-width canvas, I prefer them towards the left side. This makes periods at

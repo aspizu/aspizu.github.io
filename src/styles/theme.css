@@ -4,18 +4,28 @@
 }
 
 @theme {
-  --font-pizmono: "PiZmono", monospace;
+  --font-sans: "Figtree Variable", sans-serif;
 
-  --color-c64-black: #000;
-  --color-c64-white: #fff;
-  --color-c64-red: #800;
-  --color-c64-cyan: #afe;
-  --color-c64-purple: #c4c;
-  --color-c64-blue: #00a;
-  --color-c64-yellow: #ee7;
-  --color-c64-orange: #d85;
-  --color-c64-dark-grey: #333;
-  --color-c64-grey: #777;
-  --color-c64-light-blue: #08f;
-  --color-c64-light-grey: #bbb;
+  --color-c64-black: #000000;
+  --color-c64-white: #ffffff;
+  --color-c64-red: #68372b;
+  --color-c64-cyan: #70a4b2;
+  --color-c64-purple: #6f3d86;
+  --color-c64-green: #588d43;
+  --color-c64-blue: #352879;
+  --color-c64-yellow: #b8c76f;
+  --color-c64-orange: #6f4f25;
+  --color-c64-brown: #433900;
+  --color-c64-light-red: #9a6759;
+  --color-c64-dark-grey: #444444;
+  --color-c64-grey: #6c6c6c;
+  --color-c64-light-green: #9ad284;
+  --color-c64-light-blue: #6c5eb5;
+  --color-c64-light-grey: #959595;
+}
+
+@utility font-pizmono {
+  font-family: "PiZmono", monospace;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
 }

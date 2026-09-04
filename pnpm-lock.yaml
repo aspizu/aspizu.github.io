@@ -26,6 +26,12 @@ importers:
       date-fns:
         specifier: ^4.4.0
         version: 4.4.0
+      mdast-util-find-and-replace:
+        specifier: ^3.0.2
+        version: 3.0.2
+      pixelarticons:
+        specifier: ^2.4.1
+        version: 2.4.1(react@19.2.8)
       qrcode:
         specifier: ^1.5.4
         version: 1.5.4
@@ -2595,6 +2601,12 @@ packages:
     resolution: {integrity: sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==}
     engines: {node: '>=12'}
 
+  pixelarticons@2.4.1:
+    resolution: {integrity: sha512-NIiwuEmBrFT6YG5PdMnOPRsGm0rbz4TiH0P5sgftjrQugxgdF+xtZPgGrgAOL76KUMJ04kk5Bq2lVLnmBg7IPw==}
+    hasBin: true
+    peerDependencies:
+      react: '>=16'
+
   pngjs@5.0.0:
     resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
     engines: {node: '>=10.13.0'}
@@ -2696,6 +2708,10 @@ packages:
 
   radix3@1.1.2:
     resolution: {integrity: sha512-b484I/7b8rDEdSDKckSSBA8knMpcdsXudlE/LNL639wFoHKwLbEkQFZHWEYwDC0wa0FKUcCY+GAF73Z7wxNVFA==}
+
+  react@19.2.8:
+    resolution: {integrity: sha512-PWaYA1L/q9u2u7xYQi+Y3L3Yfnie7XyLeaJICV1MGD6LprsBxcAqGjYyr0eY3p+QdsA+x/Irkt4Qif8D63+Sbw==}
+    engines: {node: '>=0.10.0'}
 
   readdirp@5.1.1:
     resolution: {integrity: sha512-Kko+Y5XQ6fM+Ce3dq3m9YGxnacYZYl9cA1wZjaF3Vbry2L3i1qVg8+CAgNPsXRArPMUMCaOR7oa9Nqntc43JKA==}
@@ -5718,6 +5734,10 @@ snapshots:
 
   picomatch@4.0.7: {}
 
+  pixelarticons@2.4.1(react@19.2.8):
+    dependencies:
+      react: 19.2.8
+
   pngjs@5.0.0: {}
 
   postcss-selector-parser@6.0.2:
@@ -5767,6 +5787,8 @@ snapshots:
       yargs: 15.4.1
 
   radix3@1.1.2: {}
+
+  react@19.2.8: {}
 
   readdirp@5.1.1: {}
 

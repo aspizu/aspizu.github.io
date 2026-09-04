@@ -1,20 +1,25 @@
 ---
 import {dirname} from "node:path"
 
-const parentHref =
-  Astro.url.pathname === "/"
-    ? undefined
-    : `${dirname(Astro.url.pathname.replace(/\/$/, ""))}/`.replace(
-        /\/{2}$/,
-        "/",
-      )
+import CornerLeftUp from "pixelarticons/svg/corner-left-up.svg"
+
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/"
+const parentHref = pathname === "/" ? undefined : dirname(pathname)
 ---
 
 {
   parentHref && (
     <nav aria-label="Parent page">
-      <a class="no-underline hover:no-underline" href={parentHref}>
-        [Up Folder]
+      <a
+        aria-label="Parent"
+        class="no-underline hover:no-underline"
+        href={parentHref}
+        title="Parent"
+      >
+        <span class="inline-flex items-center gap-1">
+          <CornerLeftUp class="size-4.5" aria-hidden="true" />
+          <span>Parent</span>
+        </span>
       </a>
     </nav>
   )

@@ -1,51 +1,46 @@
 ---
-import "#styles/main.css"
-import ArticleTree from "#components/ArticleTree.astro"
+import {resolve} from "node:path"
+
 import FolderIndex from "#components/FolderIndex.astro"
+import LastFM from "#components/LastFM.astro"
 import LastUpdated from "#components/LastUpdated.astro"
 import PageQrCode from "#components/PageQrCode.astro"
+import Sidebar from "#components/Sidebar.astro"
+import SidebarExpandButton from "#components/SidebarExpandButton.astro"
 import SiteLogo from "#components/SiteLogo.astro"
 import UpFolderLink from "#components/UpFolderLink.astro"
+import "#styles/main.css"
+import {getPageSlug} from "#utils/page-slug"
 import {getCollection, render} from "astro:content"
+import Pencil from "pixelarticons/svg/pencil.svg"
 
 export async function getStaticPaths() {
   const pages = await getCollection("pages")
-  const pageSlugs = new Set(
-    pages.map((page) =>
-      page.id.replace(/(^|\/)index$/, "$1").replace(/\/$/, ""),
-    ),
-  )
+  const routedPages = pages.map((page) => ({page, slug: getPageSlug(page)}))
+  const pageSlugs = new Set(routedPages.map(({slug}) => slug))
   const folderSlugs = new Set<string>()
 
-  for (const page of pages) {
-    const segments = page.id.split("/").slice(0, -1)
+  for (const {slug} of routedPages) {
+    const segments = slug.split("/").slice(0, -1)
 
     for (let depth = 1; depth <= segments.length; depth += 1) {
       folderSlugs.add(segments.slice(0, depth).join("/"))
     }
   }
 
-  const pagePaths = pages.map((page) => {
-    const slug = page.id.replace(/(^|\/)index$/, "$1").replace(/\/$/, "")
-
-    return {
-      params: {slug: slug || undefined},
-      props: {kind: "page" as const, page},
-    }
-  })
+  const pagePaths = routedPages.map(({page, slug}) => ({
+    params: {slug: slug || undefined},
+    props: {kind: "page" as const, page},
+  }))
   const folderPaths = [...folderSlugs]
     .filter((slug) => !pageSlugs.has(slug))
     .map((slug) => {
       const prefix = `${slug}/`
-      const folderPages = pages
-        .filter((page) => page.id.startsWith(prefix))
-        .map((page) => {
-          const pageSlug = page.id
-            .replace(/(^|\/)index$/, "$1")
-            .replace(/\/$/, "")
-
+      const folderPages = routedPages
+        .filter(({slug: pageSlug}) => pageSlug.startsWith(prefix))
+        .map(({page, slug: pageSlug}) => {
           return {
-            href: pageSlug ? `/${pageSlug}/` : "/",
+            href: `/${pageSlug}`,
             title: page.data.title,
             updatedAt: page.data.updatedAt.toISOString(),
           }
@@ -76,34 +71,59 @@ const Content =
   props.kind === "page" ? (await render(props.page)).Content : undefined
 const pageTitle =
   props.kind === "folder" ? `${props.folder.name}/` : props.page.data.title
+const pageDescription =
+  props.kind === "page" ? props.page.data.description : undefined
 const lastUpdatedAt =
-  props.kind === "page" && props.page.id !== "index"
-    ? props.page.data.updatedAt.toISOString()
+  props.kind === "page" ? props.page.data.updatedAt.toISOString() : undefined
+const sourceCodeHref =
+  props.kind === "page" && props.page.filePath
+    ? `vscode://file${resolve(props.page.filePath)}`
     : undefined
 ---
 
-<html lang="en">
+<html
+  class="bg-c64-white text-c64-black accent-c64-blue dark:bg-c64-blue dark:text-c64-white dark:accent-c64-light-blue"
+  lang="en"
+>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    {pageDescription && <meta name="description" content={pageDescription} />}
     <title>{pageTitle}</title>
   </head>
-  <body>
+  <body class="font-pizmono">
     <div
       class="min-h-screen min-[56rem]:grid min-[56rem]:grid-cols-[clamp(14rem,22vw,20rem)_minmax(0,1fr)]"
+      data-page-layout
     >
-      <aside
-        class="border-b-2 border-c64-light-grey bg-c64-white px-4 py-4 min-[56rem]:sticky min-[56rem]:top-0 min-[56rem]:h-screen min-[56rem]:overflow-auto min-[56rem]:border-r-2 min-[56rem]:border-b-0"
-      >
-        <ArticleTree currentPath={Astro.url.pathname} />
-      </aside>
+      <Sidebar currentPath={Astro.url.pathname.replace(/\/$/, "") || "/"} />
       <div
         class="mx-auto w-full max-w-[80ch] px-2 text-justify text-pretty wrap-anywhere"
       >
-        <div class="mt-4 flex h-4 justify-between gap-4">
-          <UpFolderLink />
-          {lastUpdatedAt && <LastUpdated date={lastUpdatedAt} />}
+        <div class="mt-4 flex h-8 items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <SidebarExpandButton />
+            <UpFolderLink />
+          </div>
+          <div class="ml-auto flex items-center gap-4">
+            {
+              sourceCodeHref && (
+                <a
+                  aria-label="Edit Source"
+                  class="source-code-link hidden no-underline hover:no-underline"
+                  href={sourceCodeHref}
+                  title="Open this page's source in VS Code"
+                >
+                  <span class="inline-flex items-center gap-1">
+                    <Pencil class="size-4.5" aria-hidden="true" />
+                    <span>Edit</span>
+                  </span>
+                </a>
+              )
+            }
+            {lastUpdatedAt && <LastUpdated date={lastUpdatedAt} />}
+          </div>
         </div>
         <SiteLogo />
         <main class="markdown">
@@ -118,5 +138,6 @@ const lastUpdatedAt =
         <PageQrCode title={pageTitle} />
       </div>
     </div>
+    <LastFM />
   </body>
 </html>

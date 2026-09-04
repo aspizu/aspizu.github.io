@@ -1,0 +1,113 @@
+---
+import ArticleTree from "#components/ArticleTree.astro"
+import ArrowBarLeft from "pixelarticons/svg/arrow-bar-left.svg"
+
+interface Props {
+  currentPath: string
+}
+
+const {currentPath} = Astro.props
+---
+
+<button
+  class="mobile-sidebar-backdrop fixed inset-0 z-30 hidden cursor-pointer bg-c64-black/50 min-[56rem]:hidden"
+  type="button"
+  aria-label="Close page navigation"
+  data-mobile-sidebar-backdrop></button>
+
+<aside
+  class="mobile-sidebar fixed inset-y-0 left-0 z-40 h-dvh w-2/3 -translate-x-full overflow-y-auto bg-c64-white px-4 py-4 min-[56rem]:sticky min-[56rem]:top-0 min-[56rem]:z-auto min-[56rem]:h-screen min-[56rem]:w-auto min-[56rem]:translate-x-0 dark:bg-c64-black"
+  id="site-sidebar"
+  aria-label="Page navigation"
+  data-mobile-sidebar
+>
+  <button
+    class="absolute top-4 right-4 cursor-pointer text-c64-purple hover:text-c64-red dark:hover:text-c64-yellow"
+    type="button"
+    aria-label="Collapse page navigation"
+    title="Collapse page navigation"
+    data-mobile-sidebar-close
+  >
+    <ArrowBarLeft class="size-5" aria-hidden="true" />
+  </button>
+  <ArticleTree currentPath={currentPath} />
+</aside>
+
+<style>
+  .mobile-sidebar[data-open] {
+    translate: 0;
+  }
+
+  @media (max-width: 55.999rem) {
+    .mobile-sidebar-backdrop[data-open] {
+      display: block;
+    }
+  }
+
+  @media (min-width: 56rem) {
+    .mobile-sidebar[data-collapsed] {
+      display: none;
+    }
+
+    :global([data-page-layout][data-sidebar-collapsed]) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
+
+<script>
+  const sidebar = document.querySelector<HTMLElement>("[data-mobile-sidebar]")
+  const openButton = document.querySelector<HTMLButtonElement>(
+    "[data-mobile-sidebar-open]",
+  )
+  const closeButton = document.querySelector<HTMLButtonElement>(
+    "[data-mobile-sidebar-close]",
+  )
+  const backdrop = document.querySelector<HTMLButtonElement>(
+    "[data-mobile-sidebar-backdrop]",
+  )
+  const pageLayout = sidebar?.closest<HTMLElement>("[data-page-layout]")
+
+  if (sidebar && openButton && closeButton && backdrop && pageLayout) {
+    const mobileMedia = window.matchMedia("(max-width: 55.999rem)")
+    const setSidebarOpen = (open: boolean) => {
+      const desktopCollapsed = !mobileMedia.matches && !open
+
+      sidebar.toggleAttribute("data-open", open)
+      sidebar.toggleAttribute("data-collapsed", desktopCollapsed)
+      openButton.toggleAttribute("data-open", open)
+      openButton.toggleAttribute("data-collapsed", desktopCollapsed)
+      backdrop.toggleAttribute("data-open", open)
+      pageLayout.toggleAttribute("data-sidebar-collapsed", desktopCollapsed)
+      openButton.setAttribute("aria-expanded", String(open))
+      sidebar.inert = !open
+      document.documentElement.classList.toggle(
+        "overflow-hidden",
+        mobileMedia.matches && open,
+      )
+    }
+
+    openButton.addEventListener("click", () => {
+      setSidebarOpen(true)
+      closeButton.focus()
+    })
+    closeButton.addEventListener("click", () => {
+      setSidebarOpen(false)
+      openButton.focus()
+    })
+    backdrop.addEventListener("click", () => {
+      setSidebarOpen(false)
+      openButton.focus()
+    })
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && sidebar.hasAttribute("data-open")) {
+        setSidebarOpen(false)
+        openButton.focus()
+      }
+    })
+    mobileMedia.addEventListener("change", () =>
+      setSidebarOpen(!mobileMedia.matches),
+    )
+    setSidebarOpen(!mobileMedia.matches)
+  }
+</script>

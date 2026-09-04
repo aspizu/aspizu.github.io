@@ -1,72 +1,84 @@
 ---
+import LastFM from "#components/LastFM.astro"
 import music from "#content/music.json"
 import "#styles/music.css"
 import {getYouTubeThumbnailUrl} from "#utils/youtube-thumbnail"
 
 const getArtistSortName = (artist: string) => artist.replace(/^the\s+/i, "")
-const getYouTubeVideoId = (url: string) => new URL(url).searchParams.get("v")!
 
-const sortedMusic = music.toSorted((a, b) =>
-  getArtistSortName(a.artist).localeCompare(getArtistSortName(b.artist)),
-)
-
-await Promise.all(
-  sortedMusic.map(async (item) => {
-    item.thumbnail = await getYouTubeThumbnailUrl(
-      getYouTubeVideoId(item.thumbnail),
+const sortedMusic = await Promise.all(
+  music
+    .toSorted((a, b) =>
+      getArtistSortName(a.artist).localeCompare(getArtistSortName(b.artist)),
     )
-  }),
+    .map(async (item) => {
+      const videoId = new URL(item.thumbnail).searchParams.get("v")
+
+      if (!videoId) {
+        throw new Error(`Missing YouTube video ID in: ${item.thumbnail}`)
+      }
+
+      return {
+        artist: item.artist,
+        track: item.track,
+        thumbnail: await getYouTubeThumbnailUrl(videoId),
+        watch: item.watch,
+        dark: item.dark,
+      }
+    }),
 )
 ---
 
-<div class="page-transition"></div>
-<main
-  class="grid min-h-screen grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-0 bg-black font-sans [&:has(.video:hover)_.video:not(:hover)]:opacity-65"
->
-  {
-    sortedMusic.map(({artist, track, thumbnail, watch, dark}, index) => (
-      <article
-        class="music-card video group @container aspect-square overflow-hidden transition-opacity duration-200 motion-reduce:transition-none"
-        style={`--card-index: ${index}`}
-      >
-        <a
-          class:list={[
-            "relative block size-full",
-            dark ? "text-black" : "text-white",
-          ]}
-          href={watch}
+<div class="font-sans">
+  <div class="page-transition"></div>
+  <main
+    class="grid min-h-screen grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-0 bg-black [&:has(.video:hover)_.video:not(:hover)]:opacity-65"
+  >
+    {
+      sortedMusic.map(({artist, track, thumbnail, watch, dark}, index) => (
+        <article
+          class="music-card video group @container aspect-square overflow-hidden transition-opacity duration-200 motion-reduce:transition-none"
+          style={`--card-index: ${index}`}
         >
-          <img
-            class="block size-full object-cover transition-[filter] duration-300 group-focus-within:brightness-[1.08] group-focus-within:saturate-[1.1] group-hover:brightness-[1.08] group-hover:saturate-[1.1] motion-reduce:transition-none"
-            src={thumbnail}
-            alt=""
-            loading="lazy"
-          />
-          <span
-            class="absolute inset-x-0 top-0 overflow-hidden p-4 text-left text-xl leading-none whitespace-nowrap"
-            aria-label={`${artist} - ${track}`}
+          <a
+            class:list={[
+              "relative block size-full",
+              dark ? "text-black" : "text-white",
+            ]}
+            href={watch}
           >
-            <span class="animate-marquee flex w-max group-hover:[animation-play-state:paused] motion-reduce:animate-none">
-              <span class="min-w-[calc(100cqw-2rem)] shrink-0 pr-8">
-                <strong>{artist}</strong> - {track}
-              </span>
-              <span
-                class="min-w-[calc(100cqw-2rem)] shrink-0 pr-8"
-                aria-hidden="true"
-              >
-                <strong>{artist}</strong> - {track}
+            <img
+              class="block size-full object-cover transition-[filter] duration-300 group-focus-within:brightness-[1.08] group-focus-within:saturate-[1.1] group-hover:brightness-[1.08] group-hover:saturate-[1.1] motion-reduce:transition-none"
+              src={thumbnail}
+              alt=""
+              loading="lazy"
+            />
+            <span
+              class="absolute inset-x-0 top-0 overflow-hidden p-4 text-left text-xl leading-none whitespace-nowrap"
+              aria-label={`${artist} - ${track}`}
+            >
+              <span class="animate-marquee flex w-max group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+                <span class="min-w-[calc(100cqw-2rem)] shrink-0 pr-8">
+                  <strong>{artist}</strong> - {track}
+                </span>
+                <span
+                  class="min-w-[calc(100cqw-2rem)] shrink-0 pr-8"
+                  aria-hidden="true"
+                >
+                  <strong>{artist}</strong> - {track}
+                </span>
               </span>
             </span>
-          </span>
-        </a>
-      </article>
-    ))
-  }
-</main>
+          </a>
+        </article>
+      ))
+    }
+  </main>
+  <LastFM />
+</div>
 
 <style>
   main {
-    font-family: "Figtree Variable", sans-serif;
     font-size: 1rem;
     line-height: 1;
   }

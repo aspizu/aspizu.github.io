@@ -1,15 +1,13 @@
 @layer base {
   :root {
-    color-scheme: light;
-    @apply m-0 bg-c64-white p-0 text-c64-black accent-c64-blue;
+    color-scheme: dark;
+    @apply m-0 p-0;
   }
 
   body {
     font-size: 24px;
-    line-height: 16px;
-    -webkit-font-smoothing: none;
-    -moz-osx-font-smoothing: grayscale;
-    @apply m-0 font-pizmono;
+    line-height: 20px;
+    @apply m-0;
   }
 
   *,
@@ -28,11 +26,11 @@
 
   strong,
   b {
-    @apply font-normal text-c64-red;
+    @apply font-normal text-c64-red dark:text-c64-orange;
   }
 
   small {
-    @apply font-normal text-c64-dark-grey;
+    @apply font-normal text-c64-dark-grey dark:text-c64-light-grey;
   }
 
   code {
@@ -54,7 +52,7 @@
   }
 
   a {
-    @apply text-c64-blue no-underline;
+    @apply text-c64-blue no-underline dark:text-c64-light-blue;
   }
 
   a:visited {
@@ -62,7 +60,7 @@
   }
 
   a:hover {
-    @apply text-c64-red underline;
+    @apply text-c64-red underline dark:text-c64-yellow;
   }
 
   a:active {
@@ -91,7 +89,7 @@
   }
 
   blockquote {
-    @apply mx-0 border-l-4 border-c64-purple pl-4 text-c64-dark-grey;
+    @apply mx-0 border-l-4 border-c64-purple pl-4 text-c64-dark-grey dark:text-c64-light-grey;
   }
 
   pre:has(> code) {
@@ -107,7 +105,7 @@
   }
 
   kbd {
-    @apply bg-c64-black px-1.5 text-c64-white;
+    @apply bg-c64-black px-1.5 text-c64-white dark:bg-c64-white dark:text-c64-black;
   }
 
   table {
@@ -115,7 +113,10 @@
   }
 
   th,
-  td,
+  td {
+    @apply border-2 border-c64-grey dark:border-c64-black;
+  }
+
   input {
     @apply border-2 border-c64-grey;
   }
@@ -130,10 +131,10 @@
   }
 
   input {
-    @apply bg-c64-white text-c64-black;
+    @apply bg-c64-white text-c64-black dark:bg-c64-black dark:text-c64-white;
   }
 
   :disabled {
-    @apply bg-c64-light-grey text-c64-grey;
+    @apply bg-c64-light-grey text-c64-grey dark:bg-c64-dark-grey dark:text-c64-light-grey;
   }
 }
