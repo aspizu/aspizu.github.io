@@ -1,3 +1,6 @@
+import {Image} from "astro:assets"
+import typographyLineTerms from "#assets/images/Typography_Line_Terms.webp"
+
 Pixel art fonts (also known as bitmap fonts) are made-up of square pixels on a
 grid.
 
@@ -13,9 +16,10 @@ ASCII character set.
 The design of the english alphabet is such that the letters fit in a grid.
 
 <p>
-  <img
+  <Image
     class="invert"
-    src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Typography_Line_Terms.svg/1280px-Typography_Line_Terms.svg.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+    src={typographyLineTerms}
+    alt="Typography line terms illustrated with the word Sphinx"
   />
 </p>
 
