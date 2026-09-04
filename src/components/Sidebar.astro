@@ -10,13 +10,13 @@ const {currentPath} = Astro.props
 ---
 
 <button
-  class="mobile-sidebar-backdrop fixed inset-0 z-30 hidden cursor-pointer bg-c64-black/50 min-[56rem]:hidden"
+  class="fixed inset-0 z-30 hidden cursor-pointer bg-c64-black/50 transition-opacity duration-200 ease-out not-data-open:pointer-events-none not-data-open:opacity-0 motion-reduce:transition-none max-[55.999rem]:block"
   type="button"
   aria-label="Close page navigation"
   data-mobile-sidebar-backdrop></button>
 
 <aside
-  class="mobile-sidebar fixed inset-y-0 left-0 z-40 h-dvh w-2/3 -translate-x-full overflow-y-auto bg-c64-black px-4 py-4 min-[56rem]:sticky min-[56rem]:top-0 min-[56rem]:z-auto min-[56rem]:h-screen min-[56rem]:w-auto min-[56rem]:translate-x-0"
+  class="fixed inset-y-0 left-0 z-40 h-dvh w-2/3 overflow-y-auto bg-c64-black px-4 py-4 transition-[translate] duration-200 ease-out motion-reduce:transition-none max-[55.999rem]:not-data-open:-translate-x-full min-[56rem]:sticky min-[56rem]:z-auto min-[56rem]:box-border min-[56rem]:h-screen min-[56rem]:w-[clamp(14rem,22vw,20rem)] min-[56rem]:data-collapsed:-translate-x-full"
   id="site-sidebar"
   aria-label="Page navigation"
   data-mobile-sidebar
@@ -32,28 +32,6 @@ const {currentPath} = Astro.props
   </button>
   <ArticleTree currentPath={currentPath} />
 </aside>
-
-<style>
-  .mobile-sidebar[data-open] {
-    translate: 0;
-  }
-
-  @media (max-width: 55.999rem) {
-    .mobile-sidebar-backdrop[data-open] {
-      display: block;
-    }
-  }
-
-  @media (min-width: 56rem) {
-    .mobile-sidebar[data-collapsed] {
-      display: none;
-    }
-
-    :global([data-page-layout][data-sidebar-collapsed]) {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-</style>
 
 <script>
   const sidebar = document.querySelector<HTMLElement>("[data-mobile-sidebar]")

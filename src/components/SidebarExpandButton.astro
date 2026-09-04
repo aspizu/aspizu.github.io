@@ -3,7 +3,7 @@ import ArrowBarRight from "pixelarticons/svg/arrow-bar-right.svg"
 ---
 
 <button
-  class="mobile-sidebar-open flex size-8 shrink-0 cursor-pointer items-center justify-center bg-c64-blue p-0 text-c64-purple hover:text-c64-yellow"
+  class="hidden size-8 shrink-0 cursor-pointer items-center justify-center bg-c64-blue p-0 text-c64-purple hover:text-c64-yellow max-[55.999rem]:not-data-open:flex min-[56rem]:data-collapsed:flex"
   type="button"
   aria-controls="site-sidebar"
   aria-expanded="false"
@@ -13,19 +13,3 @@ import ArrowBarRight from "pixelarticons/svg/arrow-bar-right.svg"
 >
   <ArrowBarRight class="size-5" aria-hidden="true" />
 </button>
-
-<style>
-  .mobile-sidebar-open[data-open] {
-    display: none;
-  }
-
-  @media (min-width: 56rem) {
-    .mobile-sidebar-open {
-      display: none;
-    }
-
-    .mobile-sidebar-open[data-collapsed] {
-      display: flex;
-    }
-  }
-</style>

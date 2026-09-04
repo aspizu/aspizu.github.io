@@ -102,7 +102,7 @@ const sourceCodeHref =
   </head>
   <body class="font-pizmono">
     <div
-      class="min-h-screen min-[56rem]:grid min-[56rem]:grid-cols-[clamp(14rem,22vw,20rem)_minmax(0,1fr)]"
+      class="min-h-screen transition-[grid-template-columns] duration-200 ease-out motion-reduce:transition-none min-[56rem]:grid min-[56rem]:grid-cols-[clamp(14rem,22vw,20rem)_minmax(0,1fr)] min-[56rem]:data-sidebar-collapsed:grid-cols-[0_minmax(0,1fr)]"
       data-page-layout
     >
       <Sidebar currentPath={Astro.url.pathname.replace(/\/$/, "") || "/"} />
