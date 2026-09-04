@@ -85,7 +85,15 @@ import Music from "pixelarticons/svg/music.svg"
       }
     }
 
-    void refreshLastFm()
-    window.setInterval(() => void refreshLastFm(), 60_000)
+    const startLastFm = () => {
+      void refreshLastFm()
+      window.setInterval(() => void refreshLastFm(), 60_000)
+    }
+
+    if (document.readyState === "complete") {
+      window.setTimeout(startLastFm, 0)
+    } else {
+      window.addEventListener("load", startLastFm, {once: true})
+    }
   }
 </script>
