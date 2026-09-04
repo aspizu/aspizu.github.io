@@ -29,7 +29,7 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
 ---
 
 <ul
-  class="file-tree-branch relative mt-1 ml-[1ch] flex list-none flex-col gap-1 border-l-2 border-c64-dark-grey pl-[calc(2ch+2px)] [--file-tree-background:var(--color-c64-blue)]"
+  class="file-tree-branch relative mt-1 ml-[1ch] flex list-none flex-col gap-1 border-l-2 border-c64-dark-grey pl-[calc(2ch+2px)]"
 >
   {
     visibleNodes.map((node) => {
@@ -119,7 +119,7 @@ const hiddenFileCount = depth === 0 ? 0 : files.length - maxVisibleFiles
     left: -2px;
     width: 2px;
     height: 0.5rem;
-    background: var(--file-tree-background);
+    background: var(--color-c64-black);
     content: "";
   }
 
