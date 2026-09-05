@@ -9,6 +9,7 @@ import Sidebar from "#components/Sidebar.astro"
 import SidebarExpandButton from "#components/SidebarExpandButton.astro"
 import SiteLogo from "#components/SiteLogo.astro"
 import UpFolderLink from "#components/UpFolderLink.astro"
+import WeeknotesRssLink from "#components/WeeknotesRssLink.astro"
 import "#styles/main.css"
 import {getPageSlug} from "#utils/page-slug"
 import {getCollection, render} from "astro:content"
@@ -91,6 +92,12 @@ const sourceCodeHref =
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" href="/assets/favicon.png" />
     <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="aspiz.uk weeknotes"
+      href="/weeknotes/rss.xml"
+    />
+    <link
       rel="preload"
       href="/PiZmono.woff2"
       as="font"
@@ -113,6 +120,7 @@ const sourceCodeHref =
           <div class="flex items-center gap-4">
             <SidebarExpandButton />
             <UpFolderLink />
+            <WeeknotesRssLink />
           </div>
           <div class="ml-auto flex items-center gap-4">
             {
