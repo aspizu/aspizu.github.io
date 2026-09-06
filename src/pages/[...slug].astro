@@ -143,6 +143,7 @@ const sourceCodeHref =
         </div>
         <SiteLogo />
         <main class="markdown">
+          {Astro.params.slug && <h1>{pageTitle}</h1>}
           {
             props.kind === "folder" ? (
               <FolderIndex folder={props.folder} />
