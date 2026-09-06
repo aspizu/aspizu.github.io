@@ -1,9 +1,9 @@
 ---
-import LastFM from "#components/LastFM.astro"
 import music from "#content/music.json"
 import "#styles/music.css"
 import {getYouTubeThumbnailUrl} from "#utils/youtube-thumbnail"
 
+const pageTitle = "Music"
 const getArtistSortName = (artist: string) => artist.replace(/^the\s+/i, "")
 
 const sortedMusic = await Promise.all(
@@ -30,6 +30,7 @@ const sortedMusic = await Promise.all(
 ---
 
 <link rel="icon" href="/assets/favicon.png" />
+<title>{pageTitle}</title>
 <div class="font-sans">
   <div class="page-transition"></div>
   <main
@@ -75,7 +76,6 @@ const sortedMusic = await Promise.all(
       ))
     }
   </main>
-  <LastFM />
 </div>
 
 <style>
