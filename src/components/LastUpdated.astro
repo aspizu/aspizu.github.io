@@ -9,5 +9,10 @@ const {date} = Astro.props
 ---
 
 <time class="ml-auto whitespace-nowrap text-c64-grey" datetime={date}>
-  {format(new Date(date), "dd MMMM yyyy")}
+  <span class="min-[56rem]:hidden">
+    {format(new Date(date), "dd MMM. yyyy")}
+  </span>
+  <span class="hidden min-[56rem]:inline">
+    {format(new Date(date), "dd MMMM yyyy")}
+  </span>
 </time>

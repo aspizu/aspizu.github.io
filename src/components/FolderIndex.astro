@@ -28,7 +28,12 @@ const {folder} = Astro.props
           class="shrink-0 text-right whitespace-nowrap text-c64-grey"
           datetime={page.updatedAt}
         >
-          {format(new Date(page.updatedAt), "dd MMMM yyyy")}
+          <span class="min-[56rem]:hidden">
+            {format(new Date(page.updatedAt), "dd MMM. yyyy")}
+          </span>
+          <span class="hidden min-[56rem]:inline">
+            {format(new Date(page.updatedAt), "dd MMMM yyyy")}
+          </span>
         </time>
       </li>
     ))
